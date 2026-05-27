@@ -42,7 +42,14 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
   async function handleSignIn(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true); setError(null);
-    const result = await signInAction(handle, password);
+    let result: Awaited<ReturnType<typeof signInAction>>;
+    try {
+      result = await signInAction(handle, password);
+    } catch (err) {
+      setLoading(false);
+      setError('Something went wrong. Please try again.');
+      return;
+    }
     setLoading(false);
 
     if (result.success) {
@@ -66,19 +73,29 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
   async function handleIdentify(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true); setError(null);
-    const result = await requestVerificationAction(handle);
-    setLoading(false);
-    if (result.success) setMode('verify');
-    else setError(result.error || 'Failed to find creator');
+    try {
+      const result = await requestVerificationAction(handle);
+      setLoading(false);
+      if (result.success) setMode('verify');
+      else setError(result.error || 'Failed to find creator');
+    } catch {
+      setLoading(false);
+      setError('Something went wrong. Please try again.');
+    }
   }
 
   async function handleVerify(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true); setError(null);
-    const result = await verifyIdentityAction(handle, code);
-    setLoading(false);
-    if (result.success) setMode('setup');
-    else setError(result.error || 'Invalid verification code');
+    try {
+      const result = await verifyIdentityAction(handle, code);
+      setLoading(false);
+      if (result.success) setMode('setup');
+      else setError(result.error || 'Invalid verification code');
+    } catch {
+      setLoading(false);
+      setError('Something went wrong. Please try again.');
+    }
   }
 
   async function handleSetup(e: React.FormEvent) {
@@ -86,10 +103,15 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
     if (password !== confirmPassword) { setError('Passwords do not match'); return; }
     if (password.length < 4) { setError('Password must be at least 4 characters'); return; }
     setLoading(true); setError(null);
-    const result = await resetPasswordAction(handle, code, password);
-    setLoading(false);
-    if (result.success) setMode('success');
-    else setError(result.error || 'Failed to update password');
+    try {
+      const result = await resetPasswordAction(handle, code, password);
+      setLoading(false);
+      if (result.success) setMode('success');
+      else setError(result.error || 'Failed to update password');
+    } catch {
+      setLoading(false);
+      setError('Something went wrong. Please try again.');
+    }
   }
 
   return (

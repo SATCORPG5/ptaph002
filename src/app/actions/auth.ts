@@ -37,6 +37,7 @@ function getIp(): string {
 // ── Sign In ──────────────────────────────────────────────────────────
 
 export async function signInAction(handle: string, password: string) {
+  try {
   if (loginLimiter) {
     const { success: rateOk } = await loginLimiter.limit(getIp());
     if (!rateOk) return { success: false, error: 'Too many login attempts. Try again in 15 minutes.' };
@@ -96,6 +97,10 @@ export async function signInAction(handle: string, password: string) {
   cookieStore.delete('pta_creator_session');
 
   return { success: true, creatorId: creator.id };
+  } catch (err) {
+    console.error('[signInAction] Unexpected error:', err);
+    return { success: false, error: 'A server error occurred. Please try again.' };
+  }
 }
 
 // ── 2FA Verify ───────────────────────────────────────────────────────
