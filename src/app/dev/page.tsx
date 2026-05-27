@@ -16,11 +16,11 @@ interface StateData {
 }
 
 const MOCK_CREATORS = [
-  { label: 'Baked (Founder/Staff)', id: 'baked' },
-  { label: 'TrashSoupGaming (Manager)', id: 'trashsoupgaming' },
-  { label: 'GeneralSpuds (Manager)', id: 'generalspuds' },
-  { label: 'ColdP1zza (Creator)', id: 'coldp1zza' },
-  { label: 'OopsItsJRPGTime (Creator)', id: 'oopsitsjrpgtime' },
+  { label: 'Baked (Founder/Staff)', id: 'baked',              portal: '/portal/home',    badge: 'admin',   pw: 'SATCORPIT002' },
+  { label: 'GeneralSpuds (Manager)', id: 'generalspuds',      portal: '/portal/home',    badge: 'manager', pw: 'SATCORPIT002' },
+  { label: 'ColdP1zza (Creator)',    id: 'coldp1zza',         portal: '/creator-portal', badge: 'creator', pw: 'SATCORPIT002' },
+  { label: 'TrashSoupGaming (Mgr)',  id: 'trashsoupgaming',   portal: '/portal/home',    badge: 'manager', pw: 'Test1234!' },
+  { label: 'OopsItsJRPGTime',        id: 'oopsitsjrpgtime',   portal: '/creator-portal', badge: 'creator', pw: 'Test1234!' },
 ];
 
 export default function DevPage() {
@@ -57,11 +57,11 @@ export default function DevPage() {
     return { ok: res.ok, data };
   }
 
-  async function quickLogin(creatorId: string) {
+  async function quickLogin(creatorId: string, portal = '/portal/home') {
     const { ok, data } = await action('login', { creatorId }, `Login as ${creatorId}`);
     if (ok) {
       addLog(`  ↳ Session: ${data.sessionId?.slice(0, 16)}...`);
-      router.push('/portal/home');
+      router.push(portal);
     }
   }
 
@@ -123,7 +123,9 @@ export default function DevPage() {
               Reset Redis Store
             </Btn>
             <p className="text-white/30 text-[10px] mt-2">
-              Seed patches all creators with mock emails, passwords (<code className="bg-white/10 px-1 rounded">Test1234!</code>), and adds them to the allowlist.
+              Seed patches all creators with mock emails + allowlist entries.<br />
+              <span className="text-yellow-400/70">baked · generalspuds · coldp1zza</span> → <code className="bg-white/10 px-1 rounded">SATCORPIT002</code><br />
+              All others → <code className="bg-white/10 px-1 rounded">Test1234!</code>
             </p>
           </Card>
 
@@ -133,11 +135,22 @@ export default function DevPage() {
               {MOCK_CREATORS.map(c => (
                 <button
                   key={c.id}
-                  onClick={() => quickLogin(c.id)}
+                  onClick={() => quickLogin(c.id, c.portal)}
                   disabled={loading}
                   className="w-full text-left px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary/40 rounded-lg text-xs transition-all disabled:opacity-50"
                 >
-                  <span className="font-bold text-white">{c.label}</span>
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-white">{c.label}</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[9px] text-white/30">{c.pw}</span>
+                      <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold uppercase ${
+                        c.badge === 'admin'   ? 'bg-red-500/20 text-red-400' :
+                        c.badge === 'manager' ? 'bg-blue-500/20 text-blue-400' :
+                        'bg-white/10 text-white/40'
+                      }`}>{c.badge}</span>
+                    </div>
+                  </div>
+                  <span className="text-[9px] text-white/25 mt-0.5 block">→ {c.portal}</span>
                 </button>
               ))}
             </div>
@@ -153,16 +166,22 @@ export default function DevPage() {
           {/* Auth flow links */}
           <Card title="Test Pages">
             {[
-              { label: 'Login Page', href: '/login' },
-              { label: 'TikTok Login (mock)', href: '/api/auth/tiktok/login' },
-              { label: 'Onboarding', href: '/onboarding' },
-              { label: 'Reset Password', href: '/reset-password' },
-              { label: 'Verify Email', href: '/verify-email?token=mock' },
-              { label: '2FA Page', href: '/login/2fa?creator_id=baked' },
-              { label: 'Portal Home', href: '/portal/home' },
+              { label: 'Login Page',             href: '/login',                          note: 'all accounts' },
+              { label: 'Admin Portal',            href: '/admin',                          note: 'PIN: SATCORPIT002' },
+              { label: 'Manager Portal',          href: '/portal/home',                    note: 'generalspuds' },
+              { label: 'Creator Portal',          href: '/creator-portal',                 note: 'coldp1zza' },
+              { label: 'TikTok Login (mock)',     href: '/api/auth/tiktok/login',          note: 'mock flow' },
+              { label: 'Onboarding',              href: '/onboarding',                     note: '' },
+              { label: 'Reset Password',          href: '/reset-password',                 note: '' },
+              { label: 'Verify Email',            href: '/verify-email?token=mock',        note: '' },
+              { label: '2FA Page',                href: '/login/2fa?creator_id=baked',     note: '' },
             ].map(l => (
               <a key={l.href} href={l.href} className="block px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-xs transition-all mb-1">
-                → {l.label} <span className="text-white/30">{l.href}</span>
+                <div className="flex items-center justify-between">
+                  <span>→ {l.label}</span>
+                  {l.note && <span className="text-[9px] text-white/25">{l.note}</span>}
+                </div>
+                <span className="text-[9px] text-white/20">{l.href}</span>
               </a>
             ))}
           </Card>
@@ -245,7 +264,10 @@ export default function DevPage() {
                       <div>2FA: <span className={c.twoFactorEnabled ? 'text-yellow-400' : 'text-white/40'}>{c.twoFactorEnabled ? 'on' : 'off'}</span></div>
                       <div>Onboarded: <span className={c.onboardingCompleted ? 'text-green-400' : 'text-red-400'}>{String(c.onboardingCompleted)}</span></div>
                     </div>
-                    <button onClick={() => quickLogin(c.id)} className="mt-2 px-2 py-1 bg-primary/20 hover:bg-primary/40 border border-primary/30 rounded text-[10px] text-primary font-bold transition-all">
+                    <button onClick={() => {
+                      const known = MOCK_CREATORS.find(m => m.id === c.id);
+                      quickLogin(c.id, known?.portal ?? '/portal/home');
+                    }} className="mt-2 px-2 py-1 bg-primary/20 hover:bg-primary/40 border border-primary/30 rounded text-[10px] text-primary font-bold transition-all">
                       Quick Login →
                     </button>
                   </div>

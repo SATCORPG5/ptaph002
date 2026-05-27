@@ -50,20 +50,16 @@ export async function loginWithPin(pin: string) {
   try { await redis.del(rateLimitKey); } catch(e) {}
 
   const sessionId = crypto.randomUUID();
-  const redisUrl = process.env.UPSTASH_REDIS_REST_URL;
-  const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN;
 
-  // ONLY attempt Redis if we have credentials OR we are in production
-  if (process.env.NODE_ENV === "production" || (redisUrl && redisToken)) {
-    try {
-      await redis.setex(`admin_session:${sessionId}`, 60 * 60 * 24, "valid");
-    } catch (error: any) {
-      if (process.env.NODE_ENV === "production") {
-        console.error('CRITICAL REDIS ERROR:', error.message);
-        return { error: `Database Connection Error: ${error.message}` };
-      }
-      // FALL THROUGH for development mock mode
+  // Store session in Redis (real or in-memory mock)
+  try {
+    await redis.setex(`admin_session:${sessionId}`, 60 * 60 * 24, "valid");
+  } catch (error: any) {
+    if (process.env.NODE_ENV === "production") {
+      console.error('CRITICAL REDIS ERROR:', error.message);
+      return { error: `Database Connection Error: ${error.message}` };
     }
+    // In dev, fall through — cookie alone is sufficient
   }
 
   const cookieStore = await cookies();
@@ -92,16 +88,8 @@ export async function checkSession() {
   const sessionId = cookieStore.get(SESSIONCookieName)?.value;
   if (!sessionId) return false;
 
-  const redisUrl = process.env.UPSTASH_REDIS_REST_URL;
-  const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN;
-
-  // If we are missing Redis, we can't verify the session against a database.
-  // In development, we'll allow the session to be valid if the cookie exists.
-  if (!(redisUrl && redisToken)) {
-      return false;
-  }
-
   try {
+    // Works with both real Upstash Redis and the in-memory mock
     const isValid = await redis.get(`admin_session:${sessionId}`);
     return !!isValid;
   } catch (e) {

@@ -15,15 +15,15 @@ import {
 import { createToken, consumeToken } from '@/lib/auth/tokens';
 import { send2FACode } from '@/lib/auth/email';
 import { Ratelimit } from '@upstash/ratelimit';
-import { redis } from '@/lib/redis';
+import { redis, isUsingMockRedis } from '@/lib/redis';
 
-// Rate limiters
-const loginLimiter = new Ratelimit({
+// Rate limiters — disabled in mock/dev mode (in-memory Redis lacks eval/evalsha)
+const loginLimiter = isUsingMockRedis ? null : new Ratelimit({
   redis,
   limiter: Ratelimit.slidingWindow(5, '15 m'),
   prefix: 'pta:rl:login',
 });
-const resetLimiter = new Ratelimit({
+const resetLimiter = isUsingMockRedis ? null : new Ratelimit({
   redis,
   limiter: Ratelimit.slidingWindow(3, '1 h'),
   prefix: 'pta:rl:reset',
@@ -37,8 +37,10 @@ function getIp(): string {
 // ── Sign In ──────────────────────────────────────────────────────────
 
 export async function signInAction(handle: string, password: string) {
-  const { success: rateOk } = await loginLimiter.limit(getIp());
-  if (!rateOk) return { success: false, error: 'Too many login attempts. Try again in 15 minutes.' };
+  if (loginLimiter) {
+    const { success: rateOk } = await loginLimiter.limit(getIp());
+    if (!rateOk) return { success: false, error: 'Too many login attempts. Try again in 15 minutes.' };
+  }
 
   const creators = await getCreatorsFromDb();
   const clean = handle.trim();
@@ -169,8 +171,10 @@ export async function getSession() {
 // ── Password Reset ───────────────────────────────────────────────────
 
 export async function requestPasswordResetAction(email: string) {
-  const { success: rateOk } = await resetLimiter.limit(email.toLowerCase());
-  if (!rateOk) return { success: false, error: 'Too many reset requests. Try again later.' };
+  if (resetLimiter) {
+    const { success: rateOk } = await resetLimiter.limit(email.toLowerCase());
+    if (!rateOk) return { success: false, error: 'Too many reset requests. Try again later.' };
+  }
 
   const creators = await getCreatorsFromDb();
   const creator = creators.find(

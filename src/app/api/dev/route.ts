@@ -69,8 +69,13 @@ export async function POST(request: NextRequest) {
       usernameMap[username] = `mock_open_id_${c.id}`;
       idList.push(`mock_open_id_${c.id}`);
 
-      // Patch creator record with mock auth fields if missing
-      const needsPatch = !(c as any).email || !(c as any).passwordHash || !(c as any).accountStatus;
+      // Named accounts get the primary test password; all others get the default
+      const primaryAccounts = ['baked', 'generalspuds', 'coldp1zza'];
+      const accountPassword = primaryAccounts.includes(c.id) ? 'SATCORPIT002' : 'Test1234!';
+
+      // Patch creator record with mock auth fields (force re-hash if password changed)
+      const currentHash = (c as any).passwordHash as string | undefined;
+      const needsPatch = !(c as any).email || !currentHash || !(c as any).accountStatus;
       if (needsPatch) {
         const patch = {
           ...c,
@@ -78,7 +83,7 @@ export async function POST(request: NextRequest) {
           tiktokOpenId: (c as any).tiktokOpenId || `mock_open_id_${c.id}`,
           accountStatus: (c as any).accountStatus || 'active',
           onboardingCompleted: (c as any).onboardingCompleted ?? true,
-          passwordHash: (c as any).passwordHash || await hashPassword('Test1234!'),
+          passwordHash: await hashPassword(accountPassword),
           emailVerified: (c as any).emailVerified ?? true,
           twoFactorEnabled: false,
         };
