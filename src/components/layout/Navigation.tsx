@@ -168,12 +168,26 @@ export function Navigation() {
                     {link.name}
                   </Link>
                 ))}
-                <div className="pt-2 pb-1 border-t border-white/[0.06] mt-2">
+                <div className="pt-2 pb-1 border-t border-white/[0.06] mt-2 flex flex-col gap-2">
                   <Link href="/apply" onClick={() => setMobileMenuOpen(false)}>
                     <Button className="w-full rounded-lg h-10 font-semibold text-sm bg-primary hover:bg-primary-dark text-white transition-all duration-200">
                       Join the Roster
                     </Button>
                   </Link>
+                  {session ? (
+                    <Link href="/portal/home" onClick={() => setMobileMenuOpen(false)}>
+                      <Button className="w-full rounded-lg h-10 font-semibold text-sm bg-[#14B8A6] hover:bg-[#0ea5e9] text-white transition-all duration-200">
+                        My Portal
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Button
+                      onClick={() => { setMobileMenuOpen(false); setAuthModalOpen(true); }}
+                      className="w-full rounded-lg h-10 font-semibold text-sm bg-purple-600 hover:bg-purple-500 text-white transition-all duration-200"
+                    >
+                      Creator Portal
+                    </Button>
+                  )}
                 </div>
               </nav>
             </motion.div>
