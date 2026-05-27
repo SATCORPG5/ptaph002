@@ -1,15 +1,11 @@
-// src/app/api/auth/tiktok/login/route.ts
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { generateToken } from '@/lib/auth';
+import { redis } from '@/lib/redis';
 import { getTikTokAuthUrl } from '@/lib/tiktok';
 
-export async function GET(request: Request) {
-  // generate a simple random state token
-  const state = Math.random().toString(36).substring(2, 15);
-  // store state in a cookie for later verification
-  const url = new URL(request.url);
-  const redirect = url.searchParams.get('redirect') || '/login';
-  const authUrl = getTikTokAuthUrl(state) + `&redirect_uri=${encodeURIComponent(redirect)}`;
-  const response = NextResponse.redirect(authUrl);
-  response.cookies.set('tiktok_oauth_state', state, { httpOnly: true, path: '/', maxAge: 600 });
-  return response;
+export async function GET(_req: NextRequest) {
+  const state = generateToken(16);
+  // CSRF state — valid for 10 minutes
+  await redis.setex(`pta:auth:oauth:state:${state}`, 600, '1');
+  return NextResponse.redirect(getTikTokAuthUrl(state));
 }

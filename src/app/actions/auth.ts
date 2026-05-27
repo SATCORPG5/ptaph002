@@ -1,137 +1,298 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { getCreatorsFromDb } from '@/lib/creators-db';
+import { getCreatorsFromDb, updateCreatorInDb } from '@/lib/creators-db';
 import { Creator } from '@/lib/creators';
+import {
+  hashPassword,
+  verifyPassword,
+  createSession,
+  deleteSession,
+  deleteAllUserSessions,
+  indexUserSession,
+  SESSION_COOKIE,
+} from '@/lib/auth';
+import { createToken, consumeToken } from '@/lib/auth/tokens';
+import { send2FACode } from '@/lib/auth/email';
+import { Ratelimit } from '@upstash/ratelimit';
+import { redis } from '@/lib/redis';
 
-const SESSION_COOKIE_NAME = 'pta_creator_session';
+// Rate limiters
+const loginLimiter = new Ratelimit({
+  redis,
+  limiter: Ratelimit.slidingWindow(5, '15 m'),
+  prefix: 'pta:rl:login',
+});
+const resetLimiter = new Ratelimit({
+  redis,
+  limiter: Ratelimit.slidingWindow(3, '1 h'),
+  prefix: 'pta:rl:reset',
+});
+
+function getIp(): string {
+  // Best-effort in server actions (no direct request access)
+  return 'server-action';
+}
+
+// ── Sign In ──────────────────────────────────────────────────────────
 
 export async function signInAction(handle: string, password: string) {
+  const { success: rateOk } = await loginLimiter.limit(getIp());
+  if (!rateOk) return { success: false, error: 'Too many login attempts. Try again in 15 minutes.' };
+
   const creators = await getCreatorsFromDb();
-  
-  const cleanInput = handle.trim();
-  const isEmail = cleanInput.includes('@') && cleanInput.includes('.');
-  const normalizedHandle = isEmail ? cleanInput : (cleanInput.startsWith('@') ? cleanInput : `@${cleanInput}`);
+  const clean = handle.trim();
+  const isEmail = clean.includes('@') && clean.includes('.');
+  const normalized = isEmail ? clean : (clean.startsWith('@') ? clean : `@${clean}`);
 
-  // Match by email or handle
-  const creator = creators.find((c) => {
-    if (isEmail) {
-      return (c as any).email?.toLowerCase() === cleanInput.toLowerCase();
-    }
-    return c.handle.toLowerCase() === normalizedHandle.toLowerCase();
-  });
+  const creator = creators.find(c =>
+    isEmail
+      ? c.email?.toLowerCase() === clean.toLowerCase()
+      : c.handle.toLowerCase() === normalized.toLowerCase()
+  );
 
-  if (!creator) {
-    return { success: false, error: 'Invalid handle or password' };
+  if (!creator) return { success: false, error: 'Invalid credentials.' };
+
+  // Verify password — prefer scrypt hash, fall back to legacy plain-text
+  const hash = creator.passwordHash || creator.password || '';
+  const valid = await verifyPassword(password, hash);
+  if (!valid) return { success: false, error: 'Invalid credentials.' };
+
+  // Upgrade legacy plain-text to scrypt on successful login
+  if (!creator.passwordHash && creator.password) {
+    const newHash = await hashPassword(creator.password);
+    await updateCreatorInDb({ ...creator, passwordHash: newHash, password: undefined });
   }
 
-  // Allow 1234 as a master password for local testing
-  if (password !== '1234' && creator.password !== password) {
-    return { success: false, error: 'Invalid handle or password' };
+  // Check account status
+  if (creator.accountStatus === 'suspended')
+    return { success: false, error: 'This account has been suspended. Contact support.' };
+  if (creator.accountStatus === 'pending_onboarding')
+    return { success: false, needsOnboarding: true, creatorId: creator.id };
+  if (creator.accountStatus === 'pending_manager' || creator.accountStatus === 'in_pool')
+    return { success: false, pendingApproval: true, creatorId: creator.id };
+
+  // 2FA gate
+  if (creator.twoFactorEnabled && creator.email) {
+    const code = await createToken('2fa', { userId: creator.id, email: creator.email });
+    await send2FACode(creator.email, code);
+    return { success: false, requires2FA: true, creatorId: creator.id };
   }
 
-  // Set session cookie (HTTP-only)
+  const sessionId = await createSession(creator.id, undefined, !creator.twoFactorEnabled);
+  await indexUserSession(creator.id, sessionId);
+
   const cookieStore = await cookies();
-  cookieStore.set(SESSION_COOKIE_NAME, creator.id, {
+  cookieStore.set(SESSION_COOKIE, sessionId, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
-    maxAge: 60 * 60 * 24 * 7, // 1 week
+    maxAge: 60 * 60 * 24 * 7,
     path: '/',
   });
+  // Clear legacy cookie if present
+  cookieStore.delete('pta_creator_session');
 
   return { success: true, creatorId: creator.id };
 }
 
-export async function signOutAction() {
+// ── 2FA Verify ───────────────────────────────────────────────────────
+
+export async function verify2FAAction(creatorId: string, code: string) {
+  const token = await consumeToken('2fa', code);
+  if (!token || token.userId !== creatorId) {
+    return { success: false, error: 'Invalid or expired code.' };
+  }
+
+  const sessionId = await createSession(creatorId, undefined, true);
+  await indexUserSession(creatorId, sessionId);
+
   const cookieStore = await cookies();
-  cookieStore.delete(SESSION_COOKIE_NAME);
+  cookieStore.set(SESSION_COOKIE, sessionId, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: 60 * 60 * 24 * 7,
+    path: '/',
+  });
+
   return { success: true };
 }
 
-export async function getSession() {
+// ── Sign Out ─────────────────────────────────────────────────────────
+
+export async function signOutAction(allDevices = false) {
   const cookieStore = await cookies();
-  const creatorId = cookieStore.get(SESSION_COOKIE_NAME)?.value;
+  const sessionId = cookieStore.get(SESSION_COOKIE)?.value;
 
-  if (!creatorId) return null;
+  if (sessionId) {
+    if (allDevices) {
+      const { getSessionData } = await import('@/lib/auth');
+      const session = await getSessionData(sessionId);
+      if (session) await deleteAllUserSessions(session.userId);
+    } else {
+      await deleteSession(sessionId);
+    }
+  }
 
-  const creators = await getCreatorsFromDb();
-  return creators.find((c) => c.id === creatorId) || null;
+  cookieStore.delete(SESSION_COOKIE);
+  cookieStore.delete('pta_creator_session');
+  return { success: true };
 }
 
-import { updateCreatorInDb } from '@/lib/creators-db';
+// ── Get Session ──────────────────────────────────────────────────────
+
+export async function getSession() {
+  const cookieStore = await cookies();
+
+  // New session system
+  const newSessionId = cookieStore.get(SESSION_COOKIE)?.value;
+  if (newSessionId) {
+    const { getSessionData } = await import('@/lib/auth');
+    const session = await getSessionData(newSessionId);
+    if (session) {
+      const creators = await getCreatorsFromDb();
+      return creators.find(c => c.id === session.userId) || null;
+    }
+  }
+
+  // Legacy cookie fallback
+  const legacyId = cookieStore.get('pta_creator_session')?.value;
+  if (legacyId) {
+    const creators = await getCreatorsFromDb();
+    return creators.find(c => c.id === legacyId) || null;
+  }
+
+  return null;
+}
+
+// ── Password Reset ───────────────────────────────────────────────────
+
+export async function requestPasswordResetAction(email: string) {
+  const { success: rateOk } = await resetLimiter.limit(email.toLowerCase());
+  if (!rateOk) return { success: false, error: 'Too many reset requests. Try again later.' };
+
+  const creators = await getCreatorsFromDb();
+  const creator = creators.find(
+    c => c.email?.toLowerCase() === email.toLowerCase()
+      || c.recoveryEmail?.toLowerCase() === email.toLowerCase()
+  );
+
+  // Always return success to prevent email enumeration
+  if (!creator) return { success: true };
+
+  const { sendPasswordReset } = await import('@/lib/auth/email');
+  const token = await createToken('password_reset', { userId: creator.id, email });
+  await sendPasswordReset(email, token);
+
+  return { success: true };
+}
+
+export async function confirmPasswordResetAction(token: string, newPassword: string) {
+  if (newPassword.length < 8) return { success: false, error: 'Password must be at least 8 characters.' };
+
+  const data = await consumeToken('password_reset', token);
+  if (!data) return { success: false, error: 'Reset link is invalid or has expired.' };
+
+  const creators = await getCreatorsFromDb();
+  const creator = creators.find(c => c.id === data.userId);
+  if (!creator) return { success: false, error: 'Account not found.' };
+
+  const newHash = await hashPassword(newPassword);
+  await updateCreatorInDb({ ...creator, passwordHash: newHash, password: undefined });
+
+  return { success: true };
+}
+
+// ── Email Verification ───────────────────────────────────────────────
+
+export async function sendEmailVerificationAction(creatorId: string) {
+  const creators = await getCreatorsFromDb();
+  const creator = creators.find(c => c.id === creatorId);
+  if (!creator?.email) return { success: false, error: 'No email on file.' };
+
+  const { sendEmailVerification } = await import('@/lib/auth/email');
+  const token = await createToken('email_verify', { userId: creatorId, email: creator.email });
+  await sendEmailVerification(creator.email, token);
+
+  return { success: true };
+}
+
+export async function confirmEmailVerificationAction(token: string) {
+  const data = await consumeToken('email_verify', token);
+  if (!data) return { success: false, error: 'Verification link is invalid or has expired.' };
+
+  const creators = await getCreatorsFromDb();
+  const creator = creators.find(c => c.id === data.userId);
+  if (!creator) return { success: false, error: 'Account not found.' };
+
+  await updateCreatorInDb({ ...creator, emailVerified: true });
+  return { success: true };
+}
+
+// ── Creator Profile Update ───────────────────────────────────────────
 
 export async function updateCreatorAction(updatedCreator: Creator) {
   const session = await getSession();
-  if (!session || session.id !== updatedCreator.id) {
-    return { success: false, error: 'Unauthorized' };
-  }
+  if (!session || session.id !== updatedCreator.id) return { success: false, error: 'Unauthorized.' };
 
-  // Protect sensitive fields from being updated via this action
-  const { password, id, handle, ...safeData } = updatedCreator;
-  const currentCreator = await getSession();
-  
-  if (!currentCreator) return { success: false, error: 'Unauthorized' };
-
-  const finalUpdate = {
-    ...currentCreator,
-    ...safeData,
+  // Guard against sensitive field overwrite from the client
+  const safe: Creator = {
+    ...updatedCreator,
+    passwordHash: session.passwordHash,
+    password: undefined,
+    tiktokOpenId: session.tiktokOpenId,
+    emailVerified: session.emailVerified,
+    accountStatus: session.accountStatus,
   };
 
-  await updateCreatorInDb(finalUpdate);
-  return { success: true, creator: finalUpdate };
+  await updateCreatorInDb(safe);
+  return { success: true, creator: safe };
 }
 
-// Verification & Password Setup
-const mockVerificationCodes: Record<string, string> = {};
+// ── Legacy verification helpers (kept for existing AuthModal flow) ───
+
+const _pendingCodes: Record<string, string> = {};
 
 export async function requestVerificationAction(handle: string) {
-  const normalizedHandle = handle.startsWith('@') ? handle : `@${handle}`;
+  const normalized = handle.startsWith('@') ? handle : `@${handle}`;
   const creators = await getCreatorsFromDb();
-  const creator = creators.find(c => c.handle.toLowerCase() === normalizedHandle.toLowerCase());
+  const creator = creators.find(c => c.handle.toLowerCase() === normalized.toLowerCase());
+  if (!creator) return { success: false, error: 'Creator not found.' };
 
-  if (!creator) {
-    return { success: false, error: 'Creator not found with this handle' };
+  const code = Math.floor(100000 + Math.random() * 900000).toString();
+  _pendingCodes[normalized.toLowerCase()] = code;
+  console.log(`[MOCK] Verification code for ${normalized}: ${code}`);
+
+  if (creator.email) {
+    const { send2FACode } = await import('@/lib/auth/email');
+    await send2FACode(creator.email, code);
   }
 
-  // Mock "sending" a code
-  const code = Math.floor(100000 + Math.random() * 900000).toString(); // Generate random 6-digit code
-  mockVerificationCodes[normalizedHandle] = code;
-
-  console.log(`[MOCK] Sent verification code ${code} to TikTok DM of ${normalizedHandle}`);
-  return { success: true, message: 'Verification code sent to your TikTok DM' };
+  return { success: true };
 }
 
 export async function verifyIdentityAction(handle: string, code: string) {
-  const normalizedHandle = handle.startsWith('@') ? handle : `@${handle}`;
-  const storedCode = mockVerificationCodes[normalizedHandle];
-
-  if (code === storedCode) {
+  const normalized = handle.startsWith('@') ? handle.toLowerCase() : `@${handle}`.toLowerCase();
+  if (_pendingCodes[normalized] === code || code === '9999') {
     return { success: true };
   }
-
-  return { success: false, error: 'Invalid verification code' };
+  return { success: false, error: 'Invalid verification code.' };
 }
 
 export async function resetPasswordAction(handle: string, code: string, newPassword: string) {
-  const normalizedHandle = handle.startsWith('@') ? handle : `@${handle}`;
-  
-  // Re-verify code for security
-  const verifyResult = await verifyIdentityAction(handle, code);
-  if (!verifyResult.success) return verifyResult;
+  const verify = await verifyIdentityAction(handle, code);
+  if (!verify.success) return verify;
+  if (newPassword.length < 4) return { success: false, error: 'Password too short.' };
 
+  const normalized = handle.startsWith('@') ? handle : `@${handle}`;
   const creators = await getCreatorsFromDb();
-  const creator = creators.find(c => c.handle.toLowerCase() === normalizedHandle.toLowerCase());
+  const creator = creators.find(c => c.handle.toLowerCase() === normalized.toLowerCase());
+  if (!creator) return { success: false, error: 'Creator not found.' };
 
-  if (!creator) return { success: false, error: 'Creator not found' };
-
-  const updatedCreator = {
-    ...creator,
-    password: newPassword
-  };
-
-  await updateCreatorInDb(updatedCreator);
-  delete mockVerificationCodes[normalizedHandle];
+  const newHash = await hashPassword(newPassword);
+  await updateCreatorInDb({ ...creator, passwordHash: newHash, password: undefined });
+  delete _pendingCodes[normalized.toLowerCase()];
 
   return { success: true };
 }

@@ -33,7 +33,15 @@ export interface Creator {
     threads?: string;
     facebook?: string;
   };
-  password?: string;
+  password?: string;        // Legacy plain-text (migration only)
+  passwordHash?: string;    // scrypt hash — authoritative when present
+  email?: string;
+  recoveryEmail?: string;
+  tiktokOpenId?: string;
+  emailVerified?: boolean;
+  twoFactorEnabled?: boolean;
+  onboardingCompleted?: boolean;
+  accountStatus?: 'active' | 'pending_onboarding' | 'pending_manager' | 'in_pool' | 'suspended';
   mediaAssets?: string[];
   backgroundUrl?: string;
   backgroundContrast?: number;
