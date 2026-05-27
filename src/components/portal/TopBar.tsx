@@ -14,11 +14,19 @@ interface TopBarProps {
   onRightPanelToggle: () => void;
 }
 
-const MOCK_NOTIFICATIONS = [
+interface Notification {
+  id: number;
+  text: string;
+  time: string;
+  read: boolean;
+  type: string;
+}
+
+const INITIAL_NOTIFICATIONS: Notification[] = [
   { id: 1, text: 'New Data Card submitted for your review', time: '2m ago', read: false, type: 'report' },
-  { id: 2, text: 'Manager accepted your creator request', time: '1h ago', read: false, type: 'manager' },
+  { id: 2, text: 'Manager accepted your creator request',  time: '1h ago', read: false, type: 'manager' },
   { id: 3, text: 'Challenge results are in. Check Growth Academy', time: '3h ago', read: true, type: 'challenge' },
-  { id: 4, text: 'New collab request posted in Lounge', time: '5h ago', read: true, type: 'collab' },
+  { id: 4, text: 'New collab request posted in Lounge',    time: '5h ago', read: true,  type: 'collab' },
 ];
 
 const SEARCH_ITEMS = [
@@ -37,13 +45,18 @@ const SEARCH_ITEMS = [
 ];
 
 export function TopBar({ creator, onSignOut, rightPanelOpen, onRightPanelToggle }: TopBarProps) {
-  const [notifOpen, setNotifOpen]   = useState(false);
-  const [avatarOpen, setAvatarOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchOpen,  setSearchOpen]  = useState(false);
+  const [notifOpen, setNotifOpen]       = useState(false);
+  const [avatarOpen, setAvatarOpen]     = useState(false);
+  const [searchQuery, setSearchQuery]   = useState('');
+  const [searchOpen,  setSearchOpen]    = useState(false);
+  const [notifications, setNotifications] = useState<Notification[]>(INITIAL_NOTIFICATIONS);
   const router = useRouter();
 
-  const unreadCount = MOCK_NOTIFICATIONS.filter(n => !n.read).length;
+  const unreadCount = notifications.filter(n => !n.read).length;
+
+  const markAllRead = () => {
+    setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+  };
 
   const searchResults = searchQuery.trim().length > 0
     ? SEARCH_ITEMS.filter(item =>
@@ -166,16 +179,28 @@ export function TopBar({ creator, onSignOut, rightPanelOpen, onRightPanelToggle 
               >
                 <div className="flex items-center justify-between px-4 py-3 border-b border-foreground/[0.06]">
                   <span className="text-xs font-black text-foreground uppercase tracking-wider">Notifications</span>
-                  <span className="text-[9px] font-bold text-[#14B8A6] cursor-pointer hover:underline">Mark all read</span>
+                  {unreadCount > 0 && (
+                    <button
+                      onClick={markAllRead}
+                      className="text-[9px] font-bold text-[#14B8A6] hover:underline cursor-pointer"
+                    >
+                      Mark all read
+                    </button>
+                  )}
                 </div>
                 <div className="divide-y divide-foreground/[0.04]">
-                  {MOCK_NOTIFICATIONS.map((n) => (
+                  {notifications.map((n) => (
                     <div
                       key={n.id}
                       className={`px-4 py-3 hover:bg-foreground/[0.02] transition-colors cursor-pointer ${!n.read ? 'bg-[#14B8A6]/[0.03]' : ''}`}
                     >
-                      <p className={`text-xs font-semibold leading-relaxed ${n.read ? 'text-foreground/40' : 'text-foreground/80'}`}>{n.text}</p>
-                      <p className="text-[9px] text-foreground/20 mt-1 font-bold">{n.time}</p>
+                      <div className="flex items-start gap-2">
+                        {!n.read && <div className="w-1.5 h-1.5 rounded-full bg-[#14B8A6] flex-shrink-0 mt-1.5" />}
+                        <div className={!n.read ? '' : 'pl-[14px]'}>
+                          <p className={`text-xs font-semibold leading-relaxed ${n.read ? 'text-foreground/40' : 'text-foreground/80'}`}>{n.text}</p>
+                          <p className="text-[9px] text-foreground/20 mt-1 font-bold">{n.time}</p>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>

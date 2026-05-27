@@ -6,31 +6,66 @@ import { Creator } from '@/lib/creators';
 import {
   Users, GraduationCap, Briefcase,
   TrendingUp, Bell, Calendar, ArrowRight,
-  Star, Zap, Award, Palette, Radio
+  Star, Zap, Award, Palette, Radio, BarChart3,
+  UserCheck, Shield, Users2, Megaphone, FileText,
+  Target, Handshake
 } from 'lucide-react';
 
 interface LobbyClientProps {
   creator: Creator;
 }
 
+// Maps dept name → portal route
+const DEPT_ROUTES: Record<string, string> = {
+  'Collab Lounge':   '/portal/collab-lounge',
+  'Growth Academy':  '/portal/growth-academy',
+  'Agency Ops':      '/portal/agency-ops',
+  'Live Floor':      '/portal/live-floor',
+  'Creative Studio': '/portal/creative-studio',
+  'My Team':         '/portal/my-team',
+  'My Creators':     '/portal/my-creators',
+};
+
 const UPCOMING_EVENTS = [
-  { title: 'Battle Arena: Round 2', dept: 'Collab Lounge', time: 'Today 8pm', type: 'battle' },
+  { title: 'Battle Arena: Round 2',     dept: 'Collab Lounge',  time: 'Today 8pm',   type: 'battle'    },
   { title: 'Growth Challenge Deadline', dept: 'Growth Academy', time: 'Fri 11:59pm', type: 'challenge' },
-  { title: 'Agency Town Hall', dept: 'Agency Ops', time: 'Sat 3pm', type: 'meeting' },
+  { title: 'Agency Town Hall',          dept: 'Agency Ops',     time: 'Sat 3pm',     type: 'meeting'   },
 ];
 
 const RECENT_ACTIVITY = [
-  { text: 'ItsJakee_78 posted a new video', time: '4m ago', icon: Palette },
-  { text: 'General Spuds opened a collab request', time: '12m ago', icon: Users },
-  { text: 'New Growth Academy module available', time: '1h ago', icon: GraduationCap },
-  { text: 'ColdP1zza completed Go Live checklist', time: '2h ago', icon: Radio },
-  { text: 'Agency Ops: New announcement posted', time: '3h ago', icon: Bell },
+  { text: 'ItsJakee_78 posted a new video',             time: '4m ago',  icon: Palette      },
+  { text: 'General Spuds opened a collab request',      time: '12m ago', icon: Users        },
+  { text: 'New Growth Academy module available',        time: '1h ago',  icon: GraduationCap },
+  { text: 'ColdP1zza completed Go Live checklist',      time: '2h ago',  icon: Radio        },
+  { text: 'Agency Ops: New announcement posted',        time: '3h ago',  icon: Bell         },
 ];
+
+// Quick-access shortcuts shown in the hero banner, tailored by role
+const CREATOR_ACTIONS = [
+  { label: 'Go Live',     icon: Radio,        href: '/portal/live-floor',      color: '#EF4444', desc: 'Live floor stats'       },
+  { label: 'Data Card',   icon: BarChart3,    href: '/portal/reports',         color: '#14B8A6', desc: 'Submit your report'     },
+  { label: 'Find Collab', icon: Handshake,    href: '/portal/collab-lounge',   color: '#0EA5E9', desc: 'Collab lounge'          },
+  { label: 'Challenges',  icon: Target,       href: '/portal/growth-academy',  color: '#F59E0B', desc: 'Growth Academy'         },
+];
+
+const STAFF_ACTIONS = [
+  { label: 'My Creators', icon: UserCheck,    href: '/portal/my-creators',     color: '#14B8A6', desc: 'Manage your roster'     },
+  { label: 'Team Hub',    icon: Users2,       href: '/portal/my-team',         color: '#0EA5E9', desc: 'Team messages'          },
+  { label: 'Agency Ops',  icon: Briefcase,    href: '/portal/agency-ops',      color: '#F59E0B', desc: 'Tickets & updates'      },
+  { label: 'Admin Panel', icon: Shield,       href: '/portal/admin',           color: '#A855F7', desc: 'Platform controls'      },
+];
+
+function getRoleFromCreator(creator: Creator): 'admin' | 'staff' | 'creator' {
+  if (creator.tier === 'staff')     return 'admin';
+  if (creator.tier === 'recruiter') return 'staff';
+  return 'creator';
+}
 
 export function LobbyClient({ creator }: LobbyClientProps) {
   const hour = new Date().getHours();
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
-  const role = (creator as any).role || 'creator';
+  const role = getRoleFromCreator(creator);
+  const quickActions = (role === 'admin' || role === 'staff') ? STAFF_ACTIONS : CREATOR_ACTIONS;
 
   return (
     <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
@@ -45,32 +80,58 @@ export function LobbyClient({ creator }: LobbyClientProps) {
         }}
       >
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(20,184,166,0.06),transparent_60%)]" />
-        <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
-          <div className="flex-1">
-            <p className="text-[#14B8A6]/70 text-sm font-bold uppercase tracking-[0.15em] mb-2">{greeting}</p>
-            <h1 className="text-3xl md:text-4xl font-black text-foreground tracking-tight mb-2">
-              {creator.name}
-            </h1>
-            <p className="text-foreground/40 text-sm font-medium max-w-md">
-              {role === 'admin'
-                ? 'You have full access to all platform controls and creator data.'
-                : role === 'staff'
-                ? 'Manage your assigned creators and submit monthly Data Cards.'
-                : "Welcome back to your creator portal. Explore what's happening today."}
-            </p>
+
+        <div className="relative z-10 flex flex-col gap-6">
+
+          {/* Top row: greeting + stats */}
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+            <div className="flex-1">
+              <p className="text-[#14B8A6]/70 text-sm font-bold uppercase tracking-[0.15em] mb-2">{greeting}</p>
+              <h1 className="text-3xl md:text-4xl font-black text-foreground tracking-tight">
+                {creator.name}
+              </h1>
+            </div>
+
+            <div className="flex items-center gap-6">
+              {[
+                { label: 'Followers', value: creator.stats?.followers || 'N/A' },
+                { label: 'Peak CCV',  value: creator.stats?.peakCCV    || 'N/A' },
+                { label: 'Avg Watch', value: creator.stats?.avgWatchTime || 'N/A' },
+              ].map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <p className="text-lg font-black text-foreground">{stat.value}</p>
+                  <p className="text-[9px] font-bold text-foreground/25 uppercase tracking-wider">{stat.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="flex items-center gap-6">
-            {[
-              { label: 'Followers', value: creator.stats?.followers || 'N/A' },
-              { label: 'Peak CCV', value: creator.stats?.peakCCV || 'N/A' },
-              { label: 'Avg Watch', value: creator.stats?.avgWatchTime || 'N/A' },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className="text-lg font-black text-foreground">{stat.value}</p>
-                <p className="text-[9px] font-bold text-foreground/25 uppercase tracking-wider">{stat.label}</p>
-              </div>
-            ))}
+          {/* Quick Actions */}
+          <div>
+            <p className="text-[9px] font-black uppercase tracking-widest text-foreground/25 mb-3">Quick Access</p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {quickActions.map((action) => {
+                const Icon = action.icon;
+                return (
+                  <Link
+                    key={action.href}
+                    href={action.href}
+                    className="group flex items-center gap-3 p-3 rounded-2xl border border-foreground/[0.06] bg-foreground/[0.02] hover:bg-foreground/[0.05] hover:border-foreground/[0.12] transition-all duration-200"
+                  >
+                    <div
+                      className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-200 group-hover:scale-110"
+                      style={{ background: `${action.color}18`, border: `1px solid ${action.color}30` }}
+                    >
+                      <Icon size={14} style={{ color: action.color }} />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs font-black text-foreground/80 group-hover:text-foreground truncate">{action.label}</p>
+                      <p className="text-[9px] text-foreground/25 truncate">{action.desc}</p>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </div>
 
@@ -106,20 +167,30 @@ export function LobbyClient({ creator }: LobbyClientProps) {
             <Calendar size={14} className="text-foreground/20" />
           </div>
           <div className="space-y-3">
-            {UPCOMING_EVENTS.map((event, i) => (
-              <div key={i} className="flex items-start gap-4 p-3 rounded-xl bg-foreground/[0.02] border border-foreground/[0.04] hover:border-foreground/[0.08] transition-colors">
-                <div className="w-8 h-8 rounded-lg bg-foreground/[0.04] border border-foreground/[0.06] flex items-center justify-center flex-shrink-0">
-                  {event.type === 'battle' && <Award size={14} className="text-amber-400" />}
-                  {event.type === 'challenge' && <TrendingUp size={14} className="text-[#14B8A6]" />}
-                  {event.type === 'meeting' && <Users size={14} className="text-[#0EA5E9]" />}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs font-bold text-foreground truncate">{event.title}</p>
-                  <p className="text-[9px] text-foreground/25 mt-0.5">{event.dept}</p>
-                </div>
-                <span className="text-[9px] font-black text-foreground/30 flex-shrink-0">{event.time}</span>
-              </div>
-            ))}
+            {UPCOMING_EVENTS.map((event, i) => {
+              const href = DEPT_ROUTES[event.dept] ?? '/portal/home';
+              return (
+                <Link
+                  key={i}
+                  href={href}
+                  className="group flex items-start gap-4 p-3 rounded-xl bg-foreground/[0.02] border border-foreground/[0.04] hover:border-[#14B8A6]/30 hover:bg-[#14B8A6]/[0.03] transition-all duration-200 cursor-pointer"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-foreground/[0.04] border border-foreground/[0.06] group-hover:border-foreground/[0.12] flex items-center justify-center flex-shrink-0 transition-colors">
+                    {event.type === 'battle'    && <Award      size={14} className="text-amber-400" />}
+                    {event.type === 'challenge' && <TrendingUp size={14} className="text-[#14B8A6]" />}
+                    {event.type === 'meeting'   && <Users      size={14} className="text-[#0EA5E9]" />}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-bold text-foreground truncate group-hover:text-[#14B8A6] transition-colors">{event.title}</p>
+                    <p className="text-[9px] text-foreground/25 mt-0.5">{event.dept}</p>
+                  </div>
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <span className="text-[9px] font-black text-foreground/30">{event.time}</span>
+                    <ArrowRight size={10} className="text-foreground/20 group-hover:text-[#14B8A6] transition-colors" />
+                  </div>
+                </Link>
+              );
+            })}
           </div>
           <Link href="/portal/collab-lounge" className="mt-4 flex items-center gap-2 text-[10px] font-black text-[#14B8A6]/60 hover:text-[#14B8A6] transition-colors">
             View full calendar <ArrowRight size={10} />
