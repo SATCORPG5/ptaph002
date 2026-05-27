@@ -16,10 +16,10 @@ interface AuthModalProps {
   onClose: () => void;
 }
 
-type AuthMode = 'signin' | 'identify' | 'verify' | 'setup' | 'success';
+type AuthMode = 'main' | 'signin' | 'identify' | 'verify' | 'setup' | 'success';
 
 export function AuthModal({ isOpen, onClose }: AuthModalProps) {
-  const [mode, setMode] = useState<AuthMode>('signin');
+  const [mode, setMode] = useState<AuthMode>('main');
   const [handle, setHandle] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -31,12 +31,18 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
   if (!isOpen) return null;
 
   const resetState = () => {
-    setMode('signin');
+    setMode('main');
     setHandle('');
     setPassword('');
     setConfirmPassword('');
     setCode('');
     setError(null);
+  };
+
+  const handleTikTokLogin = async () => {
+    // Redirect to the TikTok OAuth initiation endpoint
+    router.push("/api/auth/tiktok/login");
+    onClose();
   };
 
   async function handleSignIn(e: React.FormEvent) {
@@ -49,7 +55,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
     if (result.success) {
       router.refresh();
       onClose();
-      router.push('/creator-portal');
+      router.push('/portal/home');
     } else {
       setError(result.error || 'Failed to sign in');
     }
@@ -134,6 +140,51 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
         <div className="p-10 pt-14">
           <AnimatePresence mode="wait">
+
+            {mode === 'main' && (
+              <motion.div
+                key="main"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+              >
+                <div className="text-center mb-8">
+                  <h2 className="text-3xl font-black text-white tracking-tight mb-2 uppercase italic">Creator Login</h2>
+                </div>
+
+                <button
+                  onClick={handleTikTokLogin}
+                  className="w-full flex items-center justify-center gap-2 rounded-2xl bg-[#FF1A43] hover:bg-[#D90026] px-6 py-4 text-sm font-black uppercase tracking-widest text-white transition-all mb-6"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="h-5 w-5"
+                  >
+                    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.28 8.28 0 004.84 1.54V6.79a4.85 4.85 0 01-1.07-.1z"/>
+                  </svg>
+                  Login with TikTok
+                </button>
+
+                <div className="relative my-6">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-white/10"></div>
+                  </div>
+                  <div className="relative flex justify-center text-xs">
+                    <span className="bg-[#0F1623] px-4 text-foreground-subtle font-bold uppercase tracking-widest">Or</span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => setMode('signin')}
+                  className="w-full rounded-2xl bg-white/5 border border-white/10 hover:border-primary/50 hover:bg-white/10 px-6 py-4 text-sm font-black uppercase tracking-widest text-foreground-muted hover:text-white transition-all"
+                >
+                  Email / Pass
+                </button>
+              </motion.div>
+            )}
+
             {mode === 'signin' && (
               <motion.div
                 key="signin"
@@ -142,9 +193,9 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 exit={{ opacity: 0, x: 20 }}
               >
                 <div className="text-center mb-10">
-                  <div className="inline-block p-4 rounded-2xl bg-primary/10 border border-primary/20 mb-6 group transition-all duration-500">
-                    <svg className="w-8 h-8 text-primary group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                  <div className="inline-block p-4 rounded-2xl bg-primary/10 border border-primary/20 mb-6 group transition-all duration-500 cursor-pointer" onClick={() => setMode('main')}>
+                    <svg className="w-8 h-8 text-primary group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
                     </svg>
                   </div>
                   <h2 className="text-3xl font-black text-white tracking-tight mb-2 uppercase italic">Creator Access</h2>
@@ -153,18 +204,15 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
                 <form onSubmit={handleSignIn} className="space-y-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black text-primary tracking-[0.2em] uppercase ml-1">TikTok Handle</label>
-                    <div className="relative group">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-primary font-bold opacity-50 group-focus-within:opacity-100 transition-opacity">@</span>
-                      <input
-                        type="text"
-                        placeholder="username"
-                        value={handle.startsWith('@') ? handle.slice(1) : handle}
-                        onChange={(e) => setHandle(e.target.value)}
-                        className="w-full bg-white/5 border border-white/10 rounded-2xl pl-9 pr-4 py-4 text-white placeholder:text-white/10 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all font-bold"
-                        required
-                      />
-                    </div>
+                    <label className="text-[10px] font-black text-primary tracking-[0.2em] uppercase ml-1">TikTok Handle or Email</label>
+                    <input
+                      type="text"
+                      placeholder="@handle or email@example.com"
+                      value={handle}
+                      onChange={(e) => setHandle(e.target.value)}
+                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all font-bold"
+                      required
+                    />
                   </div>
 
                   <div className="space-y-2">
@@ -177,10 +225,9 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                       className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder:text-white/10 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all font-bold tracking-widest"
                       required
                     />
-                    <div className="flex justify-between items-center px-1">
-                      <p className="text-[9px] font-bold text-white/20 uppercase italic">Test: 1234</p>
-                      <button 
-                        type="button" 
+                    <div className="flex justify-end items-center px-1">
+                      <button
+                        type="button"
                         onClick={() => setMode('identify')}
                         className="text-[9px] font-black text-white/30 hover:text-primary uppercase tracking-wider transition-colors"
                       >
@@ -206,10 +253,10 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                     </Button>
                     <button 
                       type="button"
-                      onClick={handleClose}
+                      onClick={() => setMode('main')}
                       className="w-full h-12 rounded-2xl font-bold text-xs text-white/20 hover:text-white/40 uppercase tracking-widest transition-all"
                     >
-                      Abort Sign In
+                      Go Back
                     </button>
                   </div>
                 </form>

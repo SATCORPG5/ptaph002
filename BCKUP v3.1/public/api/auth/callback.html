@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connecting to TikTok | Peace Time Agency</title>
+    <style>
+        :root { --primary: #1a365d; --accent: #3182ce; --bg: #f9fbfc; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .card { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center; max-width: 400px; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid var(--accent); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        h1 { color: var(--primary); font-size: 1.5rem; margin-bottom: 8px; }
+        p { color: #718096; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="spinner"></div>
+        <h1>Syncing your Roster Profile</h1>
+        <p>Please wait while we securely connect Peace Time Agency to your TikTok data...</p>
+    </div>
+    
+    <script>
+        // Logic to capture the 'code' from TikTok and send to your Vercel Backend
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+        
+        if (code) {
+            // Forward the code to your serverless function
+            fetch('/api/tiktok-exchange', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ code })
+            }).then(res => window.location.href = '/dashboard?success=true').catch(console.error);
+        }
+    </script>
+</body>
+</html>

@@ -269,6 +269,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ─── Scrollbar ─────────────────────────────── */
+/* Portal selects: always dark background so options are readable in any theme */
+.pta-portal select {
+  background-color: var(--color-background-surface-base) !important;
+  color: #ffffff !important;
+  color-scheme: dark;
+}
+.pta-portal select option,
+select option {
+  background-color: #0F1623;
+  color: #ffffff;
+}
+
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--color-background); }
 ::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 999px; }

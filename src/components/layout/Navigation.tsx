@@ -25,6 +25,7 @@ export function Navigation() {
   const pathname = usePathname();
   const router = useRouter();
   const isCardForm = pathname === "/cardform";
+  const isPortal = pathname.startsWith('/portal');
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -46,6 +47,8 @@ export function Navigation() {
     router.refresh();
     router.push('/creators');
   };
+
+  if (isPortal) return null;
 
   return (
     <>
@@ -69,11 +72,7 @@ export function Navigation() {
 
               {session && (
                 <div className="hidden sm:flex items-center gap-2 pl-6 border-l border-white/10">
-                  <Link href="/creator-portal">
-                    <Button variant="ghost" size="sm" className="text-white/70 hover:text-white hover:bg-white/5 font-bold">
-                      Creator Portal
-                    </Button>
-                  </Link>
+  
                   <Button 
                     variant="ghost" 
                     size="sm" 
@@ -118,14 +117,16 @@ export function Navigation() {
                   </div>
                 )}
 
-                <Link href="/apply">
-                  <Button
-                    size="sm"
-                    className="hidden sm:inline-flex rounded-lg px-5 h-9 font-semibold text-sm bg-primary hover:bg-primary-dark text-white transition-all duration-200 hover:shadow-neon-primary"
-                  >
-                    Join the Roster
-                  </Button>
-                </Link>
+                <Link href="/apply"><Button className="hidden sm:inline-flex rounded-lg px-5 h-9 font-semibold text-sm bg-primary hover:bg-primary-dark text-white transition-all duration-200 hover:shadow-neon-primary">Join the Roster</Button></Link>
+                {session ? (
+                  <Link href="/portal/home">
+                    <Button className="hidden sm:inline-flex rounded-lg px-5 h-9 font-semibold text-sm bg-[#14B8A6] hover:bg-[#0ea5e9] text-white transition-all duration-200">
+                      My Portal
+                    </Button>
+                  </Link>
+                ) : (
+                  <Button onClick={() => setAuthModalOpen(true)} className="hidden sm:inline-flex rounded-lg px-5 h-9 font-semibold text-sm bg-purple-600 hover:bg-purple-500 text-white transition-all duration-200">Creator Portal</Button>
+                )}
 
                 {/* Mobile Menu */}
                 <button

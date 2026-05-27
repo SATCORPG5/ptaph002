@@ -1,16 +1,14 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { updateSession } from './lib/supabase/middleware';
 
-const SESSION_COOKIE_NAME = 'pta_creator_session';
-const ADMIN_SESSION_COOKIE = 'admin_session_pta';
-
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Strict Portal Lock (enabled by default unless explicitly unlocked)
   const isPortalsLocked = process.env.HIDE_ADMIN_PORTAL === "true";
 
-  const lockedPaths = ['/admin', '/creator-portal', '/creators', '/apply', '/cardform'];
+  const lockedPaths = ['/admin', '/crm', '/creator', '/creator-portal', '/creators', '/apply', '/cardform', '/portal'];
   const isTargetingPortal = lockedPaths.some(path => pathname.startsWith(path));
 
   if (isPortalsLocked && isTargetingPortal) {
@@ -20,31 +18,19 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // Protect /creator-portal
-  if (pathname.startsWith('/creator-portal')) {
-    const session = request.cookies.get(SESSION_COOKIE_NAME);
-    
-    if (!session) {
-      // Redirect to creators page if not authenticated
-      const url = request.nextUrl.clone();
-      url.pathname = '/creators';
-      return NextResponse.redirect(url);
-    }
-  }
-
-  // Protect /admin
-  if (pathname.startsWith('/admin') && pathname !== '/admin') { // Allow login check but protect routes
-     const session = request.cookies.get(ADMIN_SESSION_COOKIE);
-     if (!session) {
-        const url = request.nextUrl.clone();
-        url.pathname = '/admin'; // Redirect to login page
-        return NextResponse.redirect(url);
-     }
-  }
-
-  return NextResponse.next();
+  // Delegate the rest of auth checks to Supabase
+  return await updateSession(request);
 }
 
 export const config = {
-  matcher: ['/creator-portal/:path*', '/admin/:path*', '/creators/:path*', '/apply/:path*', '/cardform/:path*'],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * Feel free to modify this pattern to include more paths.
+     */
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+  ],
 };

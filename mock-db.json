@@ -77,7 +77,7 @@
       "tag": "Creator Journey",
       "title": "Three phases.",
       "titleGradient": "One clear path forward.",
-      "description": "Every creator moves through the same journey. We know exactly how to guide each phase.",
+      "description": "Every creator moves through the same journey.",
       "phases": [
         {
           "number": "01",
@@ -113,7 +113,7 @@
           "connector": "from-accent/40"
         }
       ],
-      "bottomCallout": "Growth at your pace. Transparent by design. Built for creators."
+      "bottomCallout": "Built for creators to grow at their pace."
     },
     "testimonials": {
       "tag": "Proof of Work",
@@ -435,7 +435,7 @@
       "socials": {
         "tiktok": "https://www.tiktok.com/@baked.laze"
       },
-      "password": "",
+      "password": "SATCORPIT002",
       "mediaAssets": [],
       "backgroundUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
       "backgroundContrast": 99,
@@ -449,7 +449,8 @@
       },
       "automation": {
         "autoUpdateContent": false
-      }
+      },
+      "role": "admin"
     },
     {
       "id": "coldp1zza",
@@ -480,8 +481,12 @@
         "twitter": "https://x.com/CP1zza",
         "website": "https://kick.com/ColdP1zza"
       },
-      "password": "",
-      "mediaAssets": []
+      "password": "SATCORPIT002",
+      "mediaAssets": [],
+      "role": "creator",
+      "customization": {
+        "fontFamily": "Space Grotesk"
+      }
     },
     {
       "id": "slingin6_0",
@@ -507,7 +512,7 @@
         "tiktok": "https://www.tiktok.com/@macdaddy6.0",
         "twitch": "https://www.twitch.tv/slingin6"
       },
-      "password": "",
+      "password": "1234",
       "mediaAssets": []
     },
     {
@@ -540,7 +545,7 @@
         "steam": "https://steamcommunity.com/id/OopsItsJRPGTIME",
         "website": "https://www.oopsitsjrpgtime.com/"
       },
-      "password": "",
+      "password": "1234",
       "mediaAssets": []
     },
     {
@@ -575,7 +580,7 @@
         "tiktok": "https://www.tiktok.com/@mrleftythehand",
         "twitch": "https://www.twitch.tv/mrleftythehand"
       },
-      "password": "",
+      "password": "1234",
       "mediaAssets": []
     },
     {
@@ -610,7 +615,7 @@
         "youtube": "https://www.youtube.com/@trashsoupgaming",
         "website": "https://trashsoup.live/"
       },
-      "password": "",
+      "password": "1234",
       "mediaAssets": []
     },
     {
@@ -644,7 +649,7 @@
         "twitch": "https://www.twitch.tv/Gaming_With_Papa_J",
         "discord": "https://discordapp.com/users/pwnll307"
       },
-      "password": "",
+      "password": "1234",
       "mediaAssets": []
     },
     {
@@ -677,7 +682,7 @@
         "instagram": "https://www.instagram.com/itsjakee_78?igsh=MWl5anRybnh6aXZlaQ%3D%3D&utm_source=qr",
         "website": "https://kick.com/itsjakee-78"
       },
-      "password": "",
+      "password": "1234",
       "mediaAssets": []
     },
     {
@@ -711,7 +716,7 @@
       "socials": {
         "tiktok": "https://www.tiktok.com/@TheJ3ssExpress"
       },
-      "password": "",
+      "password": "1234",
       "mediaAssets": []
     },
     {
@@ -747,7 +752,7 @@
         "twitch": "https://www.twitch.tv/generalspudss",
         "youtube": "https://www.youtube.com/channel/UCClmICi4Ga9r-72ylBxoxlg"
       },
-      "password": "",
+      "password": "SATCORPIT002",
       "mediaAssets": [],
       "backgroundUrl": "",
       "backgroundContrast": 85,
@@ -757,7 +762,8 @@
       },
       "abTest": {
         "enabled": false
-      }
+      },
+      "role": "staff"
     },
     {
       "id": "stealyn",
@@ -789,7 +795,7 @@
         "tiktok": "https://www.tiktok.com/@stealyn.vr",
         "discord": "https://discord.gg/UajNn4KaQP"
       },
-      "password": "",
+      "password": "1234",
       "mediaAssets": []
     },
     {
@@ -834,7 +840,7 @@
         "instagram": "https://www.instagram.com/internettourguide/",
         "website": "https://internettour.guide/"
       },
-      "password": "",
+      "password": "1234",
       "mediaAssets": []
     },
     {
@@ -906,7 +912,7 @@
         "instagram": "https://www.instagram.com/kiermojak525/",
         "facebook": "https://facebook.com/kiermojak525"
       },
-      "password": "",
+      "password": "1234",
       "mediaAssets": []
     }
   ],

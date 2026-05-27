@@ -1,0 +1,914 @@
+{
+  "settings": {
+    "hero": {
+      "headlineLine1": "The Creator Agency",
+      "headlineLine2": "Built for Streamers.",
+      "subheadline": "We provide the infrastructure, strategy, and community to help you grow on your own terms. No quotas. No pressure. No predatory contracts.",
+      "stats": [
+        {
+          "value": "24/7",
+          "label": "Creator Support System"
+        },
+        {
+          "value": "Top Tier",
+          "label": "TikTok LIVE Creator Network"
+        },
+        {
+          "value": "Millions",
+          "label": "LIVE Viewers Reached"
+        },
+        {
+          "value": "180",
+          "label": "Active Members"
+        }
+      ]
+    },
+    "services": [
+      {
+        "index": "01",
+        "title": "Technical & Aesthetic",
+        "description": "Full-spectrum broadcast optimization. We refine your lighting architecture, camera positioning, and audio processing to maximize viewer retention from the first second.",
+        "accent": "text-primary",
+        "bar": "bg-primary",
+        "tag": "Department"
+      },
+      {
+        "index": "02",
+        "title": "Data-Driven Strategy",
+        "description": "Algorithmic positioning based on real-time analytics. We optimize your stream hooks and retention loops to capture and hold platform-wide momentum.",
+        "accent": "text-secondary",
+        "bar": "bg-secondary",
+        "tag": "Department"
+      },
+      {
+        "index": "03",
+        "title": "Admin & Account Safety",
+        "description": "Direct handling of platform policy and account security. We manage ban appeals, flag resolution, and compliance so you can focus exclusively on creation.",
+        "accent": "text-primary",
+        "bar": "bg-primary",
+        "tag": "Department"
+      },
+      {
+        "index": "04",
+        "title": "The Exit Guarantee",
+        "description": "Total creator autonomy. You retain 100% control over your account. If you choose to leave, we facilitate a clean transition with no hidden restrictions.",
+        "accent": "text-secondary",
+        "bar": "bg-secondary",
+        "tag": "Creator-First"
+      },
+      {
+        "index": "05",
+        "title": "Zero-Pressure Policy",
+        "description": "No mandatory hours or performance benchmarks. We provide the infrastructure; you decide the pace. Our support remains constant regardless of your streaming volume.",
+        "accent": "text-primary",
+        "bar": "bg-primary",
+        "tag": "Creator-First"
+      },
+      {
+        "index": "06",
+        "title": "Education Center",
+        "description": "Exclusive access to our private resource library. Over 50+ modules covering advanced TikTok LIVE strategy, technical setup, and community management.",
+        "accent": "text-secondary",
+        "bar": "bg-secondary",
+        "tag": "Onboarding"
+      }
+    ],
+    "growthPhases": {
+      "tag": "Creator Journey",
+      "title": "Three phases.",
+      "titleGradient": "One clear path forward.",
+      "description": "Every creator moves through the same journey. We know exactly how to guide each phase.",
+      "phases": [
+        {
+          "number": "01",
+          "name": "Foundation",
+          "focus": "Tech & Environment",
+          "role": "The baseline for professional broadcasting. We audit your technical environment to ensure your setup meets the high-fidelity standards required for elite platform push.",
+          "accent": "text-primary",
+          "border": "border-primary/30",
+          "bg": "bg-primary/10",
+          "glow": "shadow-[0_0_40px_rgba(108,92,231,0.15)]",
+          "connector": "from-primary/40"
+        },
+        {
+          "number": "02",
+          "name": "Engagement",
+          "focus": "Algorithmic Reach",
+          "role": "Transitioning from technical stability to psychological reach. We focus on viewer retention patterns and interaction loops that trigger the platform's distribution algorithm.",
+          "accent": "text-secondary",
+          "border": "border-secondary/30",
+          "bg": "bg-secondary/10",
+          "glow": "shadow-[0_0_40px_rgba(253,121,168,0.15)]",
+          "connector": "from-secondary/40"
+        },
+        {
+          "number": "03",
+          "name": "Expansion",
+          "focus": "Community & Revenue",
+          "role": "Scaling your influence into a sustainable ecosystem. This phase refines your relationship with your core audience to drive consistent growth and long-term monetization.",
+          "accent": "text-accent",
+          "border": "border-accent/30",
+          "bg": "bg-accent/10",
+          "glow": "shadow-[0_0_40px_rgba(0,206,201,0.15)]",
+          "connector": "from-accent/40"
+        }
+      ],
+      "bottomCallout": "Growth at your pace. Transparent by design. Built for creators."
+    },
+    "testimonials": {
+      "tag": "Proof of Work",
+      "title": "Hear from our",
+      "titleGradient": "Creators.",
+      "items": []
+    },
+    "rosterSettings": {
+      "mainTag": "The Network",
+      "mainTitle": "Our",
+      "mainTitleAccent": "Creators.",
+      "mainDescription": "The Peace Time roster is home to the most dedicated, high-growth creators on TikTok LIVE. We provide the infrastructure; they provide the talent.",
+      "sections": {
+        "liveNow": {
+          "title": "Live Now",
+          "desc": "Roster members currently broadcasting."
+        },
+        "agencyStaff": {
+          "title": "Agency Staff",
+          "desc": "The leadership driving Peace Time Agency."
+        },
+        "topPerforming": {
+          "title": "Top 5 Performing",
+          "desc": "Our highest performing creators."
+        },
+        "newests": {
+          "title": "Peace Time's Newests",
+          "desc": "The latest additions to our roster."
+        },
+        "allCreators": {
+          "title": "Peace Time Creators",
+          "desc": "The talent of Peace Time Agency."
+        }
+      }
+    },
+    "liveSection": {
+      "tag": "Live Now",
+      "title": "Elite Creators Broadcasting"
+    },
+    "faqs": [
+      {
+        "q": "What are the expectations and quotas?",
+        "a": "None. Peace Time operates on a Zero-Pressure Policy: no minimum hours, no gifting benchmarks, and no quotas. We provide the tools; you determine the velocity."
+      },
+      {
+        "q": "How do I join the agency?",
+        "a": "Submission is handled via TikTok's official agency portal. There are no external legal traps or side-contracts. Once we invite you, everything is finalized securely within the app."
+      },
+      {
+        "q": "Are there any restrictive contracts?",
+        "a": "Never. We operate exclusively within the official TikTok Agency framework. Transparency is core to our model: no hidden clauses, and no fine print beyond TikTok's standard platform terms."
+      },
+      {
+        "q": "What happens if I decide to leave?",
+        "a": "You retain full account ownership. You can leave at any time, subject only to TikTok's own platform-mandated 60-day transition window which applies to all agency moves."
+      },
+      {
+        "q": "What does the agency actually do for my stream?",
+        "a": "We provide professional technical audits, data-driven strategy sessions, and 24/7 administrative support for account safety and platform compliance."
+      },
+      {
+        "q": "What do I get immediately upon joining?",
+        "a": "Instant access to our 50+ module Education Center, a full technical setup audit, and entry into our private Discord network for strategy and collaboration."
+      }
+    ],
+    "footer": {
+      "tagline": "The elite hub for TikTok LIVE creators.",
+      "socials": []
+    },
+    "applyPage": {
+      "title": "Creator Intake Form",
+      "description": "Join Peace Time Agency and level up your TikTok LIVE experience! We're here to support your growth, battles, and experiences in a positive creator network. Please fill out the following questions honestly and completely.",
+      "certificationText": "I certify that all information provided is accurate and belongs to me.",
+      "questions": [
+        {
+          "id": "is18Plus",
+          "type": "radio",
+          "question": "1. Are you 18 years or older?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "helpText": "Must be 18+ to join and participate in LIVE features."
+        },
+        {
+          "id": "isUSCA",
+          "type": "radio",
+          "question": "2. Are you located in the United States or Canada?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "helpText": "Our primary support and features focus on US/CA creators at this time."
+        },
+        {
+          "id": "streamingCountry",
+          "type": "text",
+          "question": "What country are you streaming from?",
+          "required": true,
+          "showIf": {
+            "questionId": "isUSCA",
+            "equals": "No"
+          }
+        },
+        {
+          "id": "contentTypes",
+          "type": "checkbox",
+          "question": "3. What type of content do you make on TikTok LIVE? (Select up to 3)",
+          "required": true,
+          "options": [
+            "Just Chatting / Casual Talk",
+            "Gaming / Gameplay",
+            "IRL (In Real Life) / Daily Life",
+            "Talent Shows / Singing, Dancing, Performances",
+            "Battles / PK / LIVE Matches",
+            "Educational / Tutorials / Advice",
+            "Q&A / Fan Interaction",
+            "Other (please specify below)"
+          ],
+          "helpText": "Choose the categories that best describe your LIVE style/content."
+        },
+        {
+          "id": "otherContentType",
+          "type": "text",
+          "question": "Please describe your other content type",
+          "required": true,
+          "showIf": {
+            "questionId": "contentTypes",
+            "equals": "Other (please specify below)"
+          }
+        },
+        {
+          "id": "nicheDescription",
+          "type": "textarea",
+          "question": "4. Please describe your niche/style (e.g. gaming format, IRL vibe, specific talent).",
+          "required": true,
+          "helpText": "This helps us understand your vibe and how we can best support you."
+        },
+        {
+          "id": "liveFrequency",
+          "type": "radio",
+          "question": "5. How often do you plan to go LIVE per week?",
+          "required": true,
+          "options": [
+            "0–2 times",
+            "3–5 times",
+            "6–10 times",
+            "10+ times / Almost daily"
+          ],
+          "helpText": "Consistency helps us plan support and campaigns for you."
+        },
+        {
+          "id": "averageSessionLength",
+          "type": "radio",
+          "question": "6. What is your average LIVE session length?",
+          "required": true,
+          "options": [
+            "Under 1 hour",
+            "1–2 hours",
+            "2–4 hours",
+            "4+ hours"
+          ],
+          "helpText": "This helps us tailor tips and scheduling advice."
+        },
+        {
+          "id": "streamingDuration",
+          "type": "radio",
+          "question": "7. How long have you been streaming on TikTok LIVE?",
+          "required": true,
+          "options": [
+            "Less than 1 month",
+            "1 to 3 months",
+            "3 to 6 months",
+            "6 to 12 months",
+            "1+ years"
+          ]
+        },
+        {
+          "id": "streamingGoals",
+          "type": "textarea",
+          "question": "8. What are your goals for streaming?",
+          "required": true,
+          "helpText": "(Example: full-time income, growing a community, content creation, gaming career, etc.)"
+        },
+        {
+          "id": "improvements",
+          "type": "checkbox",
+          "question": "9. What do you want to improve most right now? (Select all that apply)",
+          "required": true,
+          "options": [
+            "Growing followers",
+            "Monetization",
+            "Viewer engagement",
+            "Stream setup / overlays",
+            "Content strategy",
+            "Other"
+          ]
+        },
+        {
+          "id": "otherImprovement",
+          "type": "text",
+          "question": "Please specify what else you want to improve",
+          "required": true,
+          "showIf": {
+            "questionId": "improvements",
+            "equals": "Other"
+          }
+        },
+        {
+          "id": "followerCount",
+          "type": "text",
+          "question": "10. What is your current follower count?",
+          "required": true,
+          "helpText": "e.g. 5,000"
+        },
+        {
+          "id": "receivesGifts",
+          "type": "radio",
+          "question": "11. Do you currently receive gifts on LIVE?",
+          "required": true,
+          "options": [
+            "Yes regularly",
+            "Sometimes",
+            "Rarely",
+            "Not yet"
+          ]
+        },
+        {
+          "id": "biggestChallenge",
+          "type": "textarea",
+          "question": "12. What is your biggest challenge with streaming right now?",
+          "required": true
+        },
+        {
+          "id": "openToCoaching",
+          "type": "radio",
+          "question": "13. Are you open to coaching and feedback to grow your streams?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ]
+        },
+        {
+          "id": "otherAgency",
+          "type": "radio",
+          "question": "14. Do you currently belong to another TikTok LIVE agency?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ]
+        },
+        {
+          "id": "otherAgencyName",
+          "type": "text",
+          "question": "Agency Name",
+          "required": true,
+          "showIf": {
+            "questionId": "otherAgency",
+            "equals": "Yes"
+          }
+        },
+        {
+          "id": "tiktokHandle",
+          "type": "text",
+          "question": "15. TikTok Username (@)",
+          "required": true,
+          "helpText": "Please provide your current main TikTok handle so we can review your profile."
+        },
+        {
+          "id": "discordId",
+          "type": "text",
+          "question": "16. Discord ID",
+          "required": false,
+          "helpText": "Highly recommended! We use Discord for community chats, updates, training, and quick support."
+        },
+        {
+          "id": "emailAddress",
+          "type": "text",
+          "question": "17. Email Address",
+          "required": false
+        },
+        {
+          "id": "additionalNotes",
+          "type": "textarea",
+          "question": "Additional Notes (Optional)",
+          "required": false
+        }
+      ]
+    }
+  },
+  "creators": [
+    {
+      "id": "baked",
+      "name": "Baked",
+      "handle": "@baked.laze",
+      "title": "Founder",
+      "description": "Hi, I’m Nick, founder of Peace Time Agency. I work directly with creators to help them grow on TikTok LIVE through stream strategy, setup guidance, and community support. My goal is simple, help creators stay consistent, improve their content, and turn streaming into real opportunity.",
+      "image": "/creators/baked.jpg",
+      "category": [
+        "Staff",
+        "Gaming"
+      ],
+      "stats": {
+        "followers": "N/A",
+        "avgWatchTime": "N/A",
+        "peakCCV": "N/A",
+        "totalLikes": "0"
+      },
+      "tags": [
+        "Staff",
+        "Gaming"
+      ],
+      "tier": "staff",
+      "liveUrl": "https://www.tiktok.com/@baked.laze/live",
+      "socials": {
+        "tiktok": "https://www.tiktok.com/@baked.laze"
+      },
+      "password": "1234",
+      "mediaAssets": [],
+      "backgroundUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+      "backgroundContrast": 99,
+      "customization": {
+        "bgAnimation": "stars",
+        "fontFamily": "Space Grotesk",
+        "themeColor": "#321be4"
+      },
+      "abTest": {
+        "enabled": false
+      },
+      "automation": {
+        "autoUpdateContent": false
+      }
+    },
+    {
+      "id": "coldp1zza",
+      "name": "ColdP1zza",
+      "handle": "@coldp1zza",
+      "description": "Boy dad • Husband • FPS & RPG/RPGMMO gamer • Full-time worker • Streaming when I can 🍕🎮",
+      "image": "/branding/KYRAX425.png",
+      "category": [
+        "Gaming"
+      ],
+      "stats": {
+        "followers": "New",
+        "avgWatchTime": "N/A",
+        "peakCCV": "N/A",
+        "totalLikes": "0"
+      },
+      "tags": [
+        "Gaming",
+        "FPS",
+        "RPG",
+        "MMO"
+      ],
+      "tier": "new",
+      "liveUrl": "https://www.tiktok.com/@coldp1zza/live",
+      "socials": {
+        "tiktok": "https://www.tiktok.com/@coldp1zza",
+        "twitch": "https://www.twitch.tv/ColdP1zza",
+        "twitter": "https://x.com/CP1zza",
+        "website": "https://kick.com/ColdP1zza"
+      },
+      "password": "1234",
+      "mediaAssets": []
+    },
+    {
+      "id": "slingin6_0",
+      "name": "Slingin6.0",
+      "handle": "@macdaddy6.0",
+      "description": "I like streaming and having fun doing it",
+      "image": "/branding/KYRAX425.png",
+      "category": [
+        "Gaming"
+      ],
+      "stats": {
+        "followers": "New",
+        "avgWatchTime": "N/A",
+        "peakCCV": "N/A",
+        "totalLikes": "0"
+      },
+      "tags": [
+        "Gaming"
+      ],
+      "tier": "new",
+      "liveUrl": "https://www.tiktok.com/@macdaddy6.0/live",
+      "socials": {
+        "tiktok": "https://www.tiktok.com/@macdaddy6.0",
+        "twitch": "https://www.twitch.tv/slingin6"
+      },
+      "password": "1234",
+      "mediaAssets": []
+    },
+    {
+      "id": "oopsitsjrpgtime",
+      "name": "OopsItsJRPGTime",
+      "handle": "@oopsitsjrpgtime",
+      "description": "Hello there my name is OopsItsJRPGTime or \"Oops\" for short! If I were to have to describe myself as a vibe it would have to be \"Chill.\" I stream mostly JRPG Games from classic to new and anywhere in between! I first fell in love with Jrpg games back on the SNES with my very first game ever Breath of Fire and from then on I was hooked! My goal for streaming has always been to make amazing friends, so will you be my friend?!",
+      "image": "/creators/oopsitsjrpgtime.jpg",
+      "category": [
+        "Gaming"
+      ],
+      "stats": {
+        "followers": "New",
+        "avgWatchTime": "N/A",
+        "peakCCV": "N/A",
+        "totalLikes": "0"
+      },
+      "tags": [
+        "Gaming",
+        "JRPGs",
+        "Classic"
+      ],
+      "tier": "new",
+      "liveUrl": "https://www.tiktok.com/@oopsitsjrpgtime/live",
+      "socials": {
+        "tiktok": "https://www.tiktok.com/@oopsitsjrpgtime",
+        "twitch": "https://www.twitch.tv/oopsitsjrpgtime",
+        "youtube": "https://www.youtube.com/@OopsItsJRPGTIME",
+        "discord": "https://discordapp.com/users/oopsitsjrpgtime",
+        "steam": "https://steamcommunity.com/id/OopsItsJRPGTIME",
+        "website": "https://www.oopsitsjrpgtime.com/"
+      },
+      "password": "1234",
+      "mediaAssets": []
+    },
+    {
+      "id": "mrleftythehand",
+      "name": "Mr. Lefty the Hand",
+      "handle": "@mrleftythehand",
+      "description": "I’m Mr. Lefty, a hand that somehow ended up flying planes, driving tanks, and making questionable tactical decisions in War Thunder. Whether it’s clutch moments, terrible aim, or Gaijin doing Gaijin things, Lefty’s here for random bits of chaos along the way.",
+      "image": "/creators/mrleftythehand.jpg",
+      "category": [
+        "Gaming"
+      ],
+      "stats": {
+        "followers": "New",
+        "avgWatchTime": "N/A",
+        "peakCCV": "N/A",
+        "totalLikes": "0"
+      },
+      "tags": [
+        "Gaming",
+        "War Thunder",
+        "Tanks",
+        "Planes"
+      ],
+      "tier": "new",
+      "liveUrl": "https://www.tiktok.com/@mrleftythehand/live",
+      "images": [
+        "/creators/mrleftythehand.jpg",
+        "/creators/mrleftythehand_tank.png",
+        "/creators/mrleftythehand_plane.png"
+      ],
+      "socials": {
+        "tiktok": "https://www.tiktok.com/@mrleftythehand",
+        "twitch": "https://www.twitch.tv/mrleftythehand"
+      },
+      "password": "1234",
+      "mediaAssets": []
+    },
+    {
+      "id": "trashsoupgaming",
+      "name": "Trash (aka Lindsey)",
+      "handle": "@trashsoupgaming",
+      "description": "Lindsey, also known as Trash (@TrashSoupGaming), is a full-time TikTok streamer who focuses on story-driven games like RPGs and well-written horror. Over time, she has built a strong, loyal community that doesn’t just show up for the games, but for the conversations, reactions, and shared experiences that happen during every stream. Lindsey believes that growth on TikTok LIVE isn’t just about numbers. It’s about building a space where people want to come back, where viewers feel part of something, and where creators can develop confidence in what they’re doing. For Lindsey, streaming isn’t just about going live. It’s about helping others find their place and grow along the way.",
+      "image": "/creators/IMG_5799.JPG",
+      "category": [
+        "Staff",
+        "Gaming",
+        "Just Chatting"
+      ],
+      "title": "Education Center Manager/Recruiter",
+      "stats": {
+        "followers": "Full-time",
+        "avgWatchTime": "N/A",
+        "peakCCV": "N/A",
+        "totalLikes": "0"
+      },
+      "tags": [
+        "Staff",
+        "Gaming",
+        "RPG",
+        "Horror",
+        "Just Chatting"
+      ],
+      "tier": "recruiter",
+      "liveUrl": "https://www.tiktok.com/@trashsoupgaming/live",
+      "socials": {
+        "tiktok": "https://www.tiktok.com/@trashsoupgaming",
+        "youtube": "https://www.youtube.com/@trashsoupgaming",
+        "website": "https://trashsoup.live/"
+      },
+      "password": "1234",
+      "mediaAssets": []
+    },
+    {
+      "id": "papaj",
+      "name": "Papa J",
+      "handle": "@papa.j547",
+      "description": "Just a gamer from Wyoming. I've been gaming since the Atari 2600 lol. Mostly I stream War Thunder but will occasionally change it up with something different.",
+      "image": "/branding/KYRAX425.png",
+      "category": [
+        "Gaming",
+        "Just Chatting",
+        "IRL"
+      ],
+      "stats": {
+        "followers": "New",
+        "avgWatchTime": "N/A",
+        "peakCCV": "N/A",
+        "totalLikes": "0"
+      },
+      "tags": [
+        "Gaming",
+        "Just Chatting",
+        "IRL",
+        "War Thunder",
+        "Wyoming"
+      ],
+      "tier": "new",
+      "liveUrl": "https://www.tiktok.com/@papa.j547/live",
+      "socials": {
+        "tiktok": "https://www.tiktok.com/@papa.j547",
+        "twitch": "https://www.twitch.tv/Gaming_With_Papa_J",
+        "discord": "https://discordapp.com/users/pwnll307"
+      },
+      "password": "1234",
+      "mediaAssets": []
+    },
+    {
+      "id": "itsjakee_78",
+      "name": "ItsJakee_78",
+      "handle": "@itsjakee_78",
+      "description": "I’m a gaming creator posting Warzone gameplay, gaming memes, and fun squad moments.",
+      "image": "/creators/image.png",
+      "category": [
+        "Gaming"
+      ],
+      "stats": {
+        "followers": "New",
+        "avgWatchTime": "N/A",
+        "peakCCV": "N/A",
+        "totalLikes": "0"
+      },
+      "tags": [
+        "Gaming",
+        "Warzone",
+        "Memes",
+        "Squad"
+      ],
+      "tier": "new",
+      "liveUrl": "https://www.tiktok.com/@itsjakee_78/live",
+      "socials": {
+        "tiktok": "https://www.tiktok.com/@itsjakee_78",
+        "twitch": "https://m.twitch.tv/itsjakee_78",
+        "youtube": "https://m.youtube.com/@ItsJakee_78",
+        "instagram": "https://www.instagram.com/itsjakee_78?igsh=MWl5anRybnh6aXZlaQ%3D%3D&utm_source=qr",
+        "website": "https://kick.com/itsjakee-78"
+      },
+      "password": "1234",
+      "mediaAssets": []
+    },
+    {
+      "id": "thej3ssexpress",
+      "name": "Jessica",
+      "handle": "@TheJ3ssExpress",
+      "title": "Creator Retention Manager/Recruiter",
+      "description": "Hey! I’m Jessica, aka TheJ3ssExpress. I’m a recruiter and The Creator Retention Manager with Peacetime, where I help support and grow creators on TikTok. Seeing creators succeed is something I’m really passionate about.\n\nOn my own streams, you’ll usually find me cozy gaming while jamming to some rock or EDM. Every now and then I’ll dive into a horror game and suffer through a few jumpscares. I also like to pop in with occasional IRL lives whether it’s just chatting or a “cook dinner with me” stream.",
+      "image": "/creators/564674.jpg",
+      "category": [
+        "Gaming",
+        "Just Chatting",
+        "IRL",
+        "Recruiter"
+      ],
+      "stats": {
+        "followers": "3.8k",
+        "avgWatchTime": "N/A",
+        "peakCCV": "N/A",
+        "totalLikes": "0"
+      },
+      "tags": [
+        "Staff",
+        "Recruiter",
+        "Gaming",
+        "Just Chatting",
+        "IRL"
+      ],
+      "tier": "recruiter",
+      "liveUrl": "https://www.tiktok.com/@TheJ3ssExpress/live",
+      "socials": {
+        "tiktok": "https://www.tiktok.com/@TheJ3ssExpress"
+      },
+      "password": "1234",
+      "mediaAssets": []
+    },
+    {
+      "id": "generalspuds",
+      "name": "General Spuds",
+      "handle": "@generalspuds",
+      "title": "Virtual Training/Recruiter",
+      "description": "HI! I am general Spuds. I have been creating for years and play a variety of games from FPS to RPGS. I enjoy creating a positive environment and inspiring the people I meet. Rather I am streaming or helping another creator, I love lifting people up. Positive times and Vibes",
+      "image": "/creators/generalspuds.jpg",
+      "category": [
+        "Gaming",
+        "Just Chatting",
+        "IRL",
+        "Staff"
+      ],
+      "stats": {
+        "followers": "N/A",
+        "avgWatchTime": "N/A",
+        "peakCCV": "N/A",
+        "totalLikes": "0"
+      },
+      "tags": [
+        "Staff",
+        "Gaming",
+        "Just Chatting",
+        "IRL"
+      ],
+      "tier": "recruiter",
+      "liveUrl": "https://www.tiktok.com/@generalspuds",
+      "socials": {
+        "tiktok": "https://www.tiktok.com/@generalspuds",
+        "instagram": "https://www.instagram.com/generalspuds",
+        "twitch": "https://www.twitch.tv/generalspudss",
+        "youtube": "https://www.youtube.com/channel/UCClmICi4Ga9r-72ylBxoxlg"
+      },
+      "password": "1234",
+      "mediaAssets": [],
+      "backgroundUrl": "",
+      "backgroundContrast": 85,
+      "customization": {
+        "themeColor": "#2912d9",
+        "bgAnimation": "none"
+      },
+      "abTest": {
+        "enabled": false
+      }
+    },
+    {
+      "id": "stealyn",
+      "name": "STEALYN",
+      "handle": "@stealyn.vr",
+      "title": "Algorithm Coach/Recruiter",
+      "description": "The Content Coach with no fluff, Stealyn believes great creators are built through knowledge, positivity, and mental fortitude. He is a War Thunder VR creator by passion and a blue-collar worker by trade; he knows the value of discipline, balance, and consistency. Here at PeaceTime, his focus is to build strategies around YOUR success as an individual creator! He’s not looking for just anybody; he’s looking for those ready to earn their place as an Agent of PeaceTime.",
+      "image": "/creators/672FF5B8-54C4-4B6B-8626-006254F314E1.jpg",
+      "images": [],
+      "category": [
+        "Gaming",
+        "Recruiter"
+      ],
+      "stats": {
+        "followers": "New",
+        "avgWatchTime": "N/A",
+        "peakCCV": "N/A",
+        "totalLikes": "0"
+      },
+      "tags": [
+        "Staff",
+        "Gaming",
+        "War Thunder VR",
+        "Coach"
+      ],
+      "tier": "recruiter",
+      "liveUrl": "https://www.tiktok.com/@stealyn.vr/live",
+      "socials": {
+        "tiktok": "https://www.tiktok.com/@stealyn.vr",
+        "discord": "https://discord.gg/UajNn4KaQP"
+      },
+      "password": "1234",
+      "mediaAssets": []
+    },
+    {
+      "id": "internettourguide",
+      "name": "Internet Tour Guide",
+      "handle": "@internettourguide",
+      "description": "Internet Tour Guide is a creator with rare range: live energy, real audience interaction, and genuinely high-production content off-stream, all backed by the discipline to build both a personal brand and a daily content business for small business owners that don't want to become influencers to survive. Take the Tour :v:",
+      "image": "/creators/internettourguide.png",
+      "images": [
+        "/creators/internettourguide.png",
+        "/creators/internettourguide_moody.jpg",
+        "/creators/internettourguide_banner_1.png",
+        "/creators/internettourguide_banner_2.png"
+      ],
+      "category": [
+        "Gaming",
+        "Just Chatting",
+        "IRL",
+        "Comedy",
+        "Skits"
+      ],
+      "stats": {
+        "followers": "New",
+        "avgWatchTime": "N/A",
+        "peakCCV": "N/A",
+        "totalLikes": "0"
+      },
+      "tags": [
+        "Gaming",
+        "Just Chatting",
+        "IRL",
+        "Comedy",
+        "Skits",
+        "Small Business"
+      ],
+      "tier": "new",
+      "liveUrl": "https://www.tiktok.com/@internettourguide/live",
+      "socials": {
+        "tiktok": "https://www.tiktok.com/@internettourguide",
+        "youtube": "https://www.youtube.com/@colethetourguide",
+        "discord": "https://discord.gg/T2bsJapnfC",
+        "instagram": "https://www.instagram.com/internettourguide/",
+        "website": "https://internettour.guide/"
+      },
+      "password": "1234",
+      "mediaAssets": []
+    },
+    {
+      "id": "morbidsunscheduledovertime",
+      "name": "Morbid's Unscheduled Overtime",
+      "handle": "@ass_ass_inn",
+      "description": "I work in industrial maintenance, but I'm also a multistreamer, I like to try multiple games and genre's, and I typically play with viewers!",
+      "image": "/branding/KYRAX425.png",
+      "category": [
+        "Gaming"
+      ],
+      "stats": {
+        "followers": "New",
+        "avgWatchTime": "N/A",
+        "peakCCV": "N/A",
+        "totalLikes": "0"
+      },
+      "tags": [
+        "Gaming",
+        "Industrial Maintenance",
+        "Multistreamer"
+      ],
+      "tier": "new",
+      "liveUrl": "https://www.tiktok.com/@ass_ass_inn/live",
+      "socials": {
+        "tiktok": "https://www.tiktok.com/@ass_ass_inn?_r=1&_t=ZP-95C20p6kOHG",
+        "twitch": "https://m.twitch.tv/morbidunscheduledovertime/home",
+        "discord": "https://discordapp.com/users/Morbid1454"
+      },
+      "password": "1234",
+      "mediaAssets": []
+    },
+    {
+      "id": "kiermojak",
+      "name": "KierMojaK",
+      "handle": "@Kiermojak525",
+      "description": "Hello! I’m KierMojaK. I’m a gaming livestreamer creating high energy, interactive content on TikTok. The KierMojak Community doesn’t just watch, they are part of the experience. I play a lot of Soulslike/Soulsborne titles like Elden Ring and Bloodborne, bringing a mix of skill, personality, and engagement that keeps viewers coming back. I’ve been jumping into more variety gaming as well like ARC Raiders and various Horror games.\n\nI’ve built a growing, loyal audience by focusing on connection, consistency, and making every stream feel like something you don’t want to miss. Whether it’s intense gameplay, chaotic moments, community driven challenges, or just goofing around and having hilarious moments together. I create content that stands out and keeps people involved.\n\nAs I continue expanding my presence, I’m focused on leveling up my content, and turning my platform into something bigger than just streams. It’s a space people want to be part of.",
+      "image": "/creators/kiermojak.webp",
+      "category": [
+        "Gaming",
+        "Just Chatting",
+        "IRL",
+        "Comedy",
+        "Skits"
+      ],
+      "stats": {
+        "followers": "New",
+        "avgWatchTime": "N/A",
+        "peakCCV": "N/A",
+        "totalLikes": "0"
+      },
+      "tags": [
+        "Gaming",
+        "Soulslike",
+        "Soulsborne",
+        "Elden Ring",
+        "Bloodborne",
+        "Variety Gaming",
+        "Horror",
+        "Interactive"
+      ],
+      "tier": "new",
+      "liveUrl": "https://www.tiktok.com/@kiermojak525/live",
+      "socials": {
+        "tiktok": "https://www.tiktok.com/@kiermojak525?_r=1&_t=ZT-95D5eSMrS7p",
+        "twitch": "https://www.twitch.tv/kiermojak525",
+        "youtube": "https://www.youtube.com/@KierMojaK52590",
+        "discord": "https://discord.gg/5wUwrrKuCp",
+        "instagram": "https://www.instagram.com/kiermojak525/",
+        "facebook": "https://facebook.com/kiermojak525"
+      },
+      "password": "1234",
+      "mediaAssets": []
+    }
+  ],
+  "news": []
+}

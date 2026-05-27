@@ -70,6 +70,7 @@ export interface Creator {
     altBio?: string;
     altImage?: string;
   };
+  managerId?: string; // ID of the manager/recruiter this creator is assigned to
 }
 
 export const creators: Creator[] = [
@@ -113,6 +114,7 @@ export const creators: Creator[] = [
     tier: "new",
     liveUrl: "https://www.tiktok.com/@coldp1zza/live",
     password: "1234",
+    managerId: "generalspuds",
     mediaAssets: [],
     socials: {
       tiktok: "https://www.tiktok.com/@coldp1zza",
@@ -138,6 +140,7 @@ export const creators: Creator[] = [
     tier: "new",
     liveUrl: "https://www.tiktok.com/@macdaddy6.0/live",
     password: "1234",
+    managerId: "generalspuds",
     mediaAssets: [],
     socials: {
       tiktok: "https://www.tiktok.com/@macdaddy6.0",
@@ -161,6 +164,7 @@ export const creators: Creator[] = [
     tier: "new",
     liveUrl: "https://www.tiktok.com/@oopsitsjrpgtime/live",
     password: "1234",
+    managerId: "trashsoupgaming",
     mediaAssets: [],
     socials: {
       tiktok: "https://www.tiktok.com/@oopsitsjrpgtime",
@@ -186,6 +190,7 @@ export const creators: Creator[] = [
     },
     tags: ["Gaming", "War Thunder", "Tanks", "Planes"],
     tier: "new",
+    managerId: "trashsoupgaming",
     liveUrl: "https://www.tiktok.com/@mrleftythehand/live",
     images: [
       "/creators/mrleftythehand.jpg",
@@ -242,6 +247,7 @@ export const creators: Creator[] = [
     tier: "new",
     liveUrl: "https://www.tiktok.com/@papa.j547/live",
     password: "1234",
+    managerId: "generalspuds",
     mediaAssets: [],
     socials: {
       tiktok: "https://www.tiktok.com/@papa.j547",
@@ -266,6 +272,7 @@ export const creators: Creator[] = [
     tier: "new",
     liveUrl: "https://www.tiktok.com/@itsjakee_78/live",
     password: "1234",
+    managerId: "thej3ssexpress",
     mediaAssets: [],
     socials: {
       tiktok: "https://www.tiktok.com/@itsjakee_78",
@@ -372,6 +379,7 @@ export const creators: Creator[] = [
     tier: "new",
     liveUrl: "https://www.tiktok.com/@internettourguide/live",
     password: "1234",
+    managerId: "trashsoupgaming",
     mediaAssets: [],
     socials: {
       tiktok: "https://www.tiktok.com/@internettourguide",
@@ -398,6 +406,7 @@ export const creators: Creator[] = [
     tier: "new",
     liveUrl: "https://www.tiktok.com/@ass_ass_inn/live",
     password: "1234",
+    managerId: "thej3ssexpress",
     mediaAssets: [],
     socials: {
       tiktok: "https://www.tiktok.com/@ass_ass_inn?_r=1&_t=ZP-95C20p6kOHG",
