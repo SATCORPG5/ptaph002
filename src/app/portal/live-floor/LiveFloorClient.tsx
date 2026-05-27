@@ -33,8 +33,8 @@ const GO_LIVE_CHECKLIST = [
 
 const HIGHLIGHTS = [
   { creator: 'ColdP1zza', title: 'Back-to-back gift trains for 10 min straight!', views: '14.2K', time: '2h ago' },
-  { creator: 'Slingin6.0', title: 'Collab stream moment — crowd went crazy', views: '8.7K', time: '1d ago' },
-  { creator: 'STEALYN', title: 'First time hitting 1K CCV — the chat reaction', views: '6.4K', time: '2d ago' },
+  { creator: 'Slingin6.0', title: 'Collab stream moment, crowd went crazy', views: '8.7K', time: '1d ago' },
+  { creator: 'STEALYN', title: 'First time hitting 1K CCV, the chat reaction', views: '6.4K', time: '2d ago' },
 ];
 
 const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.06 } } };

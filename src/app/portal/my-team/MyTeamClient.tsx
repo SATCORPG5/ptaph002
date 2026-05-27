@@ -130,7 +130,7 @@ export function MyTeamClient({
   // Team settings (manager/admin can edit)
   const [settings, setSettings] = useState<TeamSettings>({
     teamName: activeManager ? `${activeManager.name.split(' ')[0]}'s Team` : 'My Team',
-    welcomeMessage: 'Welcome to the team hub — stay connected, get updates, and grow together.',
+    welcomeMessage: 'Welcome to the team hub. Stay connected, get updates, and grow together.',
     accentColor: '#14B8A6',
   });
   const [editingSettings, setEditingSettings] = useState(false);
@@ -232,7 +232,7 @@ export function MyTeamClient({
               className="bg-[#0F1623] border border-white/15 rounded-xl px-3 py-1.5 text-xs text-white outline-none focus:border-[#14B8A6]/30 [color-scheme:dark] pr-7 appearance-none cursor-pointer"
             >
               {allManagers.map(m => (
-                <option key={m.id} value={m.id}>{m.name} — {m.handle}</option>
+                <option key={m.id} value={m.id}>{m.name} ({m.handle})</option>
               ))}
             </select>
             <ChevronDown size={10} className="absolute right-2 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none" />

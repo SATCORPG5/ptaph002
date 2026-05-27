@@ -62,9 +62,9 @@ export function LobbyClient({ creator }: LobbyClientProps) {
 
           <div className="flex items-center gap-6">
             {[
-              { label: 'Followers', value: creator.stats?.followers || '—' },
-              { label: 'Peak CCV', value: creator.stats?.peakCCV || '—' },
-              { label: 'Avg Watch', value: creator.stats?.avgWatchTime || '—' },
+              { label: 'Followers', value: creator.stats?.followers || 'N/A' },
+              { label: 'Peak CCV', value: creator.stats?.peakCCV || 'N/A' },
+              { label: 'Avg Watch', value: creator.stats?.avgWatchTime || 'N/A' },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <p className="text-lg font-black text-foreground">{stat.value}</p>

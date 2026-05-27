@@ -17,7 +17,7 @@ const MOCK_DATA_CARDS = [
     avgWatch: '4m 32s',
     followers: '+892',
     engagement: '7.4%',
-    notes: 'Strong month — back-to-back gift trains on May 3rd and 17th. Recommend maintaining the 8pm schedule.',
+    notes: 'Strong month. Back-to-back gift trains on May 3rd and 17th. Recommend maintaining the 8pm schedule.',
     submittedBy: 'Baked',
     submittedAt: 'May 26, 2025',
   },

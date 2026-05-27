@@ -259,7 +259,7 @@ export default function CrmClient({ creators }: CrmClientProps) {
 
                   {/* Title */}
                   <div className="hidden lg:block flex-1 min-w-0">
-                    <p className="text-xs text-foreground-muted truncate">{creator.title || '—'}</p>
+                    <p className="text-xs text-foreground-muted truncate">{creator.title || 'Creator'}</p>
                   </div>
 
                   {/* Tier Badge */}

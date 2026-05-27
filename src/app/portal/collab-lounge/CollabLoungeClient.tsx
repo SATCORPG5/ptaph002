@@ -11,13 +11,13 @@ const COLLAB_REQUESTS = [
   { id: 1, creator: 'ItsJakee_78', niche: 'Gaming', platform: 'TikTok LIVE', style: 'Duo stream', bio: 'Looking for a gaming partner for a co-op session. Chill vibes only!', open: true },
   { id: 2, creator: 'General Spuds', niche: 'IRL', platform: 'TikTok LIVE', style: 'React together', bio: 'Want to react to viral food content together and cook something live.', open: true },
   { id: 3, creator: 'Slingin6.0', niche: 'Just Chatting', platform: 'TikTok LIVE', style: 'Talk show', bio: 'Hosting a creator interview format. Looking for confident speakers.', open: false },
-  { id: 4, creator: 'Papa J', niche: 'Gaming', platform: 'TikTok LIVE', style: 'Tournament', bio: 'FPS tournament bracket — need 7 more players. All skill levels welcome.', open: true },
+  { id: 4, creator: 'Papa J', niche: 'Gaming', platform: 'TikTok LIVE', style: 'Tournament', bio: 'FPS tournament bracket, need 7 more players. All skill levels welcome.', open: true },
 ];
 
 const BATTLES = [
   { id: 1, title: 'In-Agency Battle: Round 2', type: 'battle', status: 'live', participants: ['ColdP1zza', 'STEALYN'], viewers: '3.4K', time: 'Now' },
-  { id: 2, title: 'Karaoke Night', type: 'karaoke', status: 'upcoming', participants: ['ItsJakee_78', 'General Spuds', 'Papa J'], viewers: '—', time: 'Fri 9pm' },
-  { id: 3, title: 'Trivia Showdown', type: 'trivia', status: 'upcoming', participants: ['Slingin6.0', 'Trash'], viewers: '—', time: 'Sat 7pm' },
+  { id: 2, title: 'Karaoke Night', type: 'karaoke', status: 'upcoming', participants: ['ItsJakee_78', 'General Spuds', 'Papa J'], viewers: 'TBD', time: 'Fri 9pm' },
+  { id: 3, title: 'Trivia Showdown', type: 'trivia', status: 'upcoming', participants: ['Slingin6.0', 'Trash'], viewers: 'TBD', time: 'Sat 7pm' },
 ];
 
 const CALENDAR_EVENTS = [

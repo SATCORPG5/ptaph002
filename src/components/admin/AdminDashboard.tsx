@@ -627,6 +627,72 @@ function CreatorEditModal({
                 </div>
               </div>
             </div>
+
+            {/* ── Card Customization ── */}
+            <div className="space-y-6 pt-4">
+              <div className="flex items-center gap-3 border-b border-white/5 pb-4">
+                <div className="w-1.5 h-6 bg-accent rounded-full" />
+                <h3 className="text-white font-black uppercase tracking-[0.2em] text-xs">Card Customization</h3>
+                <span className="text-[9px] font-bold text-foreground-subtle bg-white/5 px-2 py-0.5 rounded-full border border-white/5">Creator &amp; Manager Cards</span>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-foreground-subtle ml-1">
+                    Card Background Image / GIF URL
+                  </label>
+                  <input
+                    type="url"
+                    value={formData.backgroundUrl || ""}
+                    onChange={(e) => setFormData({ ...formData, backgroundUrl: e.target.value })}
+                    placeholder="https://example.com/background.gif"
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3 text-xs text-secondary/70 focus:outline-none focus:ring-1 focus:ring-accent/60 transition-all font-mono"
+                  />
+                  <p className="text-[9px] text-foreground-subtle ml-1">Paste a direct link to an image or GIF. Appears behind the card cover.</p>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-foreground-subtle ml-1">
+                    Background Opacity ({formData.backgroundContrast ?? 100}%)
+                  </label>
+                  <div className="flex items-center gap-4 pt-1">
+                    <input
+                      type="range"
+                      min={10}
+                      max={100}
+                      step={5}
+                      value={formData.backgroundContrast ?? 100}
+                      onChange={(e) => setFormData({ ...formData, backgroundContrast: Number(e.target.value) })}
+                      className="flex-1 accent-accent h-1.5 cursor-pointer"
+                    />
+                    <span className="text-xs font-black text-white/50 w-10 text-right tabular-nums">
+                      {formData.backgroundContrast ?? 100}%
+                    </span>
+                  </div>
+                  <p className="text-[9px] text-foreground-subtle ml-1">Adjust how strongly the background shows through the card.</p>
+                </div>
+              </div>
+
+              {/* Live preview */}
+              {formData.backgroundUrl && (
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-foreground-subtle ml-1">Preview</label>
+                  <div className="relative w-32 h-40 rounded-2xl overflow-hidden border border-white/10 shadow-xl">
+                    <img
+                      src={formData.backgroundUrl}
+                      alt="Card background preview"
+                      className="w-full h-full object-cover"
+                      style={{ opacity: (formData.backgroundContrast ?? 100) / 100 }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className="absolute bottom-2 left-2 right-2">
+                      <p className="text-[9px] font-black text-white truncate">{formData.name || "Creator Name"}</p>
+                      <p className="text-[8px] text-white/50 truncate">{formData.handle || "@handle"}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </form>
         </div>
 

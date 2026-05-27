@@ -88,7 +88,7 @@ function AgencyOpsPanel() {
 
 function DefaultPanel() {
   const announcements = [
-    { text: 'New challenge drops Monday — Growth Academy', time: '2h ago' },
+    { text: 'New challenge drops Monday. Check Growth Academy', time: '2h ago' },
     { text: 'Battle Arena registration now open', time: '1d ago' },
     { text: 'Monthly Data Cards due this Friday', time: '2d ago' },
   ];

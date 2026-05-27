@@ -155,7 +155,7 @@ export function ProfilePortalClient({ creator: initialCreator }: ProfilePortalCl
                   )}
                 </div>
               </div>
-              <p className="text-[9px] text-foreground/20 text-center mt-2">On-demand preview — save to update</p>
+              <p className="text-[9px] text-foreground/20 text-center mt-2">On-demand preview. Save to update.</p>
             </div>
           </div>
         </motion.div>
@@ -211,7 +211,7 @@ export function ProfilePortalClient({ creator: initialCreator }: ProfilePortalCl
             <div className="p-4 rounded-xl border border-foreground/[0.06] bg-foreground/[0.02]">
               <p className="text-xs font-bold text-foreground/40 mb-1">TikTok Handle</p>
               <p className="text-sm font-bold text-foreground/60">{creator.handle}</p>
-              <p className="text-[9px] text-foreground/20 mt-1">Handle cannot be changed — contact admin if needed.</p>
+              <p className="text-[9px] text-foreground/20 mt-1">Handle cannot be changed. Contact admin if needed.</p>
             </div>
           </div>
         </motion.div>

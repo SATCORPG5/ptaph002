@@ -16,7 +16,7 @@ const MOCK_VIDEOS = [
   { id: 3, creator: 'General Spuds', title: 'Cooking IRL Goes Wrong Lmao', views: '5.6K', likes: 411, duration: '55:10', hot: false },
   { id: 4, creator: 'STEALYN', title: 'New Setup Tour + Q&A', views: '4.2K', likes: 389, duration: '38:44', hot: false },
   { id: 5, creator: 'Slingin6.0', title: 'Collab Stream w/ Baked', views: '19.3K', likes: 1204, duration: '3:12:55', hot: true },
-  { id: 6, creator: 'Papa J', title: 'Just Chatting — Life Update', views: '3.1K', likes: 298, duration: '1:02:14', hot: false },
+  { id: 6, creator: 'Papa J', title: 'Just Chatting: Life Update', views: '3.1K', likes: 298, duration: '1:02:14', hot: false },
 ];
 
 interface WeighIn {
@@ -26,7 +26,7 @@ interface WeighIn {
 }
 
 const MOCK_WEIGH_INS: WeighIn[] = [
-  { id: 1, creator: 'ItsJakee_78', title: 'Thumbnail A vs B — which is better?', thumbsUp: 42, thumbsDown: 8, userVote: null },
+  { id: 1, creator: 'ItsJakee_78', title: 'Thumbnail A vs B: which is better?', thumbsUp: 42, thumbsDown: 8, userVote: null },
   { id: 2, creator: 'General Spuds', title: 'Should I try cooking content more?', thumbsUp: 67, thumbsDown: 14, userVote: null },
   {
     id: 3, creator: 'STEALYN', title: 'Best stream day for the community?',
@@ -42,11 +42,11 @@ interface ShowcasePost {
 }
 
 const MOCK_SHOWCASE: ShowcasePost[] = [
-  { id: 1, creator: 'ColdP1zza', type: 'win', title: 'Broke 2K CCV!', body: 'Hit a new peak today — 2K concurrent viewers for the first time ever 🚀 Months of work finally paying off.', time: '2h ago', likes: 34 },
+  { id: 1, creator: 'ColdP1zza', type: 'win', title: 'Broke 2K CCV!', body: 'Hit a new peak today. 2K concurrent viewers for the first time ever 🚀 Months of work finally paying off.', time: '2h ago', likes: 34 },
   { id: 2, creator: 'ItsJakee_78', type: 'win', title: 'Hit 10K Followers!', body: 'TikTok officially shows 10K today. Beyond grateful for the PTA community support 🙏', time: '5h ago', likes: 56 },
   { id: 3, creator: 'Slingin6.0', type: 'showcase', title: 'First Brand Deal', body: "Just signed my first brand collab through Agency Ops. Can't share details yet but it's real and it's here 💼", time: '1d ago', likes: 71 },
   { id: 4, creator: 'General Spuds', type: 'win', title: 'Viral Stream Clip', body: 'Stream clip hit 50K+ impressions on its own. Algorithm picked it up overnight. New setup is clearly working.', time: '2d ago', likes: 92 },
-  { id: 5, creator: 'STEALYN', type: 'showcase', title: 'New Overlay Design', body: 'Spent a week rebuilding my stream layout from scratch. Super clean now — check it out in the video gallery.', mediaUrl: '', time: '3d ago', likes: 47 },
+  { id: 5, creator: 'STEALYN', type: 'showcase', title: 'New Overlay Design', body: 'Spent a week rebuilding my stream layout from scratch. Super clean now. Check it out in the video gallery.', mediaUrl: '', time: '3d ago', likes: 47 },
 ];
 
 const HOT_RIGHT_NOW = [

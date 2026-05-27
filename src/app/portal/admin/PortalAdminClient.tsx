@@ -129,7 +129,7 @@ export function PortalAdminClient({ manager, creators }: PortalAdminClientProps)
               <p className="text-[9px] font-black text-foreground/30 uppercase tracking-widest mb-3">CRM Notes for {selectedCreator.name}</p>
               <div className="rounded-2xl border border-foreground/[0.06] bg-foreground/[0.02] p-5 mb-4">
                 <textarea value={noteText} onChange={e => setNoteText(e.target.value)}
-                  placeholder="Add internal note (private — only admin and staff see this)..."
+                  placeholder="Add internal note (private, only admin and staff see this)..."
                   rows={4}
                   className="w-full bg-transparent text-sm text-foreground placeholder-foreground/20 outline-none resize-none" />
                 <div className="flex justify-end pt-3 border-t border-foreground/[0.05] mt-3">

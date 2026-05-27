@@ -230,9 +230,9 @@ export function AgencyOpsClient() {
                 <input type="text" placeholder="Brief title of your issue..." className="w-full bg-foreground/[0.04] border border-foreground/[0.08] rounded-xl px-4 py-3 text-sm text-foreground placeholder-foreground/20 outline-none" />
                 <select className="w-full bg-[#0F1623] border border-white/15 rounded-xl px-4 py-3 text-sm text-white outline-none [color-scheme:dark]">
                   <option value="">Priority level...</option>
-                  <option>High — Blocking my stream</option>
-                  <option>Medium — Can work around it</option>
-                  <option>Low — Question / minor issue</option>
+                  <option>High: Blocking my stream</option>
+                  <option>Medium: Can work around it</option>
+                  <option>Low: Question / minor issue</option>
                 </select>
                 <textarea rows={4} placeholder="Describe the issue in detail..." className="w-full bg-foreground/[0.04] border border-foreground/[0.08] rounded-xl px-4 py-3 text-sm text-foreground placeholder-foreground/20 outline-none resize-none" />
                 <button className="w-full py-3 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 font-black hover:bg-blue-500/20 transition-all">
