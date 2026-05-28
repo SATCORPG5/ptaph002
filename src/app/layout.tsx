@@ -28,6 +28,7 @@ export const metadata: Metadata = {
 import { Navigation } from "@/components/layout/Navigation";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
+import { Toaster } from 'sonner';
 import Script from "next/script";
 
 export default function RootLayout({
@@ -46,6 +47,18 @@ export default function RootLayout({
             </div>
           </ThemeProvider>
         </NuqsAdapter>
+        <Toaster
+          theme="dark"
+          position="bottom-right"
+          toastOptions={{
+            classNames: {
+              toast: 'bg-background-elevated border border-border text-foreground font-medium text-xs',
+              description: 'text-foreground/60',
+              actionButton: 'bg-portal-accent text-background font-bold',
+              cancelButton: 'bg-foreground/[0.06] text-foreground/60',
+            },
+          }}
+        />
         {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
           <Script
             src={process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL || "https://analytics.umami.is/script.js"}

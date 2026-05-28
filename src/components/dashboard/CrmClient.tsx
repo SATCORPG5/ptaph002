@@ -9,6 +9,7 @@ import {
   useRef,
 } from 'react';
 import { useQueryState } from 'nuqs';
+import { toast } from 'sonner';
 import Image from 'next/image';
 import { Creator } from '@/lib/creators';
 import type { ColumnDef } from '@tanstack/react-table';
@@ -93,6 +94,7 @@ const TIER_CONFIG: Record<
 const FILTER_CHIPS = [
   { key: 'all' as const,       label: 'All' },
   { key: 'new' as const,       label: 'New' },
+  { key: 'top' as const,       label: 'Top Tier' },
   { key: 'recruiter' as const, label: 'Recruiters' },
   { key: 'staff' as const,     label: 'Staff' },
 ];
@@ -353,12 +355,25 @@ function CreatorDetailSheet({
         </div>
 
         {/* Internal Notes placeholder */}
-        <div className="p-4 rounded-xl bg-amber-400/[0.04] border border-amber-400/10">
-          <div className="flex items-center gap-2 mb-1.5">
-            <MessageSquare size={13} className="text-amber-400/60" aria-hidden />
-            <TacticalLabel size="xs" className="text-amber-400/60">Internal Notes</TacticalLabel>
+        <div>
+          <div className="flex items-center justify-between mb-2.5">
+            <div className="flex items-center gap-2">
+              <MessageSquare size={13} className="text-foreground/30" aria-hidden />
+              <TacticalLabel size="xs">Internal Notes</TacticalLabel>
+            </div>
+            <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-amber-400/50 border border-amber-400/20 bg-amber-400/[0.04] px-2 py-0.5 rounded-full">
+              Coming Soon
+            </span>
           </div>
-          <p className="text-xs text-foreground/30 italic">No notes yet.</p>
+          <div className="relative">
+            <textarea
+              disabled
+              placeholder="Private notes visible to staff only…"
+              rows={3}
+              className="w-full bg-portal-surface-1/50 border border-foreground/[0.06] rounded-xl px-3 py-2.5 text-xs text-foreground/30 placeholder-foreground/20 resize-none cursor-not-allowed focus:outline-none"
+              aria-label="Internal notes (not yet available)"
+            />
+          </div>
         </div>
       </div>
     </SheetContent>
@@ -404,6 +419,7 @@ export default function CrmClient({ creators }: CrmClientProps) {
       staff:       optimisticCreators.filter((c) => c.tier === 'staff').length,
       recruiters:  optimisticCreators.filter((c) => c.tier === 'recruiter').length,
       newCreators: optimisticCreators.filter((c) => c.tier === 'new').length,
+      topCreators: optimisticCreators.filter((c) => c.tier === 'top').length,
     }),
     [optimisticCreators],
   );
@@ -417,7 +433,7 @@ export default function CrmClient({ creators }: CrmClientProps) {
         detail: 'Creators actively completing onboarding.' },
       { key: 'active',     label: 'Active',      count: stats.total - stats.newCreators,
         detail: 'Creators participating in agency programs.' },
-      { key: 'staff_top',  label: 'Staff / Top', count: stats.staff + stats.recruiters,
+      { key: 'staff_top',  label: 'Staff / Top', count: stats.staff + stats.recruiters + stats.topCreators,
         detail: 'Staff, recruiters, and top-tier creators.' },
     ],
     [stats],
@@ -454,9 +470,15 @@ export default function CrmClient({ creators }: CrmClientProps) {
 
   // Server action + optimistic update handler
   function handleTierUpdate(creatorId: string, tier: Tier) {
+    const label = TIER_CONFIG[tier].label;
     startTransition(async () => {
       addOptimistic({ id: creatorId, tier });
-      await updateCreatorTier(creatorId, tier);
+      try {
+        await updateCreatorTier(creatorId, tier);
+        toast.success(`Stage updated to ${label}`);
+      } catch {
+        toast.error('Failed to update stage — please try again');
+      }
     });
   }
 
@@ -507,6 +529,7 @@ export default function CrmClient({ creators }: CrmClientProps) {
         accessorKey: 'tier',
         header: 'Stage',
         cell: ({ row }) => <TierChip tier={row.original.tier} />,
+        enableSorting: false,
         size: 130,
       },
       {
@@ -536,6 +559,7 @@ export default function CrmClient({ creators }: CrmClientProps) {
         id: 'followers',
         header: 'Followers',
         accessorFn: (row) => row.stats.followers,
+        enableSorting: false,
         size: 100,
       },
       {
@@ -695,8 +719,9 @@ export default function CrmClient({ creators }: CrmClientProps) {
         <div className="flex flex-wrap gap-2 mb-5">
           {FILTER_CHIPS.map((chip) => {
             const count =
-              chip.key === 'all'       ? stats.total
-              : chip.key === 'new'     ? stats.newCreators
+              chip.key === 'all'         ? stats.total
+              : chip.key === 'new'       ? stats.newCreators
+              : chip.key === 'top'       ? stats.topCreators
               : chip.key === 'recruiter' ? stats.recruiters
               : stats.staff;
             const active = tierFilter === chip.key;
