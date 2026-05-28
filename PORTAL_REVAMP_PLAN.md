@@ -88,7 +88,10 @@
 
 ## Phase 4 — Per-portal polish (3–4 days)
 
-### Creator Portal (`/portal/*`)
+### Creator Portal (`/portal/*`) — ✅ DONE (2026-05-28)
+
+> **As-built note:** ActivityRing uses `useInView` from `framer-motion` (not IntersectionObserver directly). LobbyClient ships a 4-section layout (hero tactical card, StatTile row, live-preview + approvals, upcoming + activity) rather than a pure 3-column grid — adapted to the actual data surface. dnd-kit sortable grid in CreativeStudio uses a separate drag-handle pattern (`GripVertical` button) to avoid click/drag conflict with the Dialog lightbox. `next/image` remotePatterns catch-all added to `next.config.ts`. `@dnd-kit/utilities` installed alongside core + sortable. See [PORTAL_REVAMP_EXECUTION.md](PORTAL_REVAMP_EXECUTION.md) PR #4 for full as-built notes.
+
 - Home becomes a **3-column momentum grid**: Today's stats (StatTiles) / Live floor preview / Inbox & approvals.
 - Replace existing ActivityRing with SVG ring animating from 0 on mount via Framer variants.
 - Creative Studio: asset grid with **dnd-kit** for drag-to-reorder, lightbox on click.
@@ -152,7 +155,7 @@ Every phase ships independently; no phase blocks on a later one.
 - [x] Phase 1 — Foundations (commit `85fa039`, pushed 2026-05-27; PR not yet merged)
 - [x] Phase 2 — Shared primitives (commit `4545480`, pushed 2026-05-27; PR not yet merged)
 - [x] Phase 3 — Shell modernization (commit `b215ffa`, pushed 2026-05-27 to `testing`; PR not yet merged)
-- [ ] Phase 4a — Creator Portal
+- [x] Phase 4a — Creator Portal (commit `3caff2e`, pushed 2026-05-28 to `testing`; PR not yet merged)
 - [ ] Phase 4b — CRM
 - [ ] Phase 4c — Recruiters
 - [ ] Phase 4d — Admin

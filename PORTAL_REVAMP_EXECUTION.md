@@ -262,11 +262,24 @@ Revert. Token system + primitives stay; portal pages still work with old shell.
 
 ---
 
-## PR #4 — Phase 4a: Creator Portal
+## PR #4 — Phase 4a: Creator Portal ✅ DONE (2026-05-28)
+
+**Status:** Committed `3caff2e` on `revamp/phase-4a-creator-portal`, pushed to `testing` (SATCORPG5/ptaph002). PR to open: https://github.com/SATCORPG5/ptaph002/pull/new/revamp/phase-4a-creator-portal. Build green; lint clean on all 8 touched files.
 
 **Goal:** Modernize `/portal/*` consumer-facing pages.
 
 **Branch:** `revamp/phase-4a-creator-portal`
+
+### What actually shipped (read before PR #5)
+- **8 files touched** (not 6 listed in plan). `next.config.ts` added `images.remotePatterns` (catch-all for `https://**` + `http://**`) required for `next/image` with dynamic user-provided URLs. `package.json`/`package-lock.json` updated for `@dnd-kit/core`, `@dnd-kit/sortable`, `@dnd-kit/utilities`.
+- **`ActivityRing.tsx` uses `useInView` from `framer-motion`** — animation deferred until element is in viewport (`once: true`). Pulse dot is gated on `inView` to prevent off-screen opacity flash. Uses `useRef<SVGSVGElement>` forwarded to the `<svg>` element.
+- **`LobbyClient.tsx` restructured into 4 sections:** (1) Hero `PortalCard tone="tactical"` with radial gradient `style` override + quick actions, (2) `StatTile` row (Followers, Peak CCV, Avg Watch, Total Likes), (3) 2-col grid: Live Floor preview + Approvals, (4) 2-col grid: Upcoming This Week + Agency Activity. `PortalCard.Header/.Body/.Footer` compound pattern used throughout.
+- **`CreativeStudioClient.tsx` uses dnd-kit with separate drag handle.** Pattern: `SortableVideoCard` sub-component with `useSortable`, card body click opens lightbox, separate `<button {...listeners}>` with `GripVertical` icon handles drag only (avoids click/drag conflict). `touch-none` on drag handle prevents mobile scroll interference. Dialog lightbox uses `className="bg-background-elevated border-foreground/10 text-foreground sm:max-w-2xl"` override (no `--color-popover` token exists).
+- **`LiveFloorClient.tsx` has `StatTile` row** — Total Viewers, Total Diamonds, Creators Live — rendered below the Who's Live grid as agency-wide live stats.
+- **`ProfilePortalClient.tsx` uses `next/image`** — `fill` layout inside `relative overflow-hidden` container, `unoptimized` (user-provided URLs), `placeholder="blur"` with hardcoded 1×1 PNG base64 `blurDataURL`. Preview container is `PortalCard` with `overflow-hidden aspect-[3/4]`.
+- **All 6 portal pages** (`home`, `creative-studio`, `collab-lounge`, `growth-academy`, `live-floor`, `profile`) use `PortalCard`, `SectionHeader` (with `eyebrow` + `description`), and `StatTile` where applicable. All section headings use `SectionHeader` — no hand-rolled headings.
+- **Lint fixes applied:** removed 4 unused lucide icon imports (`Calendar` from creative-studio, `GraduationCap` from growth-academy, `Star`/`Clock`/`Palette` from creative-studio, `X` from live-floor); fixed 4 `react/no-unescaped-entities` errors (apostrophes in JSX text nodes escaped to `&apos;`).
+- **Verified:** `npm run lint` clean; `npm run build` passes (62 pages, TypeScript OK). Authenticated browser preview blocked by auth-env (same limitation as PRs #1–#3).
 
 ### Pre-flight
 - PR #3 merged. Install: `npm i @dnd-kit/core @dnd-kit/sortable`.
@@ -468,7 +481,7 @@ Revert. Motion + skeletons remove cleanly; CI workflows can be disabled instead 
 | #1 | pushed 2026-05-27 (commit `85fa039`, not yet merged) | Teal token namespaced `portal-accent` (not `accent` — amber collision). shadcn `globals.css`/`layout.tsx`/`Button.tsx` overwrites reverted; `ui` alias → `src/components/shadcn-ui`. Lint guard className-scoped. `cn()` in `src/lib/utils.ts`. |
 | #2 | pushed 2026-05-27 (commit `4545480`, not yet merged) | Storybook 10 (nextjs-vite). Stories import from `@storybook/nextjs-vite` (not `@storybook/react`). `Slot` imported from `radix-ui` as `Slot.Root`. shadcn-ui/ has 11 components (button, command, dialog, dropdown-menu, sheet, tabs, tooltip, alert-dialog + input, input-group, textarea added as peer deps). One TanStack Table React Compiler warning in DataTable.tsx — unavoidable, accepted. |
 | #3 | pushed 2026-05-27 (commit `b215ffa`, not yet merged) | Search lifted to `nav-targets.ts`; ⌘K palette mounted globally in PortalShell (react-hotkeys-hook installed but unused — palette self-mounts listener). TopBar dropdowns → shadcn DropdownMenu (themed: no popover tokens exist, override classNames). useOptimistic mark-all-read + Intl.RelativeTimeFormat. Mobile sidebar → Sheet + new hamburger trigger (old overlay had no trigger). Sidebar persists to `pta:sidebar-expanded`, hover-expand rail, sections regrouped OPERATIONS/ACCOUNT/ADMIN. New StatusRail w/ 1s UTC clock. MotionConfig reducedMotion=user. Type bump 8-9px→10-11px. set-state-in-effect lint fixed via wrapper-fn pattern. Authenticated preview still blocked by auth-env (deferred, as in #1/#2). |
-| #4 | | |
+| #4 | pushed 2026-05-28 (commit `3caff2e`, not yet merged) | 8 files: ActivityRing useInView deferred animation; LobbyClient 4-section layout (hero, StatTile row, live-preview+approvals, upcoming+activity); CreativeStudioClient dnd-kit sortable grid + Dialog lightbox (separate drag-handle pattern; bg-background-elevated class override); LiveFloorClient StatTile row (live agency stats); ProfilePortalClient next/image (fill+unoptimized+blur placeholder). next.config.ts remotePatterns catch-all. @dnd-kit deps installed. All 6 portal pages use PortalCard+SectionHeader. 4 unescaped-entities errors + 4 unused icon imports fixed in lint pass. |
 | #5 | | |
 | #6 | | |
 | #7 | | |
