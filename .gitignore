@@ -67,3 +67,6 @@ Brand_Font_Guidelines.md
 # backup snapshots — should never be tracked
 BCKUP*/
 "BCKUP v3.1"/
+
+*storybook.log
+storybook-static
