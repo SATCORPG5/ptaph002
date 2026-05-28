@@ -7,6 +7,7 @@ import {
   indexUserSession,
   SESSION_COOKIE,
 } from '@/lib/auth';
+import { isUsingMockRedis } from '@/lib/redis';
 import { createToken } from '@/lib/auth/tokens';
 import { send2FACode } from '@/lib/auth/email';
 import { getCreatorsFromDb, updateCreatorInDb } from '@/lib/creators-db';
@@ -124,7 +125,17 @@ export async function GET(request: NextRequest) {
       maxAge: 60 * 60 * 24 * 7,
       path: '/',
     });
-    resp.cookies.delete('pta_creator_session');
+    if (isUsingMockRedis) {
+      resp.cookies.set('pta_creator_session', creator.id, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        maxAge: 60 * 60 * 24 * 7,
+        path: '/',
+      });
+    } else {
+      resp.cookies.delete('pta_creator_session');
+    }
     return resp;
 
   } catch (err) {

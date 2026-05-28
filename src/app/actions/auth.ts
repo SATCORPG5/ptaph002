@@ -93,8 +93,20 @@ export async function signInAction(handle: string, password: string) {
     maxAge: 60 * 60 * 24 * 7,
     path: '/',
   });
-  // Clear legacy cookie if present
-  cookieStore.delete('pta_creator_session');
+  // In mock/no-Redis mode the in-memory session store doesn't survive across
+  // serverless invocations, so fall back to the legacy creator-ID cookie which
+  // the middleware and getSession() can validate without a Redis lookup.
+  if (isUsingMockRedis) {
+    cookieStore.set('pta_creator_session', creator.id, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24 * 7,
+      path: '/',
+    });
+  } else {
+    cookieStore.delete('pta_creator_session');
+  }
 
   return { success: true, creatorId: creator.id };
   } catch (err) {
