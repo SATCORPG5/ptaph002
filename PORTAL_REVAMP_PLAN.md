@@ -59,7 +59,9 @@
 
 ---
 
-## Phase 3 — Shell modernization (2 days)
+## Phase 3 — Shell modernization (2 days) — ✅ DONE
+
+> **As-built note (2026-05-27):** Search lifted to `src/components/portal/nav-targets.ts`; `<CommandPalette>` mounted globally in `PortalShell` (⌘K via the palette's own listener — `react-hotkeys-hook` installed but unused). TopBar dropdowns → shadcn `DropdownMenu` with className overrides (no `popover`/`accent-foreground` tokens in this project). `useOptimistic` mark-all-read + `Intl.RelativeTimeFormat`. Mobile sidebar → shadcn `Sheet` with a new hamburger trigger. Sidebar persists to `localStorage` key `pta:sidebar-expanded`, hover-expand icon rail, sections regrouped OPERATIONS/ACCOUNT/ADMIN. New `StatusRail` w/ 1s UTC clock. Whole shell wrapped in `MotionConfig reducedMotion="user"`. See [PORTAL_REVAMP_EXECUTION.md](PORTAL_REVAMP_EXECUTION.md) PR #3 for the full as-built list.
 
 **Scope:** Refactor `PortalShell`, `TopBar`, `LeftSidebar`, `RightPanel`, `BottomNav`.
 
@@ -149,7 +151,7 @@ Every phase ships independently; no phase blocks on a later one.
 
 - [x] Phase 1 — Foundations (commit `85fa039`, pushed 2026-05-27; PR not yet merged)
 - [x] Phase 2 — Shared primitives (commit `4545480`, pushed 2026-05-27; PR not yet merged)
-- [ ] Phase 3 — Shell modernization
+- [x] Phase 3 — Shell modernization (committed 2026-05-27 on `revamp/phase-3-shell`; PR not yet merged)
 - [ ] Phase 4a — Creator Portal
 - [ ] Phase 4b — CRM
 - [ ] Phase 4c — Recruiters

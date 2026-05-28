@@ -37,7 +37,7 @@ export function BottomNav() {
                   className={`transition-colors ${isActive ? 'text-portal-accent' : 'text-white/25'}`}
                 />
                 <span
-                  className={`text-[9px] font-bold transition-colors ${isActive ? 'text-portal-accent' : 'text-white/20'}`}
+                  className={`text-[11px] font-bold transition-colors ${isActive ? 'text-portal-accent' : 'text-white/20'}`}
                 >
                   {item.label}
                 </span>

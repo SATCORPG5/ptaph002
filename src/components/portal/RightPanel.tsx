@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
-import { X, Radio, Users, Calendar, Ticket, TrendingUp, Bell } from 'lucide-react';
+import { X, Radio, Users, Ticket, Bell } from 'lucide-react';
 
 type IconProps = { size?: number; className?: string };
 type IconComponent = React.ComponentType<IconProps>;
@@ -24,13 +24,13 @@ function LiveFloorPanel() {
         <div key={c.name} className="flex items-center gap-3 p-3 rounded-xl bg-foreground/[0.03] border border-foreground/[0.05] hover:border-portal-accent/20 transition-colors">
           <div className="relative flex-shrink-0">
             <div className="w-8 h-8 rounded-full bg-portal-accent/10 border border-portal-accent/20 flex items-center justify-center">
-              <span className="text-[9px] font-black text-portal-accent">{c.name.charAt(0)}</span>
+              <span className="font-mono text-[10px] font-black text-portal-accent">{c.name.charAt(0)}</span>
             </div>
             <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-red-500 rounded-full border border-background-surface animate-pulse" />
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-xs font-bold text-foreground truncate">{c.name}</p>
-            <p className="text-[9px] text-foreground/30">{c.viewers} viewers Â· {c.duration}</p>
+            <p className="text-[11px] text-foreground/30">{c.viewers} viewers · {c.duration}</p>
           </div>
         </div>
       ))}
@@ -50,11 +50,11 @@ function CollabPanel() {
         <div key={r.name} className="p-3 rounded-xl bg-foreground/[0.03] border border-foreground/[0.05]">
           <div className="flex items-center justify-between mb-1">
             <p className="text-xs font-bold text-foreground">{r.name}</p>
-            <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 rounded-full ${
+            <span className={`font-mono text-[10px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full ${
               r.status === 'open' ? 'bg-portal-accent/10 text-portal-accent' : 'bg-foreground/5 text-foreground/30'
             }`}>{r.status}</span>
           </div>
-          <p className="text-[9px] text-foreground/30">{r.niche}</p>
+          <p className="text-[11px] text-foreground/30">{r.niche}</p>
         </div>
       ))}
     </div>
@@ -73,12 +73,12 @@ function AgencyOpsPanel() {
         <div key={t.title} className="p-3 rounded-xl bg-foreground/[0.03] border border-foreground/[0.05]">
           <p className="text-xs font-bold text-foreground mb-1 leading-tight">{t.title}</p>
           <div className="flex items-center gap-2">
-            <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 rounded-full ${
+            <span className={`font-mono text-[10px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full ${
               t.priority === 'high' ? 'bg-red-500/10 text-red-400'
               : t.priority === 'medium' ? 'bg-amber-500/10 text-amber-400'
               : 'bg-foreground/5 text-foreground/30'
             }`}>{t.priority}</span>
-            <span className="text-[8px] font-bold text-foreground/25 capitalize">{t.status}</span>
+            <span className="text-[11px] font-bold text-foreground/25 capitalize">{t.status}</span>
           </div>
         </div>
       ))}
@@ -97,7 +97,7 @@ function DefaultPanel() {
       {announcements.map((a, i) => (
         <div key={i} className="p-3 rounded-xl bg-foreground/[0.03] border border-foreground/[0.05]">
           <p className="text-xs text-foreground/60 leading-relaxed">{a.text}</p>
-          <p className="text-[9px] text-foreground/20 mt-1.5 font-bold">{a.time}</p>
+          <p className="text-[11px] text-foreground/20 mt-1.5 font-bold">{a.time}</p>
         </div>
       ))}
     </div>

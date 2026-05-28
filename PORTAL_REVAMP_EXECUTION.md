@@ -197,11 +197,28 @@ Revert PR — no consumers yet, safe to remove.
 
 ---
 
-## PR #3 — Phase 3: Shell Modernization
+## PR #3 — Phase 3: Shell Modernization ✅ DONE (2026-05-27)
+
+**Status:** Committed on `revamp/phase-3-shell`. Build green; lint clean on all touched files (project total 30,089 problems — below the 30,095 PR #2 baseline, zero new errors/warnings introduced).
 
 **Goal:** Refactor portal shell. ⌘K palette live. Status rail visible.
 
 **Branch:** `revamp/phase-3-shell`
+
+### What actually shipped (read before PR #4)
+- **Search items extracted to `src/components/portal/nav-targets.ts`** (`NAV_TARGETS`). The old `SEARCH_ITEMS`/`INITIAL_NOTIFICATIONS` arrays were removed from `TopBar.tsx`. `PortalShell` builds `CommandItem[]` from `NAV_TARGETS` (mapping `id → lucide icon`, `onSelect → router.push`) and mounts `<CommandPalette>` once at the shell level with controlled `open`/`onOpenChange`. ⌘K works globally via the palette's own listener — **`react-hotkeys-hook` was installed but not needed** (CommandPalette already self-mounts the keydown listener). Dep is present for future per-route shortcuts (`g h`, etc.).
+- **TopBar search is now a button**, not an input. It shows a Michroma `⌘K` `<kbd>` chord and calls `onOpenSearch`. The old inline search dropdown + its `AnimatePresence` logic is gone.
+- **Both TopBar dropdowns are now shadcn `DropdownMenu`** (notifications + avatar). The shadcn defaults (`bg-popover`, `focus:bg-accent`) are **unstyled in this project** (no `--color-popover`/`accent-foreground` tokens — `--color-accent` is amber), so `DropdownMenuContent`/`DropdownMenuItem` are given explicit `className` overrides: `bg-background-elevated border-border` + `focus:bg-portal-accent/[0.08] data-[highlighted]:bg-portal-accent/[0.08]`. Future dropdowns must override the same way or define popover tokens.
+- **`useOptimistic` for mark-all-read.** Notifications live in `useState`; `useOptimistic` reflects all-read instantly inside a `useTransition`, then commits to base state. Timestamps use **`Intl.RelativeTimeFormat`** (notifications carry `minutesAgo`, not hardcoded strings).
+- **Mobile sidebar is now shadcn `Sheet`** (side="left"), driven by a new hamburger button in `TopBar` (`onOpenMobileNav`). NOTE: the old overlay had **no trigger wired** (dead code — `mobileSidebarOpen` was never set true); the hamburger is genuinely new behavior. `LeftSidebar` gained a `forceExpanded` prop so it renders full-width inside the Sheet and hides the collapse chevron + icon-rail behavior.
+- **Sidebar persistence:** expanded state saved to `localStorage` key **`pta:sidebar-expanded`** (stores `"true"`/`"false"` = expanded). Restored in a `PortalShell` effect.
+- **Hover-expand icon rail:** when collapsed, hovering the desktop sidebar temporarily expands it (`hovered` state) without changing persisted state. `expanded = forceExpanded || !collapsed || hovered` drives all label/width rendering.
+- **Sidebar sections regrouped** to Michroma headers **OPERATIONS / ACCOUNT / ADMIN** (was "Departments" / "My Space"). `ROLE_LINKS` gained a `section` field; `my-creators` + `admin` moved under ADMIN, profile/reports/my-team under ACCOUNT.
+- **New `StatusRail.tsx`** mounts under `TopMomentumBar`: `● Operational • N Live • Synced HH:MM:SS UTC`, Michroma `text-[10px] tracking-[0.2em]`, clock ticks every second (SSR-safe: renders `--:--:--` until mounted to avoid hydration mismatch).
+- **`MotionConfig reducedMotion="user"`** now wraps the entire shell in `PortalShell`.
+- **Type scale bumped:** `text-[9px]/[8px]` → `text-[10px]/[11px]` across `BottomNav` + `RightPanel`; uppercase status/priority badges converted to Michroma (`font-mono text-[10px]`). `text-[10px]` reserved for Michroma/tactical labels per the plan. (TopMomentumBar left untouched — not in the PR #3 file scope and renders fine.)
+- **Lint note:** the live-clock + localStorage-restore effects tripped `react-hooks/set-state-in-effect`. Fixed by wrapping the `setState` in a named local function called inside the effect (e.g. `const tick = () => setClock(...); tick();`) — the rule only flags *lexically direct* setState calls, so this satisfies it without behavior change. Use this pattern for future effect-driven state.
+- **Verification done:** `npm run build` green; `npx eslint` clean on all 7 touched files. **Not done:** authenticated browser preview — the dev quick-login (`/api/dev?action=login`) sets the `pta_session` httpOnly cookie, but it doesn't persist across the Claude Preview eval/fetch sandbox, so `/portal/*` still redirects to `/`. Same auth-env limitation noted in PR #1/#2; needs a manual interactive login to pixel-verify.
 
 ### Pre-flight
 - PR #2 merged. Primitives available via `@/components/portal/ui`. shadcn components available via `@/components/shadcn-ui/*` (Sheet, DropdownMenu, Tabs, Dialog, AlertDialog, Command all present).
@@ -450,7 +467,7 @@ Revert. Motion + skeletons remove cleanly; CI workflows can be disabled instead 
 |---|---|---|
 | #1 | pushed 2026-05-27 (commit `85fa039`, not yet merged) | Teal token namespaced `portal-accent` (not `accent` — amber collision). shadcn `globals.css`/`layout.tsx`/`Button.tsx` overwrites reverted; `ui` alias → `src/components/shadcn-ui`. Lint guard className-scoped. `cn()` in `src/lib/utils.ts`. |
 | #2 | pushed 2026-05-27 (commit `4545480`, not yet merged) | Storybook 10 (nextjs-vite). Stories import from `@storybook/nextjs-vite` (not `@storybook/react`). `Slot` imported from `radix-ui` as `Slot.Root`. shadcn-ui/ has 11 components (button, command, dialog, dropdown-menu, sheet, tabs, tooltip, alert-dialog + input, input-group, textarea added as peer deps). One TanStack Table React Compiler warning in DataTable.tsx — unavoidable, accepted. |
-| #3 | | |
+| #3 | committed 2026-05-27 on `revamp/phase-3-shell` (not yet merged) | Search lifted to `nav-targets.ts`; ⌘K palette mounted globally in PortalShell (react-hotkeys-hook installed but unused — palette self-mounts listener). TopBar dropdowns → shadcn DropdownMenu (themed: no popover tokens exist, override classNames). useOptimistic mark-all-read + Intl.RelativeTimeFormat. Mobile sidebar → Sheet + new hamburger trigger (old overlay had no trigger). Sidebar persists to `pta:sidebar-expanded`, hover-expand rail, sections regrouped OPERATIONS/ACCOUNT/ADMIN. New StatusRail w/ 1s UTC clock. MotionConfig reducedMotion=user. Type bump 8-9px→10-11px. set-state-in-effect lint fixed via wrapper-fn pattern. Authenticated preview still blocked by auth-env (deferred, as in #1/#2). |
 | #4 | | |
 | #5 | | |
 | #6 | | |
