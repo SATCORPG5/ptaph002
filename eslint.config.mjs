@@ -13,6 +13,29 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  // Block raw portal brand hex (#14B8A6 teal, #080812 surface) inside JSX
+  // className attributes. Tokens live in globals.css; use bg-portal-accent /
+  // bg-portal-surface-1 (and variants) instead.
+  {
+    files: ["src/components/**/*.{ts,tsx}", "src/app/**/*.{ts,tsx}"],
+    rules: {
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector:
+            "JSXAttribute[name.name='className'] Literal[value=/#(14B8A6|080812)/i]",
+          message:
+            "Raw portal brand hex (#14B8A6 / #080812) is banned in className. Use bg-portal-accent / bg-portal-surface-1 (or text-/border-/from-/to- variants).",
+        },
+        {
+          selector:
+            "JSXAttribute[name.name='className'] TemplateElement[value.raw=/#(14B8A6|080812)/i]",
+          message:
+            "Raw portal brand hex (#14B8A6 / #080812) is banned in className templates. Use bg-portal-accent / bg-portal-surface-1.",
+        },
+      ],
+    },
+  },
 ]);
 
 export default eslintConfig;

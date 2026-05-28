@@ -29,15 +29,15 @@ export function BottomNav() {
                 {isActive && (
                   <motion.div
                     layoutId="bottom-nav-active"
-                    className="absolute top-0 left-2 right-2 h-0.5 bg-[#14B8A6] rounded-full"
+                    className="absolute top-0 left-2 right-2 h-0.5 bg-portal-accent rounded-full"
                   />
                 )}
                 <Icon
                   size={20}
-                  className={`transition-colors ${isActive ? 'text-[#14B8A6]' : 'text-white/25'}`}
+                  className={`transition-colors ${isActive ? 'text-portal-accent' : 'text-white/25'}`}
                 />
                 <span
-                  className={`text-[9px] font-bold transition-colors ${isActive ? 'text-[#14B8A6]' : 'text-white/20'}`}
+                  className={`text-[9px] font-bold transition-colors ${isActive ? 'text-portal-accent' : 'text-white/20'}`}
                 >
                   {item.label}
                 </span>

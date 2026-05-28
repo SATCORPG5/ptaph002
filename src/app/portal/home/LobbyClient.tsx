@@ -15,7 +15,7 @@ interface LobbyClientProps {
   creator: Creator;
 }
 
-// Maps dept name → portal route
+// Maps dept name â†’ portal route
 const DEPT_ROUTES: Record<string, string> = {
   'Collab Lounge':   '/portal/collab-lounge',
   'Growth Academy':  '/portal/growth-academy',
@@ -70,11 +70,11 @@ export function LobbyClient({ creator }: LobbyClientProps) {
   return (
     <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 
-      {/* ─── HERO WELCOME ─── */}
+      {/* â”€â”€â”€ HERO WELCOME â”€â”€â”€ */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative overflow-hidden rounded-3xl p-8 md:p-10 border border-[#14B8A6]/10"
+        className="relative overflow-hidden rounded-3xl p-8 md:p-10 border border-portal-accent/10"
         style={{
           background: 'linear-gradient(135deg, rgba(20,184,166,0.08) 0%, var(--color-background) 50%, rgba(14,165,233,0.05) 100%)',
         }}
@@ -86,7 +86,7 @@ export function LobbyClient({ creator }: LobbyClientProps) {
           {/* Top row: greeting + stats */}
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
             <div className="flex-1">
-              <p className="text-[#14B8A6]/70 text-sm font-bold uppercase tracking-[0.15em] mb-2">{greeting}</p>
+              <p className="text-portal-accent/70 text-sm font-bold uppercase tracking-[0.15em] mb-2">{greeting}</p>
               <h1 className="text-3xl md:text-4xl font-black text-foreground tracking-tight">
                 {creator.name}
               </h1>
@@ -137,8 +137,8 @@ export function LobbyClient({ creator }: LobbyClientProps) {
 
         {/* Status badges */}
         <div className="relative z-10 flex flex-wrap gap-2 mt-6">
-          <span className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider px-3 py-1.5 rounded-full bg-[#14B8A6]/10 border border-[#14B8A6]/20 text-[#14B8A6]">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#14B8A6] animate-pulse" />
+          <span className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider px-3 py-1.5 rounded-full bg-portal-accent/10 border border-portal-accent/20 text-portal-accent">
+            <div className="w-1.5 h-1.5 rounded-full bg-portal-accent animate-pulse" />
             Portal Active
           </span>
           <span className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider px-3 py-1.5 rounded-full bg-foreground/5 border border-foreground/10 text-foreground/50 capitalize">
@@ -152,7 +152,7 @@ export function LobbyClient({ creator }: LobbyClientProps) {
         </div>
       </motion.div>
 
-      {/* ─── BOTTOM ROW: UPCOMING + ACTIVITY ─── */}
+      {/* â”€â”€â”€ BOTTOM ROW: UPCOMING + ACTIVITY â”€â”€â”€ */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
         {/* Upcoming This Week */}
@@ -173,26 +173,26 @@ export function LobbyClient({ creator }: LobbyClientProps) {
                 <Link
                   key={i}
                   href={href}
-                  className="group flex items-start gap-4 p-3 rounded-xl bg-foreground/[0.02] border border-foreground/[0.04] hover:border-[#14B8A6]/30 hover:bg-[#14B8A6]/[0.03] transition-all duration-200 cursor-pointer"
+                  className="group flex items-start gap-4 p-3 rounded-xl bg-foreground/[0.02] border border-foreground/[0.04] hover:border-portal-accent/30 hover:bg-portal-accent/[0.03] transition-all duration-200 cursor-pointer"
                 >
                   <div className="w-8 h-8 rounded-lg bg-foreground/[0.04] border border-foreground/[0.06] group-hover:border-foreground/[0.12] flex items-center justify-center flex-shrink-0 transition-colors">
                     {event.type === 'battle'    && <Award      size={14} className="text-amber-400" />}
-                    {event.type === 'challenge' && <TrendingUp size={14} className="text-[#14B8A6]" />}
+                    {event.type === 'challenge' && <TrendingUp size={14} className="text-portal-accent" />}
                     {event.type === 'meeting'   && <Users      size={14} className="text-[#0EA5E9]" />}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-bold text-foreground truncate group-hover:text-[#14B8A6] transition-colors">{event.title}</p>
+                    <p className="text-xs font-bold text-foreground truncate group-hover:text-portal-accent transition-colors">{event.title}</p>
                     <p className="text-[9px] text-foreground/25 mt-0.5">{event.dept}</p>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
                     <span className="text-[9px] font-black text-foreground/30">{event.time}</span>
-                    <ArrowRight size={10} className="text-foreground/20 group-hover:text-[#14B8A6] transition-colors" />
+                    <ArrowRight size={10} className="text-foreground/20 group-hover:text-portal-accent transition-colors" />
                   </div>
                 </Link>
               );
             })}
           </div>
-          <Link href="/portal/collab-lounge" className="mt-4 flex items-center gap-2 text-[10px] font-black text-[#14B8A6]/60 hover:text-[#14B8A6] transition-colors">
+          <Link href="/portal/collab-lounge" className="mt-4 flex items-center gap-2 text-[10px] font-black text-portal-accent/60 hover:text-portal-accent transition-colors">
             View full calendar <ArrowRight size={10} />
           </Link>
         </motion.div>

@@ -73,7 +73,7 @@ export function LeftSidebar({ creator, collapsed, onCollapse, onSignOut }: LeftS
               className="flex-1 min-w-0"
             >
               <p className="text-xs font-black text-foreground uppercase tracking-widest truncate">Peace Time</p>
-              <p className="text-[9px] font-bold text-[#14B8A6]/70 uppercase tracking-wider">Agency Portal</p>
+              <p className="text-[9px] font-bold text-portal-accent/70 uppercase tracking-wider">Agency Portal</p>
             </motion.div>
           ) : (
             <motion.div
@@ -81,9 +81,9 @@ export function LeftSidebar({ creator, collapsed, onCollapse, onSignOut }: LeftS
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="w-6 h-6 rounded bg-[#14B8A6]/10 border border-[#14B8A6]/20 flex items-center justify-center mx-auto"
+              className="w-6 h-6 rounded bg-portal-accent/10 border border-portal-accent/20 flex items-center justify-center mx-auto"
             >
-              <span className="text-[10px] font-black text-[#14B8A6]">P</span>
+              <span className="text-[10px] font-black text-portal-accent">P</span>
             </motion.div>
           )}
         </AnimatePresence>
@@ -113,7 +113,7 @@ export function LeftSidebar({ creator, collapsed, onCollapse, onSignOut }: LeftS
                   whileHover={{ x: collapsed ? 0 : 2 }}
                   className={`flex items-center gap-3 py-2.5 rounded-xl mb-0.5 cursor-pointer transition-all group relative ${collapsed ? 'justify-center px-2' : 'px-3'} ${
                     isActive
-                      ? 'bg-[#14B8A6]/10 border border-[#14B8A6]/20 text-foreground'
+                      ? 'bg-portal-accent/10 border border-portal-accent/20 text-foreground'
                       : 'text-foreground/40 hover:text-foreground/80 hover:bg-foreground/[0.04]'
                   }`}
                 >
@@ -121,11 +121,11 @@ export function LeftSidebar({ creator, collapsed, onCollapse, onSignOut }: LeftS
                   {isActive && (
                     <motion.div
                       layoutId="active-dept"
-                      className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-[#14B8A6] rounded-full"
+                      className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-portal-accent rounded-full"
                     />
                   )}
 
-                  <Icon size={16} className={`flex-shrink-0 ${isActive ? 'text-[#14B8A6]' : ''}`} />
+                  <Icon size={16} className={`flex-shrink-0 ${isActive ? 'text-portal-accent' : ''}`} />
 
                   {!collapsed && (
                     <>
@@ -138,7 +138,7 @@ export function LeftSidebar({ creator, collapsed, onCollapse, onSignOut }: LeftS
                   {collapsed && (
                     <div className="absolute left-full ml-2 bg-background-elevated border border-border rounded-lg px-2.5 py-1.5 text-xs font-bold text-foreground whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 shadow-xl">
                       {dept.label}
-                      <div className="text-[9px] text-[#14B8A6] mt-0.5">{dept.activity}% activity</div>
+                      <div className="text-[9px] text-portal-accent mt-0.5">{dept.activity}% activity</div>
                     </div>
                   )}
                 </motion.div>
@@ -163,12 +163,12 @@ export function LeftSidebar({ creator, collapsed, onCollapse, onSignOut }: LeftS
                     className={`flex items-center gap-3 py-2.5 rounded-xl mb-0.5 cursor-pointer transition-all group relative ${collapsed ? 'justify-center px-2' : 'px-3'} ${
                       isActive
                         ? isTeamLink
-                          ? 'bg-[#14B8A6]/10 border border-[#14B8A6]/20 text-foreground'
+                          ? 'bg-portal-accent/10 border border-portal-accent/20 text-foreground'
                           : 'bg-foreground/[0.06] border border-foreground/10 text-foreground'
                         : 'text-foreground/30 hover:text-foreground/70 hover:bg-foreground/[0.03]'
                     }`}
                   >
-                    <Icon size={16} className={`flex-shrink-0 ${isActive && isTeamLink ? 'text-[#14B8A6]' : ''}`} />
+                    <Icon size={16} className={`flex-shrink-0 ${isActive && isTeamLink ? 'text-portal-accent' : ''}`} />
                     {!collapsed && <span className="flex-1 text-sm font-semibold truncate">{link.label}</span>}
                     {collapsed && (
                       <div className="absolute left-full ml-2 bg-background-elevated border border-border rounded-lg px-2.5 py-1.5 text-xs font-bold text-foreground whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 shadow-xl">
@@ -186,8 +186,8 @@ export function LeftSidebar({ creator, collapsed, onCollapse, onSignOut }: LeftS
       {/* Footer */}
       <div className="border-t border-foreground/[0.05] px-2 py-3 flex-shrink-0">
         <div className={`flex items-center gap-3 px-3 py-2 rounded-xl mb-1 ${collapsed ? 'justify-center' : ''}`}>
-          <div className="w-7 h-7 rounded-full bg-[#14B8A6]/20 border border-[#14B8A6]/30 flex items-center justify-center flex-shrink-0">
-            <span className="text-[10px] font-black text-[#14B8A6] uppercase">
+          <div className="w-7 h-7 rounded-full bg-portal-accent/20 border border-portal-accent/30 flex items-center justify-center flex-shrink-0">
+            <span className="text-[10px] font-black text-portal-accent uppercase">
               {creator.name.charAt(0)}
             </span>
           </div>

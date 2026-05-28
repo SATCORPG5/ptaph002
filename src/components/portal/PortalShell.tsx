@@ -37,7 +37,7 @@ export function PortalShell({ creator, children }: PortalShellProps) {
   return (
     <div className="pta-portal fixed inset-0 flex flex-col bg-background overflow-hidden" style={{ paddingTop: 0 }}>
 
-      {/* ─── TOP BAR ─── */}
+      {/* â”€â”€â”€ TOP BAR â”€â”€â”€ */}
       <TopBar
         creator={creator}
         onSignOut={handleSignOut}
@@ -45,10 +45,10 @@ export function PortalShell({ creator, children }: PortalShellProps) {
         onRightPanelToggle={() => setRightPanelOpen(!rightPanelOpen)}
       />
 
-      {/* ─── MOMENTUM BAR ─── */}
+      {/* â”€â”€â”€ MOMENTUM BAR â”€â”€â”€ */}
       <TopMomentumBar activeStage={3} livePosts={47} liveCollabs={12} activeCreators={28} />
 
-      {/* ─── MAIN AREA ─── */}
+      {/* â”€â”€â”€ MAIN AREA â”€â”€â”€ */}
       <div className="flex flex-1 overflow-hidden">
 
         {/* Left Sidebar (desktop) */}
@@ -82,7 +82,7 @@ export function PortalShell({ creator, children }: PortalShellProps) {
           {/* Right panel toggle button (desktop) */}
           <button
             onClick={() => setRightPanelOpen(!rightPanelOpen)}
-            className={`hidden lg:flex fixed right-0 top-[104px] z-20 w-6 h-12 items-center justify-center bg-[#080812] border-l border-t border-b border-white/[0.05] rounded-l-lg text-white/20 hover:text-[#14B8A6] transition-colors ${rightPanelOpen ? 'opacity-0 pointer-events-none' : ''}`}
+            className={`hidden lg:flex fixed right-0 top-[104px] z-20 w-6 h-12 items-center justify-center bg-portal-surface-1 border-l border-t border-b border-white/[0.05] rounded-l-lg text-white/20 hover:text-portal-accent transition-colors ${rightPanelOpen ? 'opacity-0 pointer-events-none' : ''}`}
           >
             <PanelRight size={12} />
           </button>

@@ -124,7 +124,7 @@ export function Navigation() {
                 <Link href="/apply"><Button className="hidden sm:inline-flex rounded-lg px-5 h-9 font-semibold text-sm bg-primary hover:bg-primary-dark text-white transition-all duration-200 hover:shadow-neon-primary">Join the Roster</Button></Link>
                 {session ? (
                   <Link href={getPortalUrl(session)}>
-                    <Button className="hidden sm:inline-flex rounded-lg px-5 h-9 font-semibold text-sm bg-[#14B8A6] hover:bg-[#0ea5e9] text-white transition-all duration-200">
+                    <Button className="hidden sm:inline-flex rounded-lg px-5 h-9 font-semibold text-sm bg-portal-accent hover:bg-[#0ea5e9] text-white transition-all duration-200">
                       My Portal
                     </Button>
                   </Link>
@@ -182,7 +182,7 @@ export function Navigation() {
                   </Link>
                   {session ? (
                     <Link href={getPortalUrl(session)} onClick={() => setMobileMenuOpen(false)}>
-                      <Button className="w-full rounded-lg h-10 font-semibold text-sm bg-[#14B8A6] hover:bg-[#0ea5e9] text-white transition-all duration-200">
+                      <Button className="w-full rounded-lg h-10 font-semibold text-sm bg-portal-accent hover:bg-[#0ea5e9] text-white transition-all duration-200">
                         My Portal
                       </Button>
                     </Link>

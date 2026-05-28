@@ -39,7 +39,7 @@ const PRIORITY_COLORS: Record<string, string> = {
   low: 'text-foreground/40 bg-foreground/5 border-foreground/10',
 };
 const STATUS_COLORS: Record<string, string> = {
-  open: 'text-[#14B8A6] bg-[#14B8A6]/10 border-[#14B8A6]/20',
+  open: 'text-portal-accent bg-portal-accent/10 border-portal-accent/20',
   'in-review': 'text-blue-400 bg-blue-500/10 border-blue-500/20',
   resolved: 'text-foreground/30 bg-foreground/5 border-foreground/10',
 };
@@ -81,7 +81,7 @@ export function AgencyOpsClient() {
         ))}
       </div>
 
-      {/* ─── ANNOUNCEMENTS ─── */}
+      {/* â”€â”€â”€ ANNOUNCEMENTS â”€â”€â”€ */}
       {activeTab === 0 && (
         <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-3 max-w-2xl">
           {ANNOUNCEMENTS.map(ann => (
@@ -100,7 +100,7 @@ export function AgencyOpsClient() {
                     <span className="text-[8px] font-bold px-1.5 py-0.5 rounded bg-foreground/5 text-foreground/30">{ann.category}</span>
                   </div>
                   <p className="text-sm font-black text-foreground">{ann.title}</p>
-                  <p className="text-[9px] text-foreground/25 mt-1">{ann.author} · {ann.time}</p>
+                  <p className="text-[9px] text-foreground/25 mt-1">{ann.author} Â· {ann.time}</p>
                 </div>
                 <ChevronDown size={14} className={`text-foreground/20 flex-shrink-0 transition-transform mt-1 ${expanded === ann.id ? 'rotate-180' : ''}`} />
               </button>
@@ -123,7 +123,7 @@ export function AgencyOpsClient() {
         </motion.div>
       )}
 
-      {/* ─── RESOURCES ─── */}
+      {/* â”€â”€â”€ RESOURCES â”€â”€â”€ */}
       {activeTab === 1 && (
         <motion.div variants={stagger} initial="hidden" animate="show" className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
           {RESOURCES.map((r, i) => (
@@ -134,7 +134,7 @@ export function AgencyOpsClient() {
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-bold text-foreground group-hover:text-foreground truncate">{r.title}</p>
-                <p className="text-[9px] text-foreground/25 mt-0.5">{r.type} · {r.size}</p>
+                <p className="text-[9px] text-foreground/25 mt-0.5">{r.type} Â· {r.size}</p>
               </div>
               <span className="text-[8px] font-black uppercase px-2 py-0.5 rounded-full bg-foreground/5 text-foreground/30 flex-shrink-0">{r.category}</span>
             </motion.div>
@@ -142,19 +142,19 @@ export function AgencyOpsClient() {
         </motion.div>
       )}
 
-      {/* ─── CHARITY ─── */}
+      {/* â”€â”€â”€ CHARITY â”€â”€â”€ */}
       {activeTab === 2 && (
         <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-4 max-w-2xl">
           {CHARITY.map((c, i) => {
             const pct = Math.round((parseFloat(c.raised.replace(/[$,]/g, '')) / parseFloat(c.goal.replace(/[$,]/g, ''))) * 100);
             return (
               <motion.div key={i} variants={fadeUp}
-                className={`rounded-2xl border p-6 ${c.active ? 'border-[#14B8A6]/20 bg-[#14B8A6]/[0.03]' : 'border-foreground/[0.05] bg-foreground/[0.01] opacity-70'}`}>
+                className={`rounded-2xl border p-6 ${c.active ? 'border-portal-accent/20 bg-portal-accent/[0.03]' : 'border-foreground/[0.05] bg-foreground/[0.01] opacity-70'}`}>
                 <div className="flex items-start justify-between mb-4">
                   <div>
                     <div className="flex items-center gap-2 mb-2">
-                      <Heart size={14} className={c.active ? 'text-[#14B8A6]' : 'text-foreground/20'} />
-                      {c.active && <span className="text-[8px] font-black text-[#14B8A6] uppercase tracking-wider">Active</span>}
+                      <Heart size={14} className={c.active ? 'text-portal-accent' : 'text-foreground/20'} />
+                      {c.active && <span className="text-[8px] font-black text-portal-accent uppercase tracking-wider">Active</span>}
                     </div>
                     <h3 className="text-sm font-black text-foreground">{c.title}</h3>
                   </div>
@@ -165,14 +165,14 @@ export function AgencyOpsClient() {
                 </div>
                 <div className="h-2 rounded-full bg-foreground/[0.05] overflow-hidden mb-2">
                   <motion.div
-                    className="h-full bg-gradient-to-r from-[#14B8A6] to-[#0EA5E9] rounded-full"
+                    className="h-full bg-gradient-to-r from-portal-accent to-[#0EA5E9] rounded-full"
                     initial={{ width: 0 }}
                     animate={{ width: `${Math.min(pct, 100)}%` }}
                     transition={{ duration: 0.8 }}
                   />
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-black text-[#14B8A6]">{pct}% raised</span>
+                  <span className="text-[10px] font-black text-portal-accent">{pct}% raised</span>
                   <span className="text-[9px] text-foreground/25">Ends {c.deadline}</span>
                 </div>
               </motion.div>
@@ -181,7 +181,7 @@ export function AgencyOpsClient() {
         </motion.div>
       )}
 
-      {/* ─── TICKETS ─── */}
+      {/* â”€â”€â”€ TICKETS â”€â”€â”€ */}
       {activeTab === 3 && (
         <motion.div variants={stagger} initial="hidden" animate="show" className="max-w-2xl">
           <div className="flex items-center justify-between mb-5">
@@ -197,7 +197,7 @@ export function AgencyOpsClient() {
                 className="flex items-start gap-4 p-4 rounded-2xl border border-foreground/[0.06] bg-foreground/[0.02] hover:border-foreground/[0.1] transition-all">
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold text-foreground mb-1">{t.title}</p>
-                  <p className="text-[9px] text-foreground/25">{t.creator} · {t.time}</p>
+                  <p className="text-[9px] text-foreground/25">{t.creator} Â· {t.time}</p>
                 </div>
                 <div className="flex items-center gap-2 flex-shrink-0">
                   <span className={`text-[8px] font-black uppercase px-2 py-0.5 rounded-full border ${PRIORITY_COLORS[t.priority]}`}>{t.priority}</span>

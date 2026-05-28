@@ -72,8 +72,8 @@ export function MyCreatorsClient({ manager, creators }: MyCreatorsClientProps) {
 
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-4">
-        <div className="w-10 h-10 rounded-2xl bg-[#14B8A6]/10 border border-[#14B8A6]/20 flex items-center justify-center">
-          <UserCheck size={20} className="text-[#14B8A6]" />
+        <div className="w-10 h-10 rounded-2xl bg-portal-accent/10 border border-portal-accent/20 flex items-center justify-center">
+          <UserCheck size={20} className="text-portal-accent" />
         </div>
         <div>
           <h1 className="text-2xl font-black text-foreground tracking-tight">My Creators</h1>
@@ -93,7 +93,7 @@ export function MyCreatorsClient({ manager, creators }: MyCreatorsClientProps) {
                   <p className="text-xs text-foreground/40 leading-relaxed italic">"{req.message}"</p>
                 </div>
                 <div className="flex gap-2 flex-shrink-0">
-                  <button className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#14B8A6]/10 border border-[#14B8A6]/20 text-[#14B8A6] text-xs font-black hover:bg-[#14B8A6]/20 transition-all">
+                  <button className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-portal-accent/10 border border-portal-accent/20 text-portal-accent text-xs font-black hover:bg-portal-accent/20 transition-all">
                     <Check size={13} /> Accept
                   </button>
                   <button className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-black hover:bg-red-500/20 transition-all">
@@ -113,17 +113,17 @@ export function MyCreatorsClient({ manager, creators }: MyCreatorsClientProps) {
           <div className="relative">
             <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/25" />
             <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search creators..."
-              className="pl-8 pr-4 py-2 bg-foreground/[0.04] border border-foreground/[0.08] rounded-xl text-xs text-foreground placeholder-foreground/20 outline-none focus:border-[#14B8A6]/30 w-48" />
+              className="pl-8 pr-4 py-2 bg-foreground/[0.04] border border-foreground/[0.08] rounded-xl text-xs text-foreground placeholder-foreground/20 outline-none focus:border-portal-accent/30 w-48" />
           </div>
         </div>
 
         <motion.div variants={stagger} initial="hidden" animate="show" className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filtered.map(creator => (
             <motion.div key={creator.id} variants={fadeUp}
-              className="rounded-2xl border border-foreground/[0.06] bg-foreground/[0.02] p-5 hover:border-[#14B8A6]/15 transition-all">
+              className="rounded-2xl border border-foreground/[0.06] bg-foreground/[0.02] p-5 hover:border-portal-accent/15 transition-all">
               <div className="flex items-start gap-4 mb-4">
-                <div className="w-10 h-10 rounded-full bg-[#14B8A6]/10 border border-[#14B8A6]/20 flex items-center justify-center flex-shrink-0">
-                  <span className="text-xs font-black text-[#14B8A6]">{creator.name.charAt(0)}</span>
+                <div className="w-10 h-10 rounded-full bg-portal-accent/10 border border-portal-accent/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xs font-black text-portal-accent">{creator.name.charAt(0)}</span>
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-black text-foreground">{creator.name}</p>
@@ -137,7 +137,7 @@ export function MyCreatorsClient({ manager, creators }: MyCreatorsClientProps) {
                 <div className="flex gap-2 flex-shrink-0">
                   <button
                     onClick={() => openDataCard(creator)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#14B8A6]/10 border border-[#14B8A6]/20 text-[#14B8A6] text-[10px] font-black hover:bg-[#14B8A6]/20 transition-all"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-portal-accent/10 border border-portal-accent/20 text-portal-accent text-[10px] font-black hover:bg-portal-accent/20 transition-all"
                   >
                     <BarChart3 size={11} /> Data Card
                   </button>
@@ -170,14 +170,14 @@ export function MyCreatorsClient({ manager, creators }: MyCreatorsClientProps) {
               </div>
 
               <div className="space-y-4">
-                {/* Month — free text input */}
+                {/* Month â€” free text input */}
                 <div>
                   <label className="text-[9px] font-black text-foreground/30 uppercase tracking-widest block mb-2">Month</label>
                   <input
                     value={dataCard.month}
                     onChange={e => setDataCard(p => ({ ...p, month: e.target.value }))}
                     placeholder="e.g. May 2025"
-                    className="w-full bg-foreground/[0.04] border border-foreground/[0.08] rounded-xl px-4 py-3 text-sm text-foreground placeholder-foreground/20 outline-none focus:border-[#14B8A6]/30"
+                    className="w-full bg-foreground/[0.04] border border-foreground/[0.08] rounded-xl px-4 py-3 text-sm text-foreground placeholder-foreground/20 outline-none focus:border-portal-accent/30"
                   />
                 </div>
 
@@ -193,7 +193,7 @@ export function MyCreatorsClient({ manager, creators }: MyCreatorsClientProps) {
                     <label className="text-[9px] font-black text-foreground/30 uppercase tracking-widest block mb-2">{field.label}</label>
                     <input value={(dataCard as any)[field.key]} onChange={e => setDataCard(p => ({ ...p, [field.key]: e.target.value }))}
                       placeholder={field.placeholder}
-                      className="w-full bg-foreground/[0.04] border border-foreground/[0.08] rounded-xl px-4 py-3 text-sm text-foreground placeholder-foreground/20 outline-none focus:border-[#14B8A6]/30" />
+                      className="w-full bg-foreground/[0.04] border border-foreground/[0.08] rounded-xl px-4 py-3 text-sm text-foreground placeholder-foreground/20 outline-none focus:border-portal-accent/30" />
                   </div>
                 ))}
 
@@ -205,7 +205,7 @@ export function MyCreatorsClient({ manager, creators }: MyCreatorsClientProps) {
                     className="w-full bg-foreground/[0.04] border border-foreground/[0.08] rounded-xl px-4 py-3 text-sm text-foreground placeholder-foreground/20 outline-none resize-none" />
                 </div>
 
-                {/* ─── File / Image / Video Attachments ─── */}
+                {/* â”€â”€â”€ File / Image / Video Attachments â”€â”€â”€ */}
                 <div>
                   <label className="text-[9px] font-black text-foreground/30 uppercase tracking-widest block mb-2">Attachments</label>
                   <p className="text-[10px] text-foreground/25 mb-3">Add screenshots, clips, or documents to support this data card.</p>
@@ -226,7 +226,7 @@ export function MyCreatorsClient({ manager, creators }: MyCreatorsClientProps) {
                       {attachments.map((att, i) => (
                         <div key={i} className="flex items-center gap-3 p-2.5 rounded-xl bg-foreground/[0.03] border border-foreground/[0.06]">
                           <div className="w-7 h-7 rounded-lg bg-foreground/[0.06] flex items-center justify-center flex-shrink-0">
-                            {att.type === 'image' && <ImageIcon size={12} className="text-[#14B8A6]" />}
+                            {att.type === 'image' && <ImageIcon size={12} className="text-portal-accent" />}
                             {att.type === 'video' && <Video size={12} className="text-purple-400" />}
                             {att.type === 'file' && <File size={12} className="text-blue-400" />}
                           </div>
@@ -247,7 +247,7 @@ export function MyCreatorsClient({ manager, creators }: MyCreatorsClientProps) {
                     <button
                       type="button"
                       onClick={() => { if (fileInputRef.current) { fileInputRef.current.accept = 'image/*'; fileInputRef.current.click(); } }}
-                      className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-foreground/[0.04] border border-foreground/[0.08] text-foreground/50 text-[10px] font-black hover:border-[#14B8A6]/30 hover:text-[#14B8A6] transition-all"
+                      className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-foreground/[0.04] border border-foreground/[0.08] text-foreground/50 text-[10px] font-black hover:border-portal-accent/30 hover:text-portal-accent transition-all"
                     >
                       <ImageIcon size={12} /> Image
                     </button>
@@ -268,7 +268,7 @@ export function MyCreatorsClient({ manager, creators }: MyCreatorsClientProps) {
                   </div>
                 </div>
 
-                <button className="w-full py-3.5 rounded-xl bg-[#14B8A6]/10 border border-[#14B8A6]/20 text-[#14B8A6] font-black hover:bg-[#14B8A6]/20 transition-all">
+                <button className="w-full py-3.5 rounded-xl bg-portal-accent/10 border border-portal-accent/20 text-portal-accent font-black hover:bg-portal-accent/20 transition-all">
                   Submit Data Card {attachments.length > 0 && `(+${attachments.length} attachment${attachments.length > 1 ? 's' : ''})`}
                 </button>
               </div>

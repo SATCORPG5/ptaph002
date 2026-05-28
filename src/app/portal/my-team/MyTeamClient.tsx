@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 import { Creator } from '@/lib/creators';
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// â”€â”€â”€ Types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 interface TeamSettings {
   teamName: string;
@@ -47,7 +47,7 @@ interface MyTeamClientProps {
   isManager: boolean;
 }
 
-// ─── Mock data ────────────────────────────────────────────────────────────────
+// â”€â”€â”€ Mock data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const ACCENT_PRESETS = [
   '#14B8A6', '#6366F1', '#F59E0B', '#EF4444',
@@ -57,7 +57,7 @@ const ACCENT_PRESETS = [
 const INITIAL_ANNOUNCEMENTS: Announcement[] = [
   {
     id: 1,
-    title: '🎯 Weekly Check-in',
+    title: 'ðŸŽ¯ Weekly Check-in',
     body: 'Hey team! Quick reminder to submit your Data Cards by Friday. Let me know if you have any questions or need help filling anything out.',
     priority: 'info',
     pinned: true,
@@ -66,7 +66,7 @@ const INITIAL_ANNOUNCEMENTS: Announcement[] = [
   },
   {
     id: 2,
-    title: '🚀 New Growth Academy Module',
+    title: 'ðŸš€ New Growth Academy Module',
     body: 'There\'s a new Algorithmic Reach module live in Growth Academy. I want everyone to check it out before our next check-in session.',
     priority: 'important',
     pinned: false,
@@ -80,7 +80,7 @@ const INITIAL_MESSAGES: ChatMessage[] = [
     id: 1,
     authorId: 'system',
     authorName: 'System',
-    text: '📌 Team chat is active. All messages are visible to your manager and teammates.',
+    text: 'ðŸ“Œ Team chat is active. All messages are visible to your manager and teammates.',
     timestamp: '7d ago',
     isManager: false,
     isSystem: true,
@@ -97,14 +97,14 @@ const INITIAL_MESSAGES: ChatMessage[] = [
     id: 3,
     authorId: 'creator1',
     authorName: 'Team Member',
-    text: 'Thanks! Really glad to have a dedicated space for this 🙌',
+    text: 'Thanks! Really glad to have a dedicated space for this ðŸ™Œ',
     timestamp: '5d ago',
     isManager: false,
   },
 ];
 
 const PRIORITY_CONFIG = {
-  info: { label: 'Info', color: 'text-[#14B8A6]', bg: 'bg-[#14B8A6]/10 border-[#14B8A6]/20', icon: Info },
+  info: { label: 'Info', color: 'text-portal-accent', bg: 'bg-portal-accent/10 border-portal-accent/20', icon: Info },
   important: { label: 'Important', color: 'text-amber-400', bg: 'bg-amber-400/10 border-amber-400/20', icon: Zap },
   urgent: { label: 'Urgent', color: 'text-red-400', bg: 'bg-red-400/10 border-red-400/20', icon: AlertCircle },
 };
@@ -112,7 +112,7 @@ const PRIORITY_CONFIG = {
 const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.05 } } };
 const fadeUp = { hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } };
 
-// ─── Main Component ───────────────────────────────────────────────────────────
+// â”€â”€â”€ Main Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export function MyTeamClient({
   viewer, manager, teamCreators, allManagers, isAdmin, isManager,
@@ -167,7 +167,7 @@ export function MyTeamClient({
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, activeTab]);
 
-  // ── Helpers ──────────────────────────────────────────────────────────────
+  // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   const unreadCount = announcements.filter(a => !readAnnouncements.includes(a.id)).length;
 
@@ -203,7 +203,7 @@ export function MyTeamClient({
     setEditingSettings(false);
   };
 
-  // ── Tab definitions ───────────────────────────────────────────────────────
+  // â”€â”€ Tab definitions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   const TABS: { id: 'overview' | 'announcements' | 'chat' | 'roster'; label: string; icon: React.ComponentType<{ size?: number; className?: string }>; badge?: number }[] = [
     { id: 'overview', label: 'Overview', icon: BarChart3 },
@@ -214,12 +214,12 @@ export function MyTeamClient({
 
   const accentHex = settings.accentColor;
 
-  // ── Render ────────────────────────────────────────────────────────────────
+  // â”€â”€ Render â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   return (
     <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
 
-      {/* ─── ADMIN: Team Picker ─── */}
+      {/* â”€â”€â”€ ADMIN: Team Picker â”€â”€â”€ */}
       {isAdmin && (
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
           className="flex items-center gap-3 bg-foreground/[0.03] border border-foreground/[0.06] rounded-2xl px-4 py-3">
@@ -229,7 +229,7 @@ export function MyTeamClient({
             <select
               value={selectedManagerId}
               onChange={e => setSelectedManagerId(e.target.value)}
-              className="bg-[#0F1623] border border-white/15 rounded-xl px-3 py-1.5 text-xs text-white outline-none focus:border-[#14B8A6]/30 [color-scheme:dark] pr-7 appearance-none cursor-pointer"
+              className="bg-[#0F1623] border border-white/15 rounded-xl px-3 py-1.5 text-xs text-white outline-none focus:border-portal-accent/30 [color-scheme:dark] pr-7 appearance-none cursor-pointer"
             >
               {allManagers.map(m => (
                 <option key={m.id} value={m.id}>{m.name} ({m.handle})</option>
@@ -241,12 +241,12 @@ export function MyTeamClient({
         </motion.div>
       )}
 
-      {/* ─── TEAM BANNER ─── */}
+      {/* â”€â”€â”€ TEAM BANNER â”€â”€â”€ */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         className="relative rounded-3xl overflow-hidden border border-foreground/[0.06]"
-        style={{ background: `linear-gradient(135deg, ${accentHex}18 0%, transparent 60%), linear-gradient(to right, var(--color-background-surface, #0c111d), var(--color-background, #080812))` }}
+        style={{ background: `linear-gradient(135deg, ${accentHex}18 0%, transparent 60%), linear-gradient(to right, var(--color-background-surface, #0c111d), var(--color-portal-surface-1))` }}
       >
         {/* Glow accent */}
         <div className="absolute top-0 left-0 w-64 h-32 rounded-full blur-3xl opacity-20 pointer-events-none"
@@ -274,7 +274,7 @@ export function MyTeamClient({
             )}
 
             <p className="text-xs font-bold mt-0.5 mb-2" style={{ color: accentHex }}>
-              {activeManager ? `${activeManager.name} · ${activeManager.handle}` : 'No manager selected'}
+              {activeManager ? `${activeManager.name} Â· ${activeManager.handle}` : 'No manager selected'}
             </p>
 
             {editingSettings ? (
@@ -347,7 +347,7 @@ export function MyTeamClient({
         </div>
       </motion.div>
 
-      {/* ─── TABS ─── */}
+      {/* â”€â”€â”€ TABS â”€â”€â”€ */}
       <div className="flex gap-1 bg-foreground/[0.03] border border-foreground/[0.06] rounded-2xl p-1.5">
         {TABS.map(tab => {
           const Icon = tab.icon;
@@ -376,7 +376,7 @@ export function MyTeamClient({
         })}
       </div>
 
-      {/* ─── OVERVIEW TAB ─── */}
+      {/* â”€â”€â”€ OVERVIEW TAB â”€â”€â”€ */}
       <AnimatePresence mode="wait">
         {activeTab === 'overview' && (
           <motion.div key="overview" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
@@ -421,7 +421,7 @@ export function MyTeamClient({
                           <div>
                             <p className="text-sm font-black text-foreground">{a.title}</p>
                             <p className="text-xs text-foreground/50 mt-1 leading-relaxed">{a.body}</p>
-                            <p className="text-[9px] text-foreground/20 mt-2 font-bold">{a.authorName} · {a.timestamp}</p>
+                            <p className="text-[9px] text-foreground/20 mt-2 font-bold">{a.authorName} Â· {a.timestamp}</p>
                           </div>
                         </div>
                       </div>
@@ -462,7 +462,7 @@ export function MyTeamClient({
           </motion.div>
         )}
 
-        {/* ─── ANNOUNCEMENTS TAB ─── */}
+        {/* â”€â”€â”€ ANNOUNCEMENTS TAB â”€â”€â”€ */}
         {activeTab === 'announcements' && (
           <motion.div key="announcements" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
             className="space-y-4">
@@ -593,7 +593,7 @@ export function MyTeamClient({
                           <p className="text-xs text-foreground/50 leading-relaxed">{a.body}</p>
                           <div className="flex items-center gap-3 mt-2">
                             <span className={`text-[8px] font-black uppercase px-2 py-0.5 rounded-full border ${pc.bg} ${pc.color}`}>{pc.label}</span>
-                            <span className="text-[9px] text-foreground/20 font-bold">{a.authorName} · {a.timestamp}</span>
+                            <span className="text-[9px] text-foreground/20 font-bold">{a.authorName} Â· {a.timestamp}</span>
                           </div>
                         </div>
 
@@ -615,7 +615,7 @@ export function MyTeamClient({
           </motion.div>
         )}
 
-        {/* ─── TEAM CHAT TAB ─── */}
+        {/* â”€â”€â”€ TEAM CHAT TAB â”€â”€â”€ */}
         {activeTab === 'chat' && (
           <motion.div key="chat" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
             className="flex flex-col gap-4">
@@ -627,7 +627,7 @@ export function MyTeamClient({
               {/* Chat header */}
               <div className="flex items-center gap-3 px-4 py-3 border-b border-foreground/[0.05]">
                 <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: accentHex }} />
-                <span className="text-xs font-black text-foreground/50">{settings.teamName} · Team Chat</span>
+                <span className="text-xs font-black text-foreground/50">{settings.teamName} Â· Team Chat</span>
                 <span className="ml-auto text-[9px] text-foreground/20 font-bold">{teamCreators.length + 1} members</span>
               </div>
 
@@ -710,7 +710,7 @@ export function MyTeamClient({
           </motion.div>
         )}
 
-        {/* ─── ROSTER TAB ─── */}
+        {/* â”€â”€â”€ ROSTER TAB â”€â”€â”€ */}
         {activeTab === 'roster' && (
           <motion.div key="roster" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
             className="space-y-4">

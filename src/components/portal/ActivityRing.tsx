@@ -11,7 +11,7 @@ interface ActivityRingProps {
 function getColor(value: number): string {
   if (value >= 70) return '#EF4444'; // red - hot
   if (value >= 40) return '#F59E0B'; // amber - warm
-  return '#14B8A6';                  // teal - normal
+  return 'var(--color-portal-accent)'; // teal - normal
 }
 
 export function ActivityRing({ value, size = 36, strokeWidth = 3.5 }: ActivityRingProps) {

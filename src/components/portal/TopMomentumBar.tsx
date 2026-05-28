@@ -4,12 +4,12 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 const STAGES = [
-  { id: 'ideation',  label: 'Ideation',  short: '💡' },
-  { id: 'creation',  label: 'Creation',  short: '✏️' },
-  { id: 'review',    label: 'Review',    short: '🔍' },
-  { id: 'launch',    label: 'Launch',    short: '🚀' },
-  { id: 'collab',    label: 'Collab',    short: '🤝' },
-  { id: 'impact',    label: 'Impact',    short: '⚡' },
+  { id: 'ideation',  label: 'Ideation',  short: 'ðŸ’¡' },
+  { id: 'creation',  label: 'Creation',  short: 'âœï¸' },
+  { id: 'review',    label: 'Review',    short: 'ðŸ”' },
+  { id: 'launch',    label: 'Launch',    short: 'ðŸš€' },
+  { id: 'collab',    label: 'Collab',    short: 'ðŸ¤' },
+  { id: 'impact',    label: 'Impact',    short: 'âš¡' },
 ];
 
 interface TopMomentumBarProps {
@@ -31,7 +31,7 @@ export function TopMomentumBar({
     <div className="w-full bg-background-surface border-b border-border-subtle px-4 sm:px-6 flex-shrink-0">
       <div className="flex items-center gap-4 h-10 w-full mx-auto max-w-[1600px]">
         {/* Label */}
-        <span className="text-[9px] font-black text-[#14B8A6]/60 uppercase tracking-[0.18em] flex-shrink-0 hidden sm:block">
+        <span className="text-[9px] font-black text-portal-accent/60 uppercase tracking-[0.18em] flex-shrink-0 hidden sm:block">
           Momentum
         </span>
 
@@ -80,7 +80,7 @@ export function TopMomentumBar({
                       isFilled
                         ? isActive
                           ? 'bg-cyan-400 border-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]'
-                          : 'bg-[#14B8A6] border-[#14B8A6]'
+                          : 'bg-portal-accent border-portal-accent'
                         : 'bg-transparent border-white/15'
                     }`}
                     whileHover={{ scale: 1.4 }}
@@ -114,11 +114,11 @@ export function TopMomentumBar({
           ))}
           <div className="flex items-center gap-1">
             <motion.div
-              className="w-1.5 h-1.5 rounded-full bg-[#14B8A6]"
+              className="w-1.5 h-1.5 rounded-full bg-portal-accent"
               animate={{ scale: [1, 1.3, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
-            <span className="text-[9px] font-black text-[#14B8A6] uppercase tracking-wider">Live</span>
+            <span className="text-[9px] font-black text-portal-accent uppercase tracking-wider">Live</span>
           </div>
         </div>
       </div>

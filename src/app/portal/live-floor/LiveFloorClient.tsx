@@ -28,7 +28,7 @@ const GO_LIVE_CHECKLIST = [
   { id: 5, item: 'Giveaway items / gifts prepped' },
   { id: 6, item: 'Engagement hooks written out' },
   { id: 7, item: 'Goals for the stream set' },
-  { id: 8, item: 'Hydration & snacks ready 💧' },
+  { id: 8, item: 'Hydration & snacks ready ðŸ’§' },
 ];
 
 const HIGHLIGHTS = [
@@ -85,7 +85,7 @@ export function LiveFloorClient() {
         ))}
       </div>
 
-      {/* ─── WHO'S LIVE ─── */}
+      {/* â”€â”€â”€ WHO'S LIVE â”€â”€â”€ */}
       {activeTab === 0 && (
         <motion.div variants={stagger} initial="hidden" animate="show">
           <div className="flex items-center justify-between mb-6">
@@ -131,7 +131,7 @@ export function LiveFloorClient() {
         </motion.div>
       )}
 
-      {/* ─── LIVE SCHEDULE ─── */}
+      {/* â”€â”€â”€ LIVE SCHEDULE â”€â”€â”€ */}
       {activeTab === 1 && (
         <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-3 max-w-2xl">
           <div className="flex items-center justify-between mb-4">
@@ -148,7 +148,7 @@ export function LiveFloorClient() {
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-xs font-black text-foreground">{s.title}</p>
-                <p className="text-[9px] text-foreground/30 mt-0.5">{s.creator} · {s.category}</p>
+                <p className="text-[9px] text-foreground/30 mt-0.5">{s.creator} Â· {s.category}</p>
               </div>
               <div className="text-right flex-shrink-0">
                 <p className="text-[10px] font-black text-foreground/60">{s.time}</p>
@@ -158,7 +158,7 @@ export function LiveFloorClient() {
         </motion.div>
       )}
 
-      {/* ─── TRACKER ─── */}
+      {/* â”€â”€â”€ TRACKER â”€â”€â”€ */}
       {activeTab === 2 && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="max-w-lg">
           <div className="rounded-2xl border border-foreground/[0.06] bg-foreground/[0.02] p-8">
@@ -194,18 +194,18 @@ export function LiveFloorClient() {
         </motion.div>
       )}
 
-      {/* ─── GO LIVE CHECKLIST ─── */}
+      {/* â”€â”€â”€ GO LIVE CHECKLIST â”€â”€â”€ */}
       {activeTab === 3 && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="max-w-lg">
           <div className="flex items-center justify-between mb-4">
             <p className="text-xs font-black text-foreground/30 uppercase tracking-widest">Pre-Stream Checklist</p>
-            <span className="text-[10px] font-black text-[#14B8A6]">{checkedCount}/{GO_LIVE_CHECKLIST.length} done</span>
+            <span className="text-[10px] font-black text-portal-accent">{checkedCount}/{GO_LIVE_CHECKLIST.length} done</span>
           </div>
 
           {/* Progress bar */}
           <div className="h-1.5 rounded-full bg-foreground/[0.05] overflow-hidden mb-6">
             <motion.div
-              className="h-full bg-gradient-to-r from-[#14B8A6] to-[#0EA5E9] rounded-full"
+              className="h-full bg-gradient-to-r from-portal-accent to-[#0EA5E9] rounded-full"
               animate={{ width: `${(checkedCount / GO_LIVE_CHECKLIST.length) * 100}%` }}
               transition={{ duration: 0.4 }}
             />
@@ -215,12 +215,12 @@ export function LiveFloorClient() {
             {GO_LIVE_CHECKLIST.map(c => (
               <button key={c.id} onClick={() => toggleCheck(c.id)}
                 className={`flex items-center gap-4 w-full p-4 rounded-xl border transition-all text-left ${
-                  checked[c.id] ? 'border-[#14B8A6]/20 bg-[#14B8A6]/[0.03] text-foreground/60' : 'border-foreground/[0.06] bg-foreground/[0.02] text-foreground hover:border-foreground/[0.1]'
+                  checked[c.id] ? 'border-portal-accent/20 bg-portal-accent/[0.03] text-foreground/60' : 'border-foreground/[0.06] bg-foreground/[0.02] text-foreground hover:border-foreground/[0.1]'
                 }`}>
                 <div className={`w-5 h-5 rounded-md border flex items-center justify-center flex-shrink-0 transition-all ${
-                  checked[c.id] ? 'bg-[#14B8A6]/20 border-[#14B8A6]/40' : 'border-foreground/15'
+                  checked[c.id] ? 'bg-portal-accent/20 border-portal-accent/40' : 'border-foreground/15'
                 }`}>
-                  {checked[c.id] && <Check size={11} className="text-[#14B8A6]" />}
+                  {checked[c.id] && <Check size={11} className="text-portal-accent" />}
                 </div>
                 <span className={`text-sm font-semibold transition-all ${checked[c.id] ? 'line-through text-foreground/30' : ''}`}>{c.item}</span>
               </button>
@@ -230,13 +230,13 @@ export function LiveFloorClient() {
           {checkedCount === GO_LIVE_CHECKLIST.length && (
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
               className="mt-6 p-4 rounded-2xl border border-red-500/20 bg-red-500/[0.04] text-center">
-              <p className="text-sm font-black text-red-400">You're ready to go live! 🔴</p>
+              <p className="text-sm font-black text-red-400">You're ready to go live! ðŸ”´</p>
             </motion.div>
           )}
         </motion.div>
       )}
 
-      {/* ─── LIVE NOTES ─── */}
+      {/* â”€â”€â”€ LIVE NOTES â”€â”€â”€ */}
       {activeTab === 4 && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
           <p className="text-xs text-foreground/30 font-bold uppercase tracking-widest mb-4">Staff session notes</p>
@@ -252,7 +252,7 @@ export function LiveFloorClient() {
               <span className="text-[9px] text-foreground/20 font-bold">{noteText.length} chars</span>
               <button
                 disabled={!noteText.trim()}
-                className="px-4 py-2 rounded-xl bg-[#14B8A6]/10 border border-[#14B8A6]/20 text-[#14B8A6] text-xs font-black hover:bg-[#14B8A6]/20 transition-all disabled:opacity-30"
+                className="px-4 py-2 rounded-xl bg-portal-accent/10 border border-portal-accent/20 text-portal-accent text-xs font-black hover:bg-portal-accent/20 transition-all disabled:opacity-30"
               >
                 Save Note
               </button>
@@ -262,7 +262,7 @@ export function LiveFloorClient() {
         </motion.div>
       )}
 
-      {/* ─── HIGHLIGHTS ─── */}
+      {/* â”€â”€â”€ HIGHLIGHTS â”€â”€â”€ */}
       {activeTab === 5 && (
         <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-4 max-w-2xl">
           <div className="flex items-center justify-between mb-2">
@@ -314,7 +314,7 @@ export function LiveFloorClient() {
               <div className="flex gap-3">
                 <button onClick={() => setMarkingLive(false)} className="flex-1 py-3 rounded-xl border border-foreground/10 text-foreground/40 text-sm font-black">Cancel</button>
                 <button className="flex-1 py-3 rounded-xl bg-red-500/20 border border-red-500/30 text-red-400 text-sm font-black hover:bg-red-500/30 transition-all">
-                  🔴 Go Live
+                  ðŸ”´ Go Live
                 </button>
               </div>
             </motion.div>

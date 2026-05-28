@@ -70,7 +70,7 @@ export function PortalAdminClient({ manager, creators }: PortalAdminClientProps)
         ))}
       </div>
 
-      {/* ─── CREATOR ROSTER ─── */}
+      {/* â”€â”€â”€ CREATOR ROSTER â”€â”€â”€ */}
       {activeTab === 0 && (
         <div>
           <div className="flex items-center justify-between mb-4">
@@ -79,7 +79,7 @@ export function PortalAdminClient({ manager, creators }: PortalAdminClientProps)
               <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search..."
                 className="pl-8 pr-4 py-2 bg-foreground/[0.04] border border-foreground/[0.08] rounded-xl text-xs text-foreground placeholder-foreground/20 outline-none focus:border-foreground/20 w-48" />
             </div>
-            <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#14B8A6]/10 border border-[#14B8A6]/20 text-[#14B8A6] text-xs font-black hover:bg-[#14B8A6]/20 transition-all">
+            <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-portal-accent/10 border border-portal-accent/20 text-portal-accent text-xs font-black hover:bg-portal-accent/20 transition-all">
               <UserPlus size={13} /> Add Creator
             </button>
           </div>
@@ -87,7 +87,7 @@ export function PortalAdminClient({ manager, creators }: PortalAdminClientProps)
             {filtered.map(c => (
               <motion.div key={c.id} variants={fadeUp}
                 onClick={() => setSelectedCreator(c)}
-                className={`flex items-center gap-4 p-4 rounded-2xl border cursor-pointer transition-all ${selectedCreator?.id === c.id ? 'border-[#14B8A6]/20 bg-[#14B8A6]/[0.03]' : 'border-foreground/[0.06] bg-foreground/[0.02] hover:border-foreground/[0.1]'}`}>
+                className={`flex items-center gap-4 p-4 rounded-2xl border cursor-pointer transition-all ${selectedCreator?.id === c.id ? 'border-portal-accent/20 bg-portal-accent/[0.03]' : 'border-foreground/[0.06] bg-foreground/[0.02] hover:border-foreground/[0.1]'}`}>
                 <div className="w-8 h-8 rounded-full bg-foreground/5 border border-foreground/10 flex items-center justify-center flex-shrink-0">
                   <span className="text-[9px] font-black text-foreground/50">{c.name.charAt(0)}</span>
                 </div>
@@ -106,7 +106,7 @@ export function PortalAdminClient({ manager, creators }: PortalAdminClientProps)
         </div>
       )}
 
-      {/* ─── CRM NOTES ─── */}
+      {/* â”€â”€â”€ CRM NOTES â”€â”€â”€ */}
       {activeTab === 1 && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Creator list */}
@@ -114,7 +114,7 @@ export function PortalAdminClient({ manager, creators }: PortalAdminClientProps)
             <p className="text-[9px] font-black text-foreground/30 uppercase tracking-widest mb-3">Select Creator</p>
             {creators.slice(0, 6).map(c => (
               <button key={c.id} onClick={() => setSelectedCreator(c)}
-                className={`flex items-center gap-3 w-full p-3 rounded-xl border text-left transition-all ${selectedCreator?.id === c.id ? 'border-[#14B8A6]/20 bg-[#14B8A6]/[0.04]' : 'border-foreground/[0.05] bg-foreground/[0.02] hover:border-foreground/[0.08]'}`}>
+                className={`flex items-center gap-3 w-full p-3 rounded-xl border text-left transition-all ${selectedCreator?.id === c.id ? 'border-portal-accent/20 bg-portal-accent/[0.04]' : 'border-foreground/[0.05] bg-foreground/[0.02] hover:border-foreground/[0.08]'}`}>
                 <div className="w-7 h-7 rounded-full bg-foreground/5 flex items-center justify-center flex-shrink-0">
                   <span className="text-[9px] font-black text-foreground/40">{c.name.charAt(0)}</span>
                 </div>
@@ -134,7 +134,7 @@ export function PortalAdminClient({ manager, creators }: PortalAdminClientProps)
                   className="w-full bg-transparent text-sm text-foreground placeholder-foreground/20 outline-none resize-none" />
                 <div className="flex justify-end pt-3 border-t border-foreground/[0.05] mt-3">
                   <button disabled={!noteText.trim()}
-                    className="px-4 py-2 rounded-xl bg-[#14B8A6]/10 border border-[#14B8A6]/20 text-[#14B8A6] text-xs font-black hover:bg-[#14B8A6]/20 transition-all disabled:opacity-30">
+                    className="px-4 py-2 rounded-xl bg-portal-accent/10 border border-portal-accent/20 text-portal-accent text-xs font-black hover:bg-portal-accent/20 transition-all disabled:opacity-30">
                     Add Note
                   </button>
                 </div>
@@ -145,7 +145,7 @@ export function PortalAdminClient({ manager, creators }: PortalAdminClientProps)
         </div>
       )}
 
-      {/* ─── ASSIGNMENTS ─── */}
+      {/* â”€â”€â”€ ASSIGNMENTS â”€â”€â”€ */}
       {activeTab === 2 && (
         <div className="max-w-2xl space-y-3">
           <p className="text-[9px] font-black text-foreground/30 uppercase tracking-widest mb-4">Manager Assignments</p>
@@ -155,7 +155,7 @@ export function PortalAdminClient({ manager, creators }: PortalAdminClientProps)
                 <span className="text-[9px] font-black text-foreground/40">{c.name.charAt(0)}</span>
               </div>
               <p className="text-sm font-bold text-foreground flex-1">{c.name}</p>
-              <select className="bg-[#0F1623] border border-white/15 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-[#14B8A6]/30 [color-scheme:dark]">
+              <select className="bg-[#0F1623] border border-white/15 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-portal-accent/30 [color-scheme:dark]">
                 <option value="">Assign manager...</option>
                 {creators.filter(m => m.tier === 'staff').map(m => (
                   <option key={m.id}>{m.name}</option>

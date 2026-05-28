@@ -40,7 +40,7 @@ const TIPS = [
 ];
 
 const LEVEL_COLORS: Record<string, string> = {
-  beginner: 'text-[#14B8A6] bg-[#14B8A6]/10 border-[#14B8A6]/20',
+  beginner: 'text-portal-accent bg-portal-accent/10 border-portal-accent/20',
   intermediate: 'text-amber-400 bg-amber-500/10 border-amber-500/20',
   advanced: 'text-red-400 bg-red-500/10 border-red-500/20',
 };
@@ -80,7 +80,7 @@ export function GrowthAcademyClient() {
         ))}
       </div>
 
-      {/* ─── MODULES ─── */}
+      {/* â”€â”€â”€ MODULES â”€â”€â”€ */}
       {activeTab === 0 && (
         <motion.div variants={stagger} initial="hidden" animate="show" className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {MODULES.map(mod => {
@@ -96,13 +96,13 @@ export function GrowthAcademyClient() {
                     <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full border ${LEVEL_COLORS[mod.level]}`}>{mod.level}</span>
                   </div>
                   {mod.completed === mod.lessons && mod.completed > 0 && (
-                    <div className="w-6 h-6 rounded-full bg-[#14B8A6]/20 border border-[#14B8A6]/30 flex items-center justify-center">
-                      <Check size={11} className="text-[#14B8A6]" />
+                    <div className="w-6 h-6 rounded-full bg-portal-accent/20 border border-portal-accent/30 flex items-center justify-center">
+                      <Check size={11} className="text-portal-accent" />
                     </div>
                   )}
                 </div>
                 <h3 className="text-sm font-black text-foreground mb-1">{mod.title}</h3>
-                <p className="text-[10px] text-foreground/30 mb-4">{mod.lessons} lessons · {mod.duration}</p>
+                <p className="text-[10px] text-foreground/30 mb-4">{mod.lessons} lessons Â· {mod.duration}</p>
 
                 {/* Progress */}
                 <div className="h-1.5 rounded-full bg-foreground/[0.05] overflow-hidden mb-2">
@@ -127,20 +127,20 @@ export function GrowthAcademyClient() {
         </motion.div>
       )}
 
-      {/* ─── CHALLENGES ─── */}
+      {/* â”€â”€â”€ CHALLENGES â”€â”€â”€ */}
       {activeTab === 1 && (
         <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-4 max-w-2xl">
           {CHALLENGES.map(ch => (
             <motion.div key={ch.id} variants={fadeUp}
-              className={`rounded-2xl border p-6 transition-all ${ch.submitted ? 'border-[#14B8A6]/15 bg-[#14B8A6]/[0.03]' : 'border-foreground/[0.06] bg-foreground/[0.02] hover:border-amber-500/15'}`}>
+              className={`rounded-2xl border p-6 transition-all ${ch.submitted ? 'border-portal-accent/15 bg-portal-accent/[0.03]' : 'border-foreground/[0.06] bg-foreground/[0.02] hover:border-amber-500/15'}`}>
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <h3 className="text-sm font-black text-foreground mb-1">{ch.title}</h3>
                   <p className="text-xs text-foreground/40 leading-relaxed">{ch.desc}</p>
                 </div>
                 {ch.submitted && (
-                  <div className="w-7 h-7 rounded-full bg-[#14B8A6]/20 border border-[#14B8A6]/30 flex items-center justify-center flex-shrink-0 ml-4">
-                    <Check size={12} className="text-[#14B8A6]" />
+                  <div className="w-7 h-7 rounded-full bg-portal-accent/20 border border-portal-accent/30 flex items-center justify-center flex-shrink-0 ml-4">
+                    <Check size={12} className="text-portal-accent" />
                   </div>
                 )}
               </div>
@@ -156,7 +156,7 @@ export function GrowthAcademyClient() {
                     Submit Entry
                   </button>
                 ) : (
-                  <span className="text-[9px] font-black text-[#14B8A6] uppercase tracking-wider">Submitted ✓</span>
+                  <span className="text-[9px] font-black text-portal-accent uppercase tracking-wider">Submitted âœ“</span>
                 )}
               </div>
             </motion.div>
@@ -164,7 +164,7 @@ export function GrowthAcademyClient() {
         </motion.div>
       )}
 
-      {/* ─── LEADERBOARD ─── */}
+      {/* â”€â”€â”€ LEADERBOARD â”€â”€â”€ */}
       {activeTab === 2 && (
         <motion.div variants={stagger} initial="hidden" animate="show" className="max-w-2xl space-y-2">
           {LEADERBOARD.map(entry => (
@@ -184,7 +184,7 @@ export function GrowthAcademyClient() {
                 <p className="text-sm font-black text-foreground">{entry.creator}</p>
                 <div className="flex items-center gap-2 mt-0.5">
                   <span className="text-[9px] font-bold text-amber-400">{entry.xp} XP</span>
-                  <span className="text-[9px] text-foreground/20">·</span>
+                  <span className="text-[9px] text-foreground/20">Â·</span>
                   <span className="text-[9px] text-foreground/30">{entry.badges} {entry.badges === 1 ? 'badge' : 'badges'}</span>
                 </div>
               </div>
@@ -198,7 +198,7 @@ export function GrowthAcademyClient() {
         </motion.div>
       )}
 
-      {/* ─── TIPS LIBRARY ─── */}
+      {/* â”€â”€â”€ TIPS LIBRARY â”€â”€â”€ */}
       {activeTab === 3 && (
         <motion.div variants={stagger} initial="hidden" animate="show">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

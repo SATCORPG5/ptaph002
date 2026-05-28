@@ -20,7 +20,7 @@ export function ProfilePortalClient({ creator: initialCreator }: ProfilePortalCl
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const router = useRouter();
 
-  const inputClass = "w-full bg-foreground/[0.04] border border-foreground/[0.08] rounded-xl px-4 py-3 text-sm text-foreground placeholder-foreground/20 outline-none focus:border-[#14B8A6]/40 transition-all";
+  const inputClass = "w-full bg-foreground/[0.04] border border-foreground/[0.08] rounded-xl px-4 py-3 text-sm text-foreground placeholder-foreground/20 outline-none focus:border-portal-accent/40 transition-all";
   const labelClass = "text-[9px] font-black text-foreground/30 uppercase tracking-[0.2em] block mb-2";
 
   async function handleSave() {
@@ -42,8 +42,8 @@ export function ProfilePortalClient({ creator: initialCreator }: ProfilePortalCl
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-2xl bg-[#14B8A6]/10 border border-[#14B8A6]/20 flex items-center justify-center">
-            <User size={20} className="text-[#14B8A6]" />
+          <div className="w-10 h-10 rounded-2xl bg-portal-accent/10 border border-portal-accent/20 flex items-center justify-center">
+            <User size={20} className="text-portal-accent" />
           </div>
           <div>
             <h1 className="text-2xl font-black text-foreground tracking-tight">My Profile & Cards</h1>
@@ -55,7 +55,7 @@ export function ProfilePortalClient({ creator: initialCreator }: ProfilePortalCl
             {message && (
               <motion.div
                 initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }}
-                className={`text-xs font-bold px-4 py-2 rounded-full border ${message.type === 'success' ? 'text-[#14B8A6] bg-[#14B8A6]/10 border-[#14B8A6]/20' : 'text-red-400 bg-red-400/10 border-red-400/20'}`}
+                className={`text-xs font-bold px-4 py-2 rounded-full border ${message.type === 'success' ? 'text-portal-accent bg-portal-accent/10 border-portal-accent/20' : 'text-red-400 bg-red-400/10 border-red-400/20'}`}
               >
                 {message.text}
               </motion.div>
@@ -64,7 +64,7 @@ export function ProfilePortalClient({ creator: initialCreator }: ProfilePortalCl
           <button
             onClick={handleSave}
             disabled={saving}
-            className="px-6 py-2.5 rounded-xl bg-[#14B8A6]/10 border border-[#14B8A6]/20 text-[#14B8A6] text-sm font-black hover:bg-[#14B8A6]/20 transition-all disabled:opacity-50"
+            className="px-6 py-2.5 rounded-xl bg-portal-accent/10 border border-portal-accent/20 text-portal-accent text-sm font-black hover:bg-portal-accent/20 transition-all disabled:opacity-50"
           >
             {saving ? 'Saving...' : 'Save Changes'}
           </button>
@@ -76,14 +76,14 @@ export function ProfilePortalClient({ creator: initialCreator }: ProfilePortalCl
         {TABS.map((tab, i) => (
           <button key={tab} onClick={() => setActiveTab(i)}
             className={`px-5 py-2 rounded-xl text-xs font-bold flex-1 transition-all ${
-              activeTab === i ? 'bg-[#14B8A6]/15 text-[#14B8A6] border border-[#14B8A6]/20' : 'text-foreground/30 hover:text-foreground/60'
+              activeTab === i ? 'bg-portal-accent/15 text-portal-accent border border-portal-accent/20' : 'text-foreground/30 hover:text-foreground/60'
             }`}>
             {tab}
           </button>
         ))}
       </div>
 
-      {/* ─── CARD COVER TAB ─── */}
+      {/* â”€â”€â”€ CARD COVER TAB â”€â”€â”€ */}
       {activeTab === 0 && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
@@ -141,11 +141,11 @@ export function ProfilePortalClient({ creator: initialCreator }: ProfilePortalCl
               >
                 <div
                   className="h-2 w-full"
-                  style={{ background: creator.customization?.themeColor || '#14B8A6' }}
+                  style={{ background: creator.customization?.themeColor || 'var(--color-portal-accent)' }}
                 />
                 <div className="flex-1 flex flex-col items-center justify-center p-6">
                   <div className="w-20 h-20 rounded-full bg-foreground/10 border-2 mb-4"
-                    style={{ borderColor: creator.customization?.themeColor || '#14B8A6' }}>
+                    style={{ borderColor: creator.customization?.themeColor || 'var(--color-portal-accent)' }}>
                     {creator.image && <img src={creator.image} alt="" className="w-full h-full rounded-full object-cover" />}
                   </div>
                   <p className="text-lg font-black text-foreground text-center">{creator.name || 'Creator Name'}</p>
@@ -161,7 +161,7 @@ export function ProfilePortalClient({ creator: initialCreator }: ProfilePortalCl
         </motion.div>
       )}
 
-      {/* ─── CREATOR CARD TAB ─── */}
+      {/* â”€â”€â”€ CREATOR CARD TAB â”€â”€â”€ */}
       {activeTab === 1 && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-6 max-w-3xl">
           <div className="rounded-2xl border border-foreground/[0.06] bg-foreground/[0.02] p-6 space-y-5">
@@ -199,7 +199,7 @@ export function ProfilePortalClient({ creator: initialCreator }: ProfilePortalCl
         </motion.div>
       )}
 
-      {/* ─── SETTINGS TAB ─── */}
+      {/* â”€â”€â”€ SETTINGS TAB â”€â”€â”€ */}
       {activeTab === 2 && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-4 max-w-2xl">
           <div className="rounded-2xl border border-foreground/[0.06] bg-foreground/[0.02] p-6 space-y-4">

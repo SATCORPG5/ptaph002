@@ -42,24 +42,24 @@ interface ShowcasePost {
 }
 
 const MOCK_SHOWCASE: ShowcasePost[] = [
-  { id: 1, creator: 'ColdP1zza', type: 'win', title: 'Broke 2K CCV!', body: 'Hit a new peak today. 2K concurrent viewers for the first time ever 🚀 Months of work finally paying off.', time: '2h ago', likes: 34 },
-  { id: 2, creator: 'ItsJakee_78', type: 'win', title: 'Hit 10K Followers!', body: 'TikTok officially shows 10K today. Beyond grateful for the PTA community support 🙏', time: '5h ago', likes: 56 },
-  { id: 3, creator: 'Slingin6.0', type: 'showcase', title: 'First Brand Deal', body: "Just signed my first brand collab through Agency Ops. Can't share details yet but it's real and it's here 💼", time: '1d ago', likes: 71 },
+  { id: 1, creator: 'ColdP1zza', type: 'win', title: 'Broke 2K CCV!', body: 'Hit a new peak today. 2K concurrent viewers for the first time ever ðŸš€ Months of work finally paying off.', time: '2h ago', likes: 34 },
+  { id: 2, creator: 'ItsJakee_78', type: 'win', title: 'Hit 10K Followers!', body: 'TikTok officially shows 10K today. Beyond grateful for the PTA community support ðŸ™', time: '5h ago', likes: 56 },
+  { id: 3, creator: 'Slingin6.0', type: 'showcase', title: 'First Brand Deal', body: "Just signed my first brand collab through Agency Ops. Can't share details yet but it's real and it's here ðŸ’¼", time: '1d ago', likes: 71 },
   { id: 4, creator: 'General Spuds', type: 'win', title: 'Viral Stream Clip', body: 'Stream clip hit 50K+ impressions on its own. Algorithm picked it up overnight. New setup is clearly working.', time: '2d ago', likes: 92 },
   { id: 5, creator: 'STEALYN', type: 'showcase', title: 'New Overlay Design', body: 'Spent a week rebuilding my stream layout from scratch. Super clean now. Check it out in the video gallery.', mediaUrl: '', time: '3d ago', likes: 47 },
 ];
 
 const HOT_RIGHT_NOW = [
   { creator: 'Slingin6.0', stat: '19.3K views', type: 'video', hot: 98 },
-  { creator: 'ColdP1zza', stat: 'Live · 2.1K viewers', type: 'live', hot: 95 },
-  { creator: 'STEALYN', stat: 'Live · 1.3K viewers', type: 'live', hot: 87 },
+  { creator: 'ColdP1zza', stat: 'Live Â· 2.1K viewers', type: 'live', hot: 95 },
+  { creator: 'STEALYN', stat: 'Live Â· 1.3K viewers', type: 'live', hot: 87 },
   { creator: 'ItsJakee_78', stat: '8.1K views', type: 'video', hot: 72 },
 ];
 
 const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.06 } } };
 const fadeUp = { hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0 } };
 
-// ─── Poll Create Modal ───────────────────────────────────────────────────────
+// â”€â”€â”€ Poll Create Modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function PollModal({ onClose, onPublish }: { onClose: () => void; onPublish: (poll: WeighIn) => void }) {
   const [title, setTitle] = useState('');
   const [options, setOptions] = useState(['', '']);
@@ -90,8 +90,8 @@ function PollModal({ onClose, onPublish }: { onClose: () => void; onPublish: (po
         className="bg-background-surface border border-foreground/10 rounded-3xl p-8 w-full max-w-lg max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#14B8A6]/10 border border-[#14B8A6]/20 flex items-center justify-center">
-              <BarChart2 size={16} className="text-[#14B8A6]" />
+            <div className="w-9 h-9 rounded-xl bg-portal-accent/10 border border-portal-accent/20 flex items-center justify-center">
+              <BarChart2 size={16} className="text-portal-accent" />
             </div>
             <h3 className="text-lg font-black text-foreground">Create Poll</h3>
           </div>
@@ -100,21 +100,21 @@ function PollModal({ onClose, onPublish }: { onClose: () => void; onPublish: (po
 
         {/* Title */}
         <div className="mb-5">
-          <label className="text-[10px] font-black text-[#14B8A6] uppercase tracking-widest mb-2 block">Poll Question</label>
+          <label className="text-[10px] font-black text-portal-accent uppercase tracking-widest mb-2 block">Poll Question</label>
           <input value={title} onChange={e => setTitle(e.target.value)}
             placeholder="Ask your community something..."
-            className="w-full bg-foreground/[0.04] border border-foreground/[0.08] rounded-xl px-4 py-3 text-sm text-foreground placeholder-foreground/20 outline-none focus:border-[#14B8A6]/40 transition-colors" />
+            className="w-full bg-foreground/[0.04] border border-foreground/[0.08] rounded-xl px-4 py-3 text-sm text-foreground placeholder-foreground/20 outline-none focus:border-portal-accent/40 transition-colors" />
         </div>
 
         {/* Options */}
         <div className="mb-5">
-          <label className="text-[10px] font-black text-[#14B8A6] uppercase tracking-widest mb-2 block">Answers <span className="text-foreground/20 normal-case font-normal">(2–4 options)</span></label>
+          <label className="text-[10px] font-black text-portal-accent uppercase tracking-widest mb-2 block">Answers <span className="text-foreground/20 normal-case font-normal">(2â€“4 options)</span></label>
           <div className="space-y-2">
             {options.map((opt, i) => (
               <div key={i} className="flex gap-2">
                 <input value={opt} onChange={e => updateOption(i, e.target.value)}
                   placeholder={`Option ${i + 1}`}
-                  className="flex-1 bg-foreground/[0.04] border border-foreground/[0.08] rounded-xl px-4 py-2.5 text-sm text-foreground placeholder-foreground/20 outline-none focus:border-[#14B8A6]/40 transition-colors" />
+                  className="flex-1 bg-foreground/[0.04] border border-foreground/[0.08] rounded-xl px-4 py-2.5 text-sm text-foreground placeholder-foreground/20 outline-none focus:border-portal-accent/40 transition-colors" />
                 {options.length > 2 && (
                   <button onClick={() => removeOption(i)} className="w-9 h-9 flex items-center justify-center rounded-xl border border-foreground/10 text-foreground/30 hover:text-red-400 hover:border-red-400/30 transition-all">
                     <X size={13} />
@@ -124,7 +124,7 @@ function PollModal({ onClose, onPublish }: { onClose: () => void; onPublish: (po
             ))}
           </div>
           {options.length < 4 && (
-            <button onClick={addOption} className="mt-2 flex items-center gap-2 text-[11px] font-bold text-[#14B8A6]/60 hover:text-[#14B8A6] transition-colors">
+            <button onClick={addOption} className="mt-2 flex items-center gap-2 text-[11px] font-bold text-portal-accent/60 hover:text-portal-accent transition-colors">
               <Plus size={12} /> Add option
             </button>
           )}
@@ -132,11 +132,11 @@ function PollModal({ onClose, onPublish }: { onClose: () => void; onPublish: (po
 
         {/* Duration */}
         <div className="mb-5">
-          <label className="text-[10px] font-black text-[#14B8A6] uppercase tracking-widest mb-2 block">Duration</label>
+          <label className="text-[10px] font-black text-portal-accent uppercase tracking-widest mb-2 block">Duration</label>
           <div className="flex gap-2 flex-wrap">
             {['1h', '6h', '12h', '24h', '3 days', '7 days'].map(d => (
               <button key={d} onClick={() => setDuration(d)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${duration === d ? 'bg-[#14B8A6]/20 border border-[#14B8A6]/40 text-[#14B8A6]' : 'bg-foreground/5 border border-foreground/10 text-foreground/40 hover:text-foreground'}`}>
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${duration === d ? 'bg-portal-accent/20 border border-portal-accent/40 text-portal-accent' : 'bg-foreground/5 border border-foreground/10 text-foreground/40 hover:text-foreground'}`}>
                 {d}
               </button>
             ))}
@@ -145,18 +145,18 @@ function PollModal({ onClose, onPublish }: { onClose: () => void; onPublish: (po
 
         {/* Media URL */}
         <div className="mb-6">
-          <label className="text-[10px] font-black text-[#14B8A6] uppercase tracking-widest mb-2 block">Media URL <span className="text-foreground/20 normal-case font-normal">(optional)</span></label>
+          <label className="text-[10px] font-black text-portal-accent uppercase tracking-widest mb-2 block">Media URL <span className="text-foreground/20 normal-case font-normal">(optional)</span></label>
           <div className="relative">
             <ImageIcon size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/25" />
             <input value={mediaUrl} onChange={e => setMediaUrl(e.target.value)}
               placeholder="https://..."
-              className="w-full bg-foreground/[0.04] border border-foreground/[0.08] rounded-xl pl-9 pr-4 py-2.5 text-sm text-foreground placeholder-foreground/20 outline-none focus:border-[#14B8A6]/40 transition-colors" />
+              className="w-full bg-foreground/[0.04] border border-foreground/[0.08] rounded-xl pl-9 pr-4 py-2.5 text-sm text-foreground placeholder-foreground/20 outline-none focus:border-portal-accent/40 transition-colors" />
           </div>
         </div>
 
         <button onClick={handlePublish}
           disabled={!title.trim() || options.filter(o => o.trim()).length < 2}
-          className="w-full py-3 rounded-xl bg-[#14B8A6]/20 border border-[#14B8A6]/30 text-[#14B8A6] text-sm font-black hover:bg-[#14B8A6]/30 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+          className="w-full py-3 rounded-xl bg-portal-accent/20 border border-portal-accent/30 text-portal-accent text-sm font-black hover:bg-portal-accent/30 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
           Publish Poll
         </button>
       </motion.div>
@@ -164,7 +164,7 @@ function PollModal({ onClose, onPublish }: { onClose: () => void; onPublish: (po
   );
 }
 
-// ─── Showcase Post Modal ─────────────────────────────────────────────────────
+// â”€â”€â”€ Showcase Post Modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function ShowcaseModal({ onClose, onPublish }: { onClose: () => void; onPublish: (post: ShowcasePost) => void }) {
   const [type, setType] = useState<'showcase' | 'win'>('showcase');
   const [title, setTitle] = useState('');
@@ -195,11 +195,11 @@ function ShowcaseModal({ onClose, onPublish }: { onClose: () => void; onPublish:
           <div className="flex gap-2">
             <button onClick={() => setType('showcase')}
               className={`flex-1 py-2.5 rounded-xl text-xs font-black transition-all border ${type === 'showcase' ? 'bg-purple-500/20 border-purple-500/40 text-purple-300' : 'bg-foreground/5 border-foreground/10 text-foreground/40 hover:text-foreground'}`}>
-              🎨 Showcase
+              ðŸŽ¨ Showcase
             </button>
             <button onClick={() => setType('win')}
               className={`flex-1 py-2.5 rounded-xl text-xs font-black transition-all border ${type === 'win' ? 'bg-amber-500/20 border-amber-500/40 text-amber-300' : 'bg-foreground/5 border-foreground/10 text-foreground/40 hover:text-foreground'}`}>
-              🏆 Win / Achievement
+              ðŸ† Win / Achievement
             </button>
           </div>
         </div>
@@ -246,7 +246,7 @@ function ShowcaseModal({ onClose, onPublish }: { onClose: () => void; onPublish:
   );
 }
 
-// ─── Main Component ──────────────────────────────────────────────────────────
+// â”€â”€â”€ Main Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export function CreativeStudioClient() {
   const [activeTab, setActiveTab] = useState(0);
   const [weighIns, setWeighIns] = useState<WeighIn[]>(MOCK_WEIGH_INS);
@@ -312,7 +312,7 @@ export function CreativeStudioClient() {
         ))}
       </div>
 
-      {/* ─── VIDEO GALLERY ─── */}
+      {/* â”€â”€â”€ VIDEO GALLERY â”€â”€â”€ */}
       {activeTab === 0 && (
         <motion.div variants={stagger} initial="hidden" animate="show">
           <div className="flex items-center justify-between mb-6">
@@ -356,13 +356,13 @@ export function CreativeStudioClient() {
         </motion.div>
       )}
 
-      {/* ─── LIKE WEIGH-IN ─── */}
+      {/* â”€â”€â”€ LIKE WEIGH-IN â”€â”€â”€ */}
       {activeTab === 1 && (
         <motion.div variants={stagger} initial="hidden" animate="show" className="max-w-2xl">
           <div className="flex items-center justify-between mb-6">
             <p className="text-xs text-foreground/30 font-bold uppercase tracking-widest">Community Votes & Polls</p>
             <button onClick={() => setShowPollModal(true)}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#14B8A6]/10 border border-[#14B8A6]/20 text-[#14B8A6] text-xs font-black hover:bg-[#14B8A6]/20 transition-all">
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-portal-accent/10 border border-portal-accent/20 text-portal-accent text-xs font-black hover:bg-portal-accent/20 transition-all">
               <BarChart2 size={14} /> Create Poll
             </button>
           </div>
@@ -375,9 +375,9 @@ export function CreativeStudioClient() {
                     <p className="text-sm font-black text-foreground">{item.title}</p>
                   </div>
                   {item.isPoll && (
-                    <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-[#14B8A6]/10 border border-[#14B8A6]/20">
-                      <BarChart2 size={10} className="text-[#14B8A6]" />
-                      {item.duration && <span className="text-[9px] font-bold text-[#14B8A6]">{item.duration}</span>}
+                    <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-portal-accent/10 border border-portal-accent/20">
+                      <BarChart2 size={10} className="text-portal-accent" />
+                      {item.duration && <span className="text-[9px] font-bold text-portal-accent">{item.duration}</span>}
                     </div>
                   )}
                 </div>
@@ -390,12 +390,12 @@ export function CreativeStudioClient() {
                       const pct = total > 0 ? Math.round((item.votes![i] / total) * 100) : 0;
                       return (
                         <button key={i} onClick={() => handlePollVote(item.id, i)}
-                          className="w-full text-left rounded-xl border border-foreground/[0.06] hover:border-[#14B8A6]/30 overflow-hidden transition-all group">
+                          className="w-full text-left rounded-xl border border-foreground/[0.06] hover:border-portal-accent/30 overflow-hidden transition-all group">
                           <div className="relative px-4 py-2.5">
-                            <motion.div className="absolute inset-0 bg-[#14B8A6]/10 rounded-xl"
+                            <motion.div className="absolute inset-0 bg-portal-accent/10 rounded-xl"
                               initial={{ width: 0 }} animate={{ width: `${pct}%` }} transition={{ duration: 0.5 }} />
                             <div className="relative flex items-center justify-between">
-                              <span className="text-xs font-bold text-foreground group-hover:text-[#14B8A6] transition-colors">{opt}</span>
+                              <span className="text-xs font-bold text-foreground group-hover:text-portal-accent transition-colors">{opt}</span>
                               <span className="text-[10px] font-black text-foreground/40">{pct}%</span>
                             </div>
                           </div>
@@ -410,7 +410,7 @@ export function CreativeStudioClient() {
                   /* Thumbs up/down */
                   <>
                     <div className="h-2 rounded-full bg-foreground/[0.05] overflow-hidden mb-4">
-                      <motion.div className="h-full bg-gradient-to-r from-[#14B8A6] to-[#0EA5E9] rounded-full"
+                      <motion.div className="h-full bg-gradient-to-r from-portal-accent to-[#0EA5E9] rounded-full"
                         initial={{ width: 0 }}
                         animate={{ width: `${item.thumbsUp + item.thumbsDown > 0 ? Math.round((item.thumbsUp / (item.thumbsUp + item.thumbsDown)) * 100) : 50}%` }}
                         transition={{ duration: 0.6 }} />
@@ -418,7 +418,7 @@ export function CreativeStudioClient() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
                         <button onClick={() => handleVote(item.id, 'up')}
-                          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black transition-all ${item.userVote === 'up' ? 'bg-[#14B8A6]/20 border border-[#14B8A6]/40 text-[#14B8A6]' : 'bg-foreground/[0.04] border border-foreground/[0.06] text-foreground/40 hover:text-foreground hover:border-foreground/20'}`}>
+                          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black transition-all ${item.userVote === 'up' ? 'bg-portal-accent/20 border border-portal-accent/40 text-portal-accent' : 'bg-foreground/[0.04] border border-foreground/[0.06] text-foreground/40 hover:text-foreground hover:border-foreground/20'}`}>
                           <ThumbsUp size={14} /> {item.thumbsUp}
                         </button>
                         <button onClick={() => handleVote(item.id, 'down')}
@@ -426,7 +426,7 @@ export function CreativeStudioClient() {
                           <ThumbsDown size={14} /> {item.thumbsDown}
                         </button>
                       </div>
-                      <span className="text-[10px] font-bold text-[#14B8A6]">
+                      <span className="text-[10px] font-bold text-portal-accent">
                         {item.thumbsUp + item.thumbsDown > 0 ? Math.round((item.thumbsUp / (item.thumbsUp + item.thumbsDown)) * 100) : 50}% positive
                       </span>
                     </div>
@@ -438,7 +438,7 @@ export function CreativeStudioClient() {
         </motion.div>
       )}
 
-      {/* ─── SHOWCASE & WINS ─── */}
+      {/* â”€â”€â”€ SHOWCASE & WINS â”€â”€â”€ */}
       {activeTab === 2 && (
         <motion.div variants={stagger} initial="hidden" animate="show" className="max-w-2xl">
           <div className="flex items-center justify-between mb-6">
@@ -450,7 +450,7 @@ export function CreativeStudioClient() {
                       : f === 'showcase' ? 'bg-purple-500/20 text-purple-300 border border-purple-500/20'
                       : 'bg-foreground/10 text-foreground border border-foreground/20'
                     : 'text-foreground/25 hover:text-foreground/50 bg-foreground/[0.03]'}`}>
-                  {f === 'all' ? 'All Posts' : f === 'showcase' ? '🎨 Showcases' : '🏆 Wins'}
+                  {f === 'all' ? 'All Posts' : f === 'showcase' ? 'ðŸŽ¨ Showcases' : 'ðŸ† Wins'}
                 </button>
               ))}
             </div>
@@ -472,7 +472,7 @@ export function CreativeStudioClient() {
                     <div className="flex items-center gap-2">
                       <p className="text-xs font-black text-foreground">{post.creator}</p>
                       <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 rounded-full ${post.type === 'win' ? 'bg-amber-500/10 text-amber-400' : 'bg-purple-500/10 text-purple-400'}`}>
-                        {post.type === 'win' ? '🏆 Win' : '🎨 Showcase'}
+                        {post.type === 'win' ? 'ðŸ† Win' : 'ðŸŽ¨ Showcase'}
                       </span>
                     </div>
                   </div>
@@ -497,7 +497,7 @@ export function CreativeStudioClient() {
         </motion.div>
       )}
 
-      {/* ─── HOT RIGHT NOW ─── */}
+      {/* â”€â”€â”€ HOT RIGHT NOW â”€â”€â”€ */}
       {activeTab === 3 && (
         <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-3 max-w-2xl">
           <p className="text-xs text-foreground/30 font-bold uppercase tracking-widest mb-4">Trending in the agency right now</p>
@@ -518,7 +518,7 @@ export function CreativeStudioClient() {
         </motion.div>
       )}
 
-      {/* ─── MODALS ─── */}
+      {/* â”€â”€â”€ MODALS â”€â”€â”€ */}
       <AnimatePresence>
         {showUpload && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}

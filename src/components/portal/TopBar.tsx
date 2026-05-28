@@ -78,14 +78,14 @@ export function TopBar({ creator, onSignOut, rightPanelOpen, onRightPanelToggle 
       {/* Mobile: Logo */}
       <Link href="/portal/home" className="lg:hidden flex-shrink-0">
         <span className="text-sm font-black text-foreground tracking-tight">
-          PTA <span className="text-[#14B8A6]">Portal</span>
+          PTA <span className="text-portal-accent">Portal</span>
         </span>
       </Link>
 
-      {/* Search — desktop */}
+      {/* Search â€” desktop */}
       <div className="flex-1 max-w-sm hidden sm:flex items-center relative">
         <div className={`relative flex items-center w-full h-8 rounded-xl border transition-all ${
-          searchOpen ? 'border-[#14B8A6]/40 bg-[#14B8A6]/5' : 'border-foreground/[0.06] bg-foreground/[0.03]'
+          searchOpen ? 'border-portal-accent/40 bg-portal-accent/5' : 'border-foreground/[0.06] bg-foreground/[0.03]'
         }`}>
           <Search size={13} className="absolute left-3 text-foreground/25 pointer-events-none" />
           <input
@@ -131,7 +131,7 @@ export function TopBar({ creator, onSignOut, rightPanelOpen, onRightPanelToggle 
                     <span className="text-[8px] font-black uppercase tracking-wider text-foreground/20 px-1.5 py-0.5 bg-foreground/5 rounded-md">
                       {item.category}
                     </span>
-                    <ArrowRight size={11} className="text-foreground/20 group-hover:text-[#14B8A6] transition-colors" />
+                    <ArrowRight size={11} className="text-foreground/20 group-hover:text-portal-accent transition-colors" />
                   </div>
                 </button>
               ))}
@@ -158,7 +158,7 @@ export function TopBar({ creator, onSignOut, rightPanelOpen, onRightPanelToggle 
           >
             <Bell size={16} />
             {unreadCount > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#14B8A6] rounded-full text-[9px] font-black text-white flex items-center justify-center">
+              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-portal-accent rounded-full text-[9px] font-black text-white flex items-center justify-center">
                 {unreadCount}
               </span>
             )}
@@ -182,7 +182,7 @@ export function TopBar({ creator, onSignOut, rightPanelOpen, onRightPanelToggle 
                   {unreadCount > 0 && (
                     <button
                       onClick={markAllRead}
-                      className="text-[9px] font-bold text-[#14B8A6] hover:underline cursor-pointer"
+                      className="text-[9px] font-bold text-portal-accent hover:underline cursor-pointer"
                     >
                       Mark all read
                     </button>
@@ -192,10 +192,10 @@ export function TopBar({ creator, onSignOut, rightPanelOpen, onRightPanelToggle 
                   {notifications.map((n) => (
                     <div
                       key={n.id}
-                      className={`px-4 py-3 hover:bg-foreground/[0.02] transition-colors cursor-pointer ${!n.read ? 'bg-[#14B8A6]/[0.03]' : ''}`}
+                      className={`px-4 py-3 hover:bg-foreground/[0.02] transition-colors cursor-pointer ${!n.read ? 'bg-portal-accent/[0.03]' : ''}`}
                     >
                       <div className="flex items-start gap-2">
-                        {!n.read && <div className="w-1.5 h-1.5 rounded-full bg-[#14B8A6] flex-shrink-0 mt-1.5" />}
+                        {!n.read && <div className="w-1.5 h-1.5 rounded-full bg-portal-accent flex-shrink-0 mt-1.5" />}
                         <div className={!n.read ? '' : 'pl-[14px]'}>
                           <p className={`text-xs font-semibold leading-relaxed ${n.read ? 'text-foreground/40' : 'text-foreground/80'}`}>{n.text}</p>
                           <p className="text-[9px] text-foreground/20 mt-1 font-bold">{n.time}</p>
@@ -220,8 +220,8 @@ export function TopBar({ creator, onSignOut, rightPanelOpen, onRightPanelToggle 
             onClick={() => { setAvatarOpen(!avatarOpen); setNotifOpen(false); }}
             className="flex items-center gap-2 h-8 pl-1 pr-2 rounded-xl hover:bg-foreground/5 transition-all"
           >
-            <div className="w-6 h-6 rounded-full bg-[#14B8A6]/20 border border-[#14B8A6]/30 flex items-center justify-center">
-              <span className="text-[9px] font-black text-[#14B8A6] uppercase">{creator.name.charAt(0)}</span>
+            <div className="w-6 h-6 rounded-full bg-portal-accent/20 border border-portal-accent/30 flex items-center justify-center">
+              <span className="text-[9px] font-black text-portal-accent uppercase">{creator.name.charAt(0)}</span>
             </div>
             <span className="text-xs font-bold text-foreground/60 hidden sm:block max-w-[80px] truncate">{creator.name}</span>
             <ChevronDown size={10} className="text-foreground/20" />

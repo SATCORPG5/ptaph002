@@ -21,16 +21,16 @@ function LiveFloorPanel() {
   return (
     <div className="space-y-3">
       {creators.map((c) => (
-        <div key={c.name} className="flex items-center gap-3 p-3 rounded-xl bg-foreground/[0.03] border border-foreground/[0.05] hover:border-[#14B8A6]/20 transition-colors">
+        <div key={c.name} className="flex items-center gap-3 p-3 rounded-xl bg-foreground/[0.03] border border-foreground/[0.05] hover:border-portal-accent/20 transition-colors">
           <div className="relative flex-shrink-0">
-            <div className="w-8 h-8 rounded-full bg-[#14B8A6]/10 border border-[#14B8A6]/20 flex items-center justify-center">
-              <span className="text-[9px] font-black text-[#14B8A6]">{c.name.charAt(0)}</span>
+            <div className="w-8 h-8 rounded-full bg-portal-accent/10 border border-portal-accent/20 flex items-center justify-center">
+              <span className="text-[9px] font-black text-portal-accent">{c.name.charAt(0)}</span>
             </div>
             <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-red-500 rounded-full border border-background-surface animate-pulse" />
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-xs font-bold text-foreground truncate">{c.name}</p>
-            <p className="text-[9px] text-foreground/30">{c.viewers} viewers · {c.duration}</p>
+            <p className="text-[9px] text-foreground/30">{c.viewers} viewers Â· {c.duration}</p>
           </div>
         </div>
       ))}
@@ -51,7 +51,7 @@ function CollabPanel() {
           <div className="flex items-center justify-between mb-1">
             <p className="text-xs font-bold text-foreground">{r.name}</p>
             <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 rounded-full ${
-              r.status === 'open' ? 'bg-[#14B8A6]/10 text-[#14B8A6]' : 'bg-foreground/5 text-foreground/30'
+              r.status === 'open' ? 'bg-portal-accent/10 text-portal-accent' : 'bg-foreground/5 text-foreground/30'
             }`}>{r.status}</span>
           </div>
           <p className="text-[9px] text-foreground/30">{r.niche}</p>
@@ -132,7 +132,7 @@ export function RightPanel({ open, onClose }: RightPanelProps) {
           >
             <div className="flex items-center justify-between h-14 px-4 border-b border-foreground/[0.05] flex-shrink-0">
               <div className="flex items-center gap-2">
-                <Icon size={14} className="text-[#14B8A6]" />
+                <Icon size={14} className="text-portal-accent" />
                 <span className="text-xs font-black text-foreground/70">{title}</span>
               </div>
               <button onClick={onClose} className="w-6 h-6 flex items-center justify-center text-foreground/20 hover:text-foreground transition-colors">
@@ -166,7 +166,7 @@ export function RightPanel({ open, onClose }: RightPanelProps) {
             >
               <div className="flex items-center justify-between px-5 py-4 border-b border-foreground/[0.06]">
                 <div className="flex items-center gap-2">
-                  <Icon size={15} className="text-[#14B8A6]" />
+                  <Icon size={15} className="text-portal-accent" />
                   <span className="text-sm font-black text-foreground">{title}</span>
                 </div>
                 <button onClick={onClose}>

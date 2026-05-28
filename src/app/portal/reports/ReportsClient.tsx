@@ -63,8 +63,8 @@ export function ReportsClient({ creator }: ReportsClientProps) {
 
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-4">
-        <div className="w-10 h-10 rounded-2xl bg-[#14B8A6]/10 border border-[#14B8A6]/20 flex items-center justify-center">
-          <BarChart3 size={20} className="text-[#14B8A6]" />
+        <div className="w-10 h-10 rounded-2xl bg-portal-accent/10 border border-portal-accent/20 flex items-center justify-center">
+          <BarChart3 size={20} className="text-portal-accent" />
         </div>
         <div>
           <h1 className="text-2xl font-black text-foreground tracking-tight">Data Cards</h1>
@@ -83,7 +83,7 @@ export function ReportsClient({ creator }: ReportsClientProps) {
                 <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: `${stat.color}15`, border: `1px solid ${stat.color}25` }}>
                   <Icon size={15} style={{ color: stat.color }} />
                 </div>
-                <span className="text-[9px] font-black text-[#14B8A6]">{stat.trend}</span>
+                <span className="text-[9px] font-black text-portal-accent">{stat.trend}</span>
               </div>
               <p className="text-xl font-black text-foreground mb-1">{stat.value}</p>
               <p className="text-[9px] font-bold text-foreground/25 uppercase tracking-wider">{stat.label}</p>
@@ -103,17 +103,17 @@ export function ReportsClient({ creator }: ReportsClientProps) {
         <p className="text-xs font-black text-foreground/30 uppercase tracking-widest">Monthly Reports</p>
         {MOCK_DATA_CARDS.map(card => (
           <div key={card.month}
-            className={`rounded-2xl border overflow-hidden transition-all ${expanded === card.month ? 'border-[#14B8A6]/20 bg-[#14B8A6]/[0.03]' : 'border-foreground/[0.06] bg-foreground/[0.02]'}`}>
+            className={`rounded-2xl border overflow-hidden transition-all ${expanded === card.month ? 'border-portal-accent/20 bg-portal-accent/[0.03]' : 'border-foreground/[0.06] bg-foreground/[0.02]'}`}>
             <button
               onClick={() => setExpanded(expanded === card.month ? null : card.month)}
               className="w-full flex items-center gap-4 p-5 text-left"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#14B8A6]/10 border border-[#14B8A6]/20 flex items-center justify-center flex-shrink-0">
-                <BarChart3 size={16} className="text-[#14B8A6]" />
+              <div className="w-10 h-10 rounded-xl bg-portal-accent/10 border border-portal-accent/20 flex items-center justify-center flex-shrink-0">
+                <BarChart3 size={16} className="text-portal-accent" />
               </div>
               <div className="flex-1">
                 <p className="text-sm font-black text-foreground">{card.month}</p>
-                <p className="text-[9px] text-foreground/25">Submitted by {card.submittedBy} · {card.submittedAt}</p>
+                <p className="text-[9px] text-foreground/25">Submitted by {card.submittedBy} Â· {card.submittedAt}</p>
               </div>
               <div className="hidden sm:flex items-center gap-6 mr-4">
                 <div className="text-center">
