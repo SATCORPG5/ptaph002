@@ -156,7 +156,7 @@ Every phase ships independently; no phase blocks on a later one.
 - [x] Phase 2 — Shared primitives (commit `4545480`, pushed 2026-05-27; PR not yet merged)
 - [x] Phase 3 — Shell modernization (commit `b215ffa`, pushed 2026-05-27 to `testing`; PR not yet merged)
 - [x] Phase 4a — Creator Portal (commit `3caff2e`, pushed 2026-05-28 to `testing`; PR not yet merged)
-- [ ] Phase 4b — CRM
+- [x] Phase 4b — CRM (commit `d3c7f91`, pushed 2026-05-28 to `testing`; PR not yet merged)
 - [ ] Phase 4c — Recruiters
 - [ ] Phase 4d — Admin
 - [ ] Phase 5 — Motion + a11y + perf
