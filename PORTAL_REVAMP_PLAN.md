@@ -98,7 +98,10 @@
 
 **Best techniques:** Framer `LayoutGroup` for cross-card animations; **`next/image` with `placeholder="blur"`** for all creator thumbnails; **`useInView` + IntersectionObserver** to defer ring animations off-screen.
 
-### CRM (`/(dashboard)/crm`)
+### CRM (`/(dashboard)/crm`) — ✅ DONE (2026-05-28)
+
+> **As-built note:** `CrmClient` fully rewritten. `DataTable` (with new `onRowClick` + `focusedRowIndex` props) replaces the hand-rolled list. `Sheet` (side="right") is the detail slide-over. `TierChip` is a Michroma badge with `Tooltip` override (`bg-background-elevated border border-border text-foreground`). nuqs v2 URL state: `q`, `tier`, `sort`. `useOptimistic` + `useTransition` for tier reassignment — new `updateCreatorTier` server action in `actions.ts`. Keyboard nav: j/k rows, Enter open, / search, Esc clear. Density toggle (S/M/L) in `SectionHeader` actions slot. `NuqsAdapter` added to root layout. See [PORTAL_REVAMP_EXECUTION.md](PORTAL_REVAMP_EXECUTION.md) PR #5.
+
 - Unify into `DataTable` + slide-over detail (`Sheet`).
 - Pipeline stage as Michroma chips with hover popovers.
 
