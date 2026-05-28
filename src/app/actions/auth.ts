@@ -108,7 +108,7 @@ export async function signInAction(handle: string, password: string) {
     cookieStore.delete('pta_creator_session');
   }
 
-  return { success: true, creatorId: creator.id };
+  return { success: true, creatorId: creator.id, tier: creator.tier };
   } catch (err) {
     console.error('[signInAction] Unexpected error:', err);
     return { success: false, error: 'A server error occurred. Please try again.' };

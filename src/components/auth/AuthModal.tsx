@@ -10,6 +10,7 @@ import {
 } from '@/app/actions/auth';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getPortalRoute } from '@/lib/portal';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -45,25 +46,34 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
     let result: Awaited<ReturnType<typeof signInAction>>;
     try {
       result = await signInAction(handle, password);
-    } catch (err) {
+    } catch {
       setLoading(false);
       setError('Something went wrong. Please try again.');
       return;
     }
     setLoading(false);
 
-    if (result.success) {
+    type SignInResult = typeof result & {
+      tier?: string;
+      requires2FA?: boolean;
+      needsOnboarding?: boolean;
+      pendingApproval?: boolean;
+      creatorId?: string;
+    };
+    const r = result as SignInResult;
+
+    if (r.success) {
       router.refresh();
       onClose();
-      router.push('/portal/home');
-    } else if ((result as any).requires2FA) {
-      router.push(`/login/2fa?creator_id=${(result as any).creatorId}`);
+      router.push(getPortalRoute(r.tier));
+    } else if (r.requires2FA) {
+      router.push(`/login/2fa?creator_id=${r.creatorId}`);
       onClose();
-    } else if ((result as any).needsOnboarding) {
-      router.push(`/onboarding?creator_id=${(result as any).creatorId}`);
+    } else if (r.needsOnboarding) {
+      router.push(`/onboarding?creator_id=${r.creatorId}`);
       onClose();
-    } else if ((result as any).pendingApproval) {
-      router.push(`/onboarding?creator_id=${(result as any).creatorId}&pending=1`);
+    } else if (r.pendingApproval) {
+      router.push(`/onboarding?creator_id=${r.creatorId}&pending=1`);
       onClose();
     } else {
       setError(result.error || 'Failed to sign in');

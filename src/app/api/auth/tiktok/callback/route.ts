@@ -1,5 +1,6 @@
 export const runtime = 'nodejs';
 import { NextRequest, NextResponse } from 'next/server';
+import { getPortalRoute } from '@/lib/portal';
 import { redis } from '@/lib/redis';
 import { exchangeTikTokCode, getTikTokProfile } from '@/lib/tiktok';
 import {
@@ -117,7 +118,7 @@ export async function GET(request: NextRequest) {
     });
     await indexUserSession(creator.id, sessionId);
 
-    const resp = NextResponse.redirect(`${APP}/portal/home`);
+    const resp = NextResponse.redirect(`${APP}${getPortalRoute(creator.tier)}`);
     resp.cookies.set(SESSION_COOKIE, sessionId, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

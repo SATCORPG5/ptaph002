@@ -3,6 +3,7 @@ import { consumeToken } from '@/lib/auth/tokens';
 import { createSession, indexUserSession, SESSION_COOKIE } from '@/lib/auth';
 import { Ratelimit } from '@upstash/ratelimit';
 import { redis, isUsingMockRedis } from '@/lib/redis';
+import { getCreatorsFromDb } from '@/lib/creators-db';
 
 const limiter = isUsingMockRedis ? null : new Ratelimit({
   redis,
@@ -31,7 +32,10 @@ export async function POST(request: NextRequest) {
   }, true);
   await indexUserSession(creatorId, sessionId);
 
-  const resp = NextResponse.json({ success: true });
+  const creators = await getCreatorsFromDb();
+  const creator = creators.find(c => c.id === creatorId);
+
+  const resp = NextResponse.json({ success: true, tier: creator?.tier ?? null });
   resp.cookies.set(SESSION_COOKIE, sessionId, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',

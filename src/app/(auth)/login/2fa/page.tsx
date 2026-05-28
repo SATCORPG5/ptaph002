@@ -3,6 +3,7 @@
 import { Suspense, useState, useRef, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { getPortalRoute } from '@/lib/portal';
 
 function TwoFactorContent() {
   const router = useRouter();
@@ -44,7 +45,8 @@ function TwoFactorContent() {
     });
     setLoading(false);
     if (res.ok) {
-      router.push('/portal/home');
+      const data = await res.json();
+      router.push(getPortalRoute(data.tier));
     } else {
       const d = await res.json();
       setError(d.error || 'Invalid code');

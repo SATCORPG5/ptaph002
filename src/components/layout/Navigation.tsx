@@ -8,11 +8,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
 import { getSession, signOutAction } from "@/app/actions/auth";
 import { Creator } from "@/lib/creators";
+import { AuthModal } from "@/components/auth/AuthModal";
+import { getPortalRoute } from "@/lib/portal";
 
 function getPortalUrl(creator: Creator): string {
-  if (creator.tier === 'staff' || (creator as any).role === 'admin') return '/portal/admin';
-  if (creator.tier === 'recruiter') return '/portal/my-creators';
-  return '/portal/home';
+  if ((creator as Creator & { role?: string }).role === 'admin') return '/portal/admin';
+  return getPortalRoute(creator.tier);
 }
 
 const NAV_LINKS = [
@@ -26,6 +27,7 @@ export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [session, setSession] = useState<Creator | null>(null);
+  const [loginOpen, setLoginOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const isCardForm = pathname === "/cardform";
@@ -129,9 +131,12 @@ export function Navigation() {
                     </Button>
                   </Link>
                 ) : (
-                  <Link href="/login">
-                    <Button className="hidden sm:inline-flex rounded-lg px-5 h-9 font-semibold text-sm bg-purple-600 hover:bg-purple-500 text-white transition-all duration-200">Creator Portal</Button>
-                  </Link>
+                  <Button
+                    onClick={() => setLoginOpen(true)}
+                    className="hidden sm:inline-flex rounded-lg px-5 h-9 font-semibold text-sm bg-purple-600 hover:bg-purple-500 text-white transition-all duration-200"
+                  >
+                    Creator Portal
+                  </Button>
                 )}
 
                 {/* Mobile Menu */}
@@ -187,11 +192,12 @@ export function Navigation() {
                       </Button>
                     </Link>
                   ) : (
-                    <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
-                      <Button className="w-full rounded-lg h-10 font-semibold text-sm bg-purple-600 hover:bg-purple-500 text-white transition-all duration-200">
-                        Creator Portal
-                      </Button>
-                    </Link>
+                    <Button
+                      onClick={() => { setMobileMenuOpen(false); setLoginOpen(true); }}
+                      className="w-full rounded-lg h-10 font-semibold text-sm bg-purple-600 hover:bg-purple-500 text-white transition-all duration-200"
+                    >
+                      Creator Portal
+                    </Button>
                   )}
                 </div>
               </nav>
@@ -200,6 +206,7 @@ export function Navigation() {
         </AnimatePresence>
       </header>
 
+      <AuthModal isOpen={loginOpen} onClose={() => setLoginOpen(false)} />
     </>
   );
 }
