@@ -8,6 +8,8 @@
 
 > **⚠️ As-built correction (Phase 3, 2026-05-27):** The ⌘K palette needs **no `react-hotkeys-hook`** — `<CommandPalette>` self-mounts its own keydown listener, so the dep (installed per plan) is unused for now. shadcn `DropdownMenu`/`Sheet` render **unstyled by default** in this project: there are no `--color-popover` / `accent-foreground` tokens, and `--color-accent` is amber — so every shadcn overlay must get explicit `className` overrides (`bg-background-elevated border-border`, `focus:bg-portal-accent/[0.08] data-[highlighted]:…`). Search items now live in `src/components/portal/nav-targets.ts` (`NAV_TARGETS`), not inline in `TopBar`. Sidebar expanded state persists to `localStorage` key **`pta:sidebar-expanded`**. Sidebar sections are **OPERATIONS / ACCOUNT / ADMIN** (renamed from Departments / My Space). The mobile hamburger trigger in `TopBar` is genuinely new — the old mobile-overlay code had no trigger wired. Effects that set state (live clock, localStorage restore) must wrap the `setState` in a named local fn to satisfy `react-hooks/set-state-in-effect`. Full list: [PORTAL_REVAMP_EXECUTION.md](PORTAL_REVAMP_EXECUTION.md) PR #3.
 
+> **⚠️ As-built correction (Phase 4a, 2026-05-28):** `ActivityRing` uses **`useInView` from `framer-motion`** (not a raw `IntersectionObserver`) — animation and pulse dot both gated on `inView` with `once: true`. `LobbyClient` ships a **4-section layout** (hero `PortalCard tone="tactical"` with radial gradient style override → StatTile row → 2-col live-preview + approvals → 2-col upcoming + activity) rather than a pure 3-column grid. `CreativeStudioClient` uses dnd-kit with a **separate drag-handle pattern** (`GripVertical` button carries `{...listeners}`; card body handles click-to-lightbox) to avoid click/drag conflict — `touch-none` on the handle prevents mobile scroll interference. The shadcn `Dialog` lightbox requires the same className override as other shadcn overlays: `bg-background-elevated border-foreground/10 text-foreground`. `next.config.ts` received a **catch-all `remotePatterns`** (`https://**` + `http://**`) for dynamic user-provided image URLs in `ProfilePortalClient`. `@dnd-kit/utilities` was installed alongside `@dnd-kit/core` + `@dnd-kit/sortable` (needed for the `CSS` transform utility). All 6 creator portal pages now consume `PortalCard`, `SectionHeader`, and `StatTile` exclusively — no hand-rolled cards remain. Full list: [PORTAL_REVAMP_EXECUTION.md](PORTAL_REVAMP_EXECUTION.md) PR #4.
+
 ---
 
 ## Goal
@@ -25,7 +27,7 @@ Modernize the four portals (Creator `/portal`, CRM `/(dashboard)/crm`, Recruiter
 
 ### What's holding it back
 - ~~Heavy inline hex (`#14B8A6`, `#080812`) scattered across components~~ ✅ **Fixed in Phase 1** — migrated to `bg-portal-accent` / `bg-portal-surface-1` tokens; ESLint guard prevents re-introduction in classNames.
-- ~~Type sizes are very small (`text-[9px]`, `text-[10px]`) and weights are uniformly black — visually flat, no clear hierarchy.~~ ✅ **Partly fixed in Phase 3** — shell `text-[8px]/[9px]` bumped to `text-[10px]/[11px]`; `text-[10px]` reserved for Michroma tactical labels. Per-portal page type still pending (Phase 4).
+- ~~Type sizes are very small (`text-[9px]`, `text-[10px]`) and weights are uniformly black — visually flat, no clear hierarchy.~~ ✅ **Fixed in Phase 3 + 4a** — shell `text-[8px]/[9px]` bumped to `text-[10px]/[11px]`; `text-[10px]` reserved for Michroma tactical labels. Creator portal pages now use `SectionHeader` for all section headings (Outfit Black display + Michroma eyebrow) and `tabular-nums` on all numeric displays.
 - ~~No shared primitives. `TopBar`, `RightPanel`, and admin pages all hand-roll their own dropdowns, cards, and pill chips.~~ ✅ **Fixed in Phase 2** — 9 primitives in `src/components/portal/ui/`: PortalCard, StatTile, TacticalLabel, SectionHeader, DataTable, CommandPalette, DeltaChip, StatusPill, TacticalDivider. Barrel-exported via `index.ts`. shadcn components (button, command, dialog, dropdown-menu, sheet, tabs, tooltip, alert-dialog) available in `src/components/shadcn-ui/`.
 - ~~Mixed surfaces: `bg-foreground/[0.03]`, `bg-[#080812]`, `bg-background-elevated` — three ways to say "card."~~ ✅ **Fixed in Phase 2** — `PortalCard` is the single card primitive; `tone="default|elevated|tactical|loading"` CVA variants cover all cases.
 - ~~Search/notifications/avatar are bespoke per portal. Recruiters and admin look like a different product.~~ ✅ **Fixed for the Creator shell in Phase 3** — search is now the global ⌘K `CommandPalette`; notifications + avatar use shadcn `DropdownMenu`. Recruiters/Admin still need their shells aligned (Phase 4c/4d).
@@ -96,7 +98,7 @@ Peace-time visual signature:
 | `react-hotkeys-hook` | 3 | Keyboard shortcuts |
 | `nuqs` | 4 | URL-synced filter state |
 | `sonner` | 1 ✅ | Single toast system. Installed in Phase 1 (not yet wired). |
-| `dnd-kit` | 4 | Asset reordering in Creative Studio |
+| `@dnd-kit/core` + `@dnd-kit/sortable` + `@dnd-kit/utilities` | 4 ✅ | Asset reordering in Creative Studio (sortable grid, separate drag-handle pattern). `@dnd-kit/utilities` needed for `CSS` transform helper. |
 | `axe-core` + `@axe-core/playwright` | 5 | A11y CI (Playwright already installed as Storybook dep in Phase 2) |
 
 No new font deps — Outfit / Space Grotesk / Michroma stay.
