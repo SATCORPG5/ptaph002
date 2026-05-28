@@ -6,9 +6,14 @@ import { useState, useEffect } from "react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
-import { AuthModal } from "@/components/auth/AuthModal";
 import { getSession, signOutAction } from "@/app/actions/auth";
 import { Creator } from "@/lib/creators";
+
+function getPortalUrl(creator: Creator): string {
+  if (creator.tier === 'staff' || (creator as any).role === 'admin') return '/portal/admin';
+  if (creator.tier === 'recruiter') return '/portal/my-creators';
+  return '/portal/home';
+}
 
 const NAV_LINKS = [
   { name: "Creators", href: "/creators" },
@@ -20,7 +25,6 @@ const NAV_LINKS = [
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [authModalOpen, setAuthModalOpen] = useState(false);
   const [session, setSession] = useState<Creator | null>(null);
   const pathname = usePathname();
   const router = useRouter();
@@ -119,13 +123,15 @@ export function Navigation() {
 
                 <Link href="/apply"><Button className="hidden sm:inline-flex rounded-lg px-5 h-9 font-semibold text-sm bg-primary hover:bg-primary-dark text-white transition-all duration-200 hover:shadow-neon-primary">Join the Roster</Button></Link>
                 {session ? (
-                  <Link href="/portal/home">
+                  <Link href={getPortalUrl(session)}>
                     <Button className="hidden sm:inline-flex rounded-lg px-5 h-9 font-semibold text-sm bg-[#14B8A6] hover:bg-[#0ea5e9] text-white transition-all duration-200">
                       My Portal
                     </Button>
                   </Link>
                 ) : (
-                  <Button onClick={() => setAuthModalOpen(true)} className="hidden sm:inline-flex rounded-lg px-5 h-9 font-semibold text-sm bg-purple-600 hover:bg-purple-500 text-white transition-all duration-200">Creator Portal</Button>
+                  <Link href="/login">
+                    <Button className="hidden sm:inline-flex rounded-lg px-5 h-9 font-semibold text-sm bg-purple-600 hover:bg-purple-500 text-white transition-all duration-200">Creator Portal</Button>
+                  </Link>
                 )}
 
                 {/* Mobile Menu */}
@@ -175,18 +181,17 @@ export function Navigation() {
                     </Button>
                   </Link>
                   {session ? (
-                    <Link href="/portal/home" onClick={() => setMobileMenuOpen(false)}>
+                    <Link href={getPortalUrl(session)} onClick={() => setMobileMenuOpen(false)}>
                       <Button className="w-full rounded-lg h-10 font-semibold text-sm bg-[#14B8A6] hover:bg-[#0ea5e9] text-white transition-all duration-200">
                         My Portal
                       </Button>
                     </Link>
                   ) : (
-                    <Button
-                      onClick={() => { setMobileMenuOpen(false); setAuthModalOpen(true); }}
-                      className="w-full rounded-lg h-10 font-semibold text-sm bg-purple-600 hover:bg-purple-500 text-white transition-all duration-200"
-                    >
-                      Creator Portal
-                    </Button>
+                    <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
+                      <Button className="w-full rounded-lg h-10 font-semibold text-sm bg-purple-600 hover:bg-purple-500 text-white transition-all duration-200">
+                        Creator Portal
+                      </Button>
+                    </Link>
                   )}
                 </div>
               </nav>
@@ -195,10 +200,6 @@ export function Navigation() {
         </AnimatePresence>
       </header>
 
-      <AuthModal 
-        isOpen={authModalOpen} 
-        onClose={() => setAuthModalOpen(false)} 
-      />
     </>
   );
 }
