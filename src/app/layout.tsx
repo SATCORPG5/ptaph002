@@ -27,6 +27,7 @@ export const metadata: Metadata = {
 
 import { Navigation } from "@/components/layout/Navigation";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import Script from "next/script";
 
 export default function RootLayout({
@@ -37,12 +38,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body className={`${outfit.variable} ${spaceGrotesk.variable} ${michroma.variable} antialiased min-h-screen selection:bg-cyan-500/30 selection:text-cyan-50 transition-colors duration-700`}>
-        <ThemeProvider>
-          <Navigation />
-          <div className="pt-16">
-            {children}
-          </div>
-        </ThemeProvider>
+        <NuqsAdapter>
+          <ThemeProvider>
+            <Navigation />
+            <div className="pt-16">
+              {children}
+            </div>
+          </ThemeProvider>
+        </NuqsAdapter>
         {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
           <Script
             src={process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL || "https://analytics.umami.is/script.js"}

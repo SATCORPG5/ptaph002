@@ -33,6 +33,10 @@ interface DataTableProps<TData, TValue> {
   /** Optional controlled filter value for global text search */
   globalFilter?: string;
   onGlobalFilterChange?: (value: string) => void;
+  /** Fires when a row is clicked */
+  onRowClick?: (row: TData) => void;
+  /** Row index (0-based) to highlight as keyboard-focused */
+  focusedRowIndex?: number;
   className?: string;
 }
 
@@ -43,6 +47,8 @@ function DataTable<TData, TValue>({
   getRowId,
   globalFilter,
   onGlobalFilterChange,
+  onRowClick,
+  focusedRowIndex,
   className,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -139,10 +145,14 @@ function DataTable<TData, TValue>({
               <tr
                 key={row.id}
                 data-selected={row.getIsSelected()}
+                data-kb-focused={focusedRowIndex !== undefined && row.index === focusedRowIndex ? '' : undefined}
+                onClick={onRowClick ? () => onRowClick(row.original) : undefined}
                 className={cn(
                   rowHeight[density],
                   'border-b border-foreground/[0.04] last:border-0 transition-colors',
                   'hover:bg-foreground/[0.02] data-[selected=true]:bg-portal-accent/[0.04]',
+                  'data-[kb-focused]:bg-portal-accent/[0.06] data-[kb-focused]:outline-none',
+                  onRowClick && 'cursor-pointer',
                 )}
               >
                 {row.getVisibleCells().map((cell) => (

@@ -31,3 +31,21 @@ export async function addReviewNote(formData: FormData) {
   revalidatePath('/crm')
   return { success: true }
 }
+
+export async function updateCreatorTier(
+  creatorId: string,
+  tier: 'staff' | 'top' | 'new' | 'recruiter',
+) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error('Not authenticated')
+
+  const { error } = await supabase
+    .from('creators')
+    .update({ tier })
+    .eq('id', creatorId)
+
+  if (error) throw new Error(error.message)
+  revalidatePath('/crm')
+  return { success: true }
+}
