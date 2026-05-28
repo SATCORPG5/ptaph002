@@ -24,8 +24,12 @@ function getMockDb() {
 }
 
 function saveMockDb(data: any) {
-  const current = getMockDb();
-  fs.writeFileSync(MOCK_DB_PATH, JSON.stringify({ ...current, ...data }, null, 2));
+  try {
+    const current = getMockDb();
+    fs.writeFileSync(MOCK_DB_PATH, JSON.stringify({ ...current, ...data }, null, 2));
+  } catch {
+    // Read-only filesystem (e.g. Vercel serverless) — skip file write silently
+  }
 }
 
 export async function getCreatorsFromDb(): Promise<Creator[]> {
