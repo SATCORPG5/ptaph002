@@ -435,7 +435,6 @@
       "socials": {
         "tiktok": "https://www.tiktok.com/@baked.laze"
       },
-      "password": "SATCORPIT002",
       "mediaAssets": [],
       "backgroundUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
       "backgroundContrast": 99,
@@ -450,7 +449,8 @@
       "automation": {
         "autoUpdateContent": false
       },
-      "role": "admin"
+      "role": "admin",
+      "passwordHash": "scrypt:0baac67a40b638f8e396f3d069d610c9:9beb50a0e9286678debddbfedf0dd0ea7008a1bd60a4f5c0feb999f61ca3e3fadf6fffff9784fa4fd73bec507819a52ebca955e5958e63802c34b28b1a92d315"
     },
     {
       "id": "coldp1zza",

@@ -63,3 +63,7 @@ Phase_Production_Roadmap.md
 skills_list.txt
 skills_found.txt
 Brand_Font_Guidelines.md
+
+# backup snapshots — should never be tracked
+BCKUP*/
+"BCKUP v3.1"/
