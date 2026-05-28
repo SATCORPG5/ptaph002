@@ -1,11 +1,12 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, Layout, Share2, Settings, Image as ImageIcon, Eye } from 'lucide-react';
 import { Creator } from '@/lib/creators';
 import { updateCreatorAction } from '@/app/actions/auth';
 import { useRouter } from 'next/navigation';
+import { PortalCard, SectionHeader } from '@/components/portal/ui';
 
 interface ProfilePortalClientProps {
   creator: Creator;
@@ -13,11 +14,13 @@ interface ProfilePortalClientProps {
 
 const TABS = ['Card Cover', 'Creator Card', 'Settings'];
 
+const BLUR_PLACEHOLDER = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
+
 export function ProfilePortalClient({ creator: initialCreator }: ProfilePortalClientProps) {
   const [activeTab, setActiveTab] = useState(0);
-  const [creator, setCreator] = useState(initialCreator);
-  const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [creator, setCreator]     = useState(initialCreator);
+  const [saving, setSaving]       = useState(false);
+  const [message, setMessage]     = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const router = useRouter();
 
   const inputClass = "w-full bg-foreground/[0.04] border border-foreground/[0.08] rounded-xl px-4 py-3 text-sm text-foreground placeholder-foreground/20 outline-none focus:border-portal-accent/40 transition-all";
@@ -41,15 +44,11 @@ export function ProfilePortalClient({ creator: initialCreator }: ProfilePortalCl
 
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-2xl bg-portal-accent/10 border border-portal-accent/20 flex items-center justify-center">
-            <User size={20} className="text-portal-accent" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-black text-foreground tracking-tight">My Profile & Cards</h1>
-            <p className="text-xs text-foreground/30 font-medium">Customize how you appear on the agency site</p>
-          </div>
-        </div>
+        <SectionHeader
+          eyebrow="identity"
+          heading="My Profile & Cards"
+          description="Customize how you appear on the agency site"
+        />
         <div className="flex items-center gap-3">
           <AnimatePresence>
             {message && (
@@ -83,13 +82,15 @@ export function ProfilePortalClient({ creator: initialCreator }: ProfilePortalCl
         ))}
       </div>
 
-      {/* â”€â”€â”€ CARD COVER TAB â”€â”€â”€ */}
+      {/* ─── CARD COVER TAB ─── */}
       {activeTab === 0 && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-6">
-            <div className="rounded-2xl border border-foreground/[0.06] bg-foreground/[0.02] p-6 space-y-5">
-              <h3 className="text-sm font-black text-foreground/60 uppercase tracking-widest">Card Cover</h3>
-              <p className="text-xs text-foreground/30">This appears on the /creators listing page.</p>
+          <div className="lg:col-span-2">
+            <PortalCard className="p-6 space-y-5">
+              <div>
+                <h3 className="text-sm font-black text-foreground/60 uppercase tracking-widest mb-1">Card Cover</h3>
+                <p className="text-xs text-foreground/30">This appears on the /creators listing page.</p>
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className={labelClass}>Display Name</label>
@@ -117,10 +118,7 @@ export function ProfilePortalClient({ creator: initialCreator }: ProfilePortalCl
                   <select value={creator.customization?.fontFamily || 'Inter'}
                     onChange={e => setCreator({ ...creator, customization: { ...creator.customization, fontFamily: e.target.value } })}
                     className="w-full bg-[#0F1623] border border-white/15 rounded-xl px-4 py-3 text-sm text-white outline-none [color-scheme:dark]">
-                    <option>Inter</option>
-                    <option>Outfit</option>
-                    <option>Space Grotesk</option>
-                    <option>Syncopate</option>
+                    <option>Inter</option><option>Outfit</option><option>Space Grotesk</option><option>Syncopate</option>
                   </select>
                 </div>
               </div>
@@ -128,15 +126,15 @@ export function ProfilePortalClient({ creator: initialCreator }: ProfilePortalCl
                 <label className={labelClass}>Top Profile Image URL</label>
                 <input value={creator.image || ''} onChange={e => setCreator({ ...creator, image: e.target.value })} placeholder="https://..." className={inputClass} />
               </div>
-            </div>
+            </PortalCard>
           </div>
 
           {/* Live Preview */}
           <div className="lg:col-span-1">
             <div className="sticky top-6">
               <p className="text-[9px] font-black text-foreground/30 uppercase tracking-widest mb-3">Preview</p>
-              <div
-                className="rounded-2xl overflow-hidden border border-foreground/10 aspect-[3/4] flex flex-col"
+              <PortalCard
+                className="overflow-hidden aspect-[3/4] flex flex-col"
                 style={{ background: `linear-gradient(160deg, ${creator.customization?.themeColor || '#14B8A6'}22 0%, var(--color-background) 100%)` }}
               >
                 <div
@@ -144,9 +142,21 @@ export function ProfilePortalClient({ creator: initialCreator }: ProfilePortalCl
                   style={{ background: creator.customization?.themeColor || 'var(--color-portal-accent)' }}
                 />
                 <div className="flex-1 flex flex-col items-center justify-center p-6">
-                  <div className="w-20 h-20 rounded-full bg-foreground/10 border-2 mb-4"
-                    style={{ borderColor: creator.customization?.themeColor || 'var(--color-portal-accent)' }}>
-                    {creator.image && <img src={creator.image} alt="" className="w-full h-full rounded-full object-cover" />}
+                  <div
+                    className="relative w-20 h-20 rounded-full bg-foreground/10 border-2 mb-4 overflow-hidden"
+                    style={{ borderColor: creator.customization?.themeColor || 'var(--color-portal-accent)' }}
+                  >
+                    {creator.image ? (
+                      <Image
+                        src={creator.image}
+                        alt={creator.name}
+                        fill
+                        className="object-cover"
+                        unoptimized
+                        placeholder="blur"
+                        blurDataURL={BLUR_PLACEHOLDER}
+                      />
+                    ) : null}
                   </div>
                   <p className="text-lg font-black text-foreground text-center">{creator.name || 'Creator Name'}</p>
                   <p className="text-xs text-foreground/40 mt-1">{creator.handle}</p>
@@ -154,19 +164,21 @@ export function ProfilePortalClient({ creator: initialCreator }: ProfilePortalCl
                     <p className="text-[10px] text-foreground/30 text-center mt-3 line-clamp-2 px-2">{creator.description}</p>
                   )}
                 </div>
-              </div>
+              </PortalCard>
               <p className="text-[9px] text-foreground/20 text-center mt-2">On-demand preview. Save to update.</p>
             </div>
           </div>
         </motion.div>
       )}
 
-      {/* â”€â”€â”€ CREATOR CARD TAB â”€â”€â”€ */}
+      {/* ─── CREATOR CARD TAB ─── */}
       {activeTab === 1 && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-6 max-w-3xl">
-          <div className="rounded-2xl border border-foreground/[0.06] bg-foreground/[0.02] p-6 space-y-5">
-            <h3 className="text-sm font-black text-foreground/60 uppercase tracking-widest">Full Creator Card</h3>
-            <p className="text-xs text-foreground/30">This appears on your /creators/[handle] full profile page.</p>
+          <PortalCard className="p-6 space-y-5">
+            <div>
+              <h3 className="text-sm font-black text-foreground/60 uppercase tracking-widest mb-1">Full Creator Card</h3>
+              <p className="text-xs text-foreground/30">This appears on your /creators/[handle] full profile page.</p>
+            </div>
             <div>
               <label className={labelClass}>Full Bio</label>
               <textarea value={creator.description || ''} rows={5}
@@ -195,14 +207,14 @@ export function ProfilePortalClient({ creator: initialCreator }: ProfilePortalCl
               <label className={labelClass}>Background Image URL</label>
               <input value={creator.backgroundUrl || ''} onChange={e => setCreator({ ...creator, backgroundUrl: e.target.value })} placeholder="https://... (image or gif)" className={inputClass} />
             </div>
-          </div>
+          </PortalCard>
         </motion.div>
       )}
 
-      {/* â”€â”€â”€ SETTINGS TAB â”€â”€â”€ */}
+      {/* ─── SETTINGS TAB ─── */}
       {activeTab === 2 && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-4 max-w-2xl">
-          <div className="rounded-2xl border border-foreground/[0.06] bg-foreground/[0.02] p-6 space-y-4">
+          <PortalCard className="p-6 space-y-4">
             <h3 className="text-sm font-black text-foreground/60 uppercase tracking-widest">Account Settings</h3>
             <div>
               <label className={labelClass}>Display Name</label>
@@ -213,7 +225,7 @@ export function ProfilePortalClient({ creator: initialCreator }: ProfilePortalCl
               <p className="text-sm font-bold text-foreground/60">{creator.handle}</p>
               <p className="text-[9px] text-foreground/20 mt-1">Handle cannot be changed. Contact admin if needed.</p>
             </div>
-          </div>
+          </PortalCard>
         </motion.div>
       )}
     </div>
