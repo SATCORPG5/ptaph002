@@ -199,7 +199,7 @@ Revert PR — no consumers yet, safe to remove.
 
 ## PR #3 — Phase 3: Shell Modernization ✅ DONE (2026-05-27)
 
-**Status:** Committed on `revamp/phase-3-shell`. Build green; lint clean on all touched files (project total 30,089 problems — below the 30,095 PR #2 baseline, zero new errors/warnings introduced).
+**Status:** Committed `b215ffa` on `revamp/phase-3-shell`, pushed to `testing` (SATCORPG5/ptaph002). PR to open: https://github.com/SATCORPG5/ptaph002/pull/new/revamp/phase-3-shell. Build green; lint clean on all touched files (project total 30,089 problems — below the 30,095 PR #2 baseline, zero new errors/warnings introduced).
 
 **Goal:** Refactor portal shell. ⌘K palette live. Status rail visible.
 
@@ -467,7 +467,7 @@ Revert. Motion + skeletons remove cleanly; CI workflows can be disabled instead 
 |---|---|---|
 | #1 | pushed 2026-05-27 (commit `85fa039`, not yet merged) | Teal token namespaced `portal-accent` (not `accent` — amber collision). shadcn `globals.css`/`layout.tsx`/`Button.tsx` overwrites reverted; `ui` alias → `src/components/shadcn-ui`. Lint guard className-scoped. `cn()` in `src/lib/utils.ts`. |
 | #2 | pushed 2026-05-27 (commit `4545480`, not yet merged) | Storybook 10 (nextjs-vite). Stories import from `@storybook/nextjs-vite` (not `@storybook/react`). `Slot` imported from `radix-ui` as `Slot.Root`. shadcn-ui/ has 11 components (button, command, dialog, dropdown-menu, sheet, tabs, tooltip, alert-dialog + input, input-group, textarea added as peer deps). One TanStack Table React Compiler warning in DataTable.tsx — unavoidable, accepted. |
-| #3 | committed 2026-05-27 on `revamp/phase-3-shell` (not yet merged) | Search lifted to `nav-targets.ts`; ⌘K palette mounted globally in PortalShell (react-hotkeys-hook installed but unused — palette self-mounts listener). TopBar dropdowns → shadcn DropdownMenu (themed: no popover tokens exist, override classNames). useOptimistic mark-all-read + Intl.RelativeTimeFormat. Mobile sidebar → Sheet + new hamburger trigger (old overlay had no trigger). Sidebar persists to `pta:sidebar-expanded`, hover-expand rail, sections regrouped OPERATIONS/ACCOUNT/ADMIN. New StatusRail w/ 1s UTC clock. MotionConfig reducedMotion=user. Type bump 8-9px→10-11px. set-state-in-effect lint fixed via wrapper-fn pattern. Authenticated preview still blocked by auth-env (deferred, as in #1/#2). |
+| #3 | pushed 2026-05-27 (commit `b215ffa`, not yet merged) | Search lifted to `nav-targets.ts`; ⌘K palette mounted globally in PortalShell (react-hotkeys-hook installed but unused — palette self-mounts listener). TopBar dropdowns → shadcn DropdownMenu (themed: no popover tokens exist, override classNames). useOptimistic mark-all-read + Intl.RelativeTimeFormat. Mobile sidebar → Sheet + new hamburger trigger (old overlay had no trigger). Sidebar persists to `pta:sidebar-expanded`, hover-expand rail, sections regrouped OPERATIONS/ACCOUNT/ADMIN. New StatusRail w/ 1s UTC clock. MotionConfig reducedMotion=user. Type bump 8-9px→10-11px. set-state-in-effect lint fixed via wrapper-fn pattern. Authenticated preview still blocked by auth-env (deferred, as in #1/#2). |
 | #4 | | |
 | #5 | | |
 | #6 | | |

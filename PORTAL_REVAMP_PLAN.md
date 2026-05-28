@@ -151,7 +151,7 @@ Every phase ships independently; no phase blocks on a later one.
 
 - [x] Phase 1 — Foundations (commit `85fa039`, pushed 2026-05-27; PR not yet merged)
 - [x] Phase 2 — Shared primitives (commit `4545480`, pushed 2026-05-27; PR not yet merged)
-- [x] Phase 3 — Shell modernization (committed 2026-05-27 on `revamp/phase-3-shell`; PR not yet merged)
+- [x] Phase 3 — Shell modernization (commit `b215ffa`, pushed 2026-05-27 to `testing`; PR not yet merged)
 - [ ] Phase 4a — Creator Portal
 - [ ] Phase 4b — CRM
 - [ ] Phase 4c — Recruiters
